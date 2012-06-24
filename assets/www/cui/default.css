@@ -1,0 +1,40 @@
+.arrow_box {
+    position: absolute;
+    background: #e1e6b5;
+    border: 2px solid #414541;
+    z-index: 1;
+    -webkit-border-radius: 30px;/* SafariÅAGoogle Chrome */
+    -moz-border-radius: 30px;/* Firefox */
+}
+.arrow_box:after, .arrow_box:before {
+    right: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.arrow_box:after {
+    border-right-color: #e1e6b5;
+    border-width: 10px;
+    top: 50%;
+    margin-top: -10px;
+}
+.arrow_box:before {
+    border-right-color: #414541;
+    border-width: 13px;
+    top: 50%;
+    margin-top: -13px;
+}
+.arrow_box p {
+    padding: 10px;
+}
+
+#character img {
+    margin: 0px;
+    bottom: 0px;
+    left: 0px;
+    position: absolute;
+}

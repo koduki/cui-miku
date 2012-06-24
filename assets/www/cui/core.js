@@ -1,148 +1,136 @@
-/**
- * Sprite Constracutor.
- */
-var Sprite = function() {
-    var obj = $("<img />").appendTo("#sprite");
-
-    /**
-     * proxy sprite image bind event.
-     */
-    this.bind = function(area, event_name, callback) {
+var Event = {
+    initTap : function(obj) {
         var x = 0;
         var y = 0;
+        var isTap = false;
+        var tapEvent;
+        obj.bind("touchstart", function(e) {
+            tapEvent = e;
+            isTap = true;
+            x = e.touches[0].pageX;
+            y = e.touches[0].pageY;
+
+        })
 
         obj.bind("touchmove", function(e) {
-            x = event.touches[0].pageX;
-            y = event.touches[0].pageY;
-        });
-        obj.bind("mousemove", function(e) {
-            x = e.pageX;
-            y = e.pageY;
-        });
+            isTap = isTap && (x == e.touches[0].pageX) && (y == e.touches[0].pageY)
+        })
 
-        obj.bind(event_name, function(e) {
-            if ((area["left"] <= x && x <= (area["left"] + area["width"])) && (area["top"] <= y && y <= (area["top"] + area["height"]))) {
-                callback(e);
-            }
-        });
-    }
-    /**
-     * change sprite image.
-     *
-     * @params<string> image file path.
-     */
-    this.image = function(path) {
-        obj.attr("src", path);
-        return this;
-    }
-    /**
-     * change sprite image for interval time.
-     *
-     * @params<string> image file path.
-     * @params<integer> millisecond.
-     */
-    this.motion = function(path, interval) {
-        var current = obj.attr("src");
-        var self = this;
-        self.image(path);
-
-        setTimeout(function() {
-            self.image(current)
-        }, interval);
-
-        return self;
-    }
-    /**
-     * touch action.
-     */
-    this.touch = function(area, args, callback) {
-        this.bind(area, "click", callback)
-    };
-
-    /**
-     * nadenade action.
-     */
-    this.nadenade = function(area, args, callback) {
-        var step = [true].concat(array(args.count, false));
-        step.idx = 0;
-        step.isDone = function() {
-            return step.reduce(function(r, x) {
-                return r && x
+        obj.off("tap")
+        obj.tap = function(callback) {
+            obj.bind("touchend", function(e) {
+                if (isTap) {
+                    callback(tapEvent);
+                }
             })
-        };
-        step.reset = function() {
-            for (var i = 1; i < step.length; i++) {
-                step[i] = false;
-            }
-            step.idx = 0;
         }
-        var isOverPoint = function(idx, x) {
-            var buf = 30;
-            var left1 = area["left"];
-            var left2 = left1 + buf;
-            var right1 = left1 + area["width"] - buf;
-            var right2 = right1 + buf;
-
-            return (idx % 2 == 0) ? (step[idx] && left1 <= x && x <= left2) : (step[idx] && right1 <= x && x <= right2)
-        }
-        var action = function(x) {
-            if (isOverPoint(step.idx, x)) {
-                step.idx += 1;
-                step[step.idx] = true;
-            }
-
-            if (step.isDone()) {
-                callback();
-                step.reset();
-            }
-        }
-        if (isTouch()) {
-            this.bind(area, 'touchmove', function(e) {
-                action(event.touches[0].pageX);
-            });
-        } else {
-            this.bind(area, 'mousemove', function(e) {
-                action(e.pageX);
-            });
-        }
+        return obj;
     }
 }
-/**
- * Dialog Constructor.
- */
-var Dialog = function(left, top, width, height, padding, bgcolor, textcolor, size) {
-    var dlg = $("<div />").appendTo("#sprite");
 
-    // setting default css.
-    dlg.css("display", "none").css("position", "absolute").css("margin", 0).css("padding", padding).css("background-color", bgcolor).css("color", textcolor);
+var Character = function(images, actions) {
+    var INTERVAL = 1700;
 
-    // regist dialog move behavor.
-    dlg.mousedown(function(e) {
-        dlg.data("clickPointX", e.pageX - dlg.offset().left).data("clickPointY", e.pageY - dlg.offset().top);
+    var self = this
+    var obj = $("<img />").appendTo("#character");
+    Event.initTap(obj)
 
-        $(document).mousemove(function(e) {
-            dlg.css({
-                top : e.pageY - dlg.data("clickPointY") + "px",
-                left : e.pageX - dlg.data("clickPointX") + "px"
-            })
-        })
-    }).mouseup(function() {
-        $(document).unbind("mousemove")
+    var defaultImage = images[1][images[0]['default']]
+    obj.attr("src", defaultImage);
+
+    obj.tap(function(e) {
+        x = e.touches[0].pageX;
+        y = e.touches[0].pageY;
+
     })
-    /**
-     * show dialog.
-     *
-     * @param<string>
-     *            message.
-     * @param<string>
-     *            show interval.
-     */
+
+    self.action = function(actionName, part, callback) {
+        if (actionName === "tap") {
+            obj.tap(function(e) {
+                var x = e.touches[0].pageX;
+                var y = e.touches[0].pageY;
+                var top = window.innerHeight - obj.height() + part.top
+                if (part.left <= x && x <= part.width && top <= y && y <= (top + part.height)) {
+                    callback()
+                }
+            })
+        } else if (actionName === "nadenade") {
+            var left = 0;
+            var right = 0;
+            var buff = 40;
+            var limit = 3;
+            obj.bind("touchstart", function(e) {
+                setTimeout(function() {
+                    left = 0;
+                    right = 0;
+                }, 2000);
+            })
+            obj.bind("touchmove", function(e) {
+                var x = e.touches[0].pageX
+                var y = e.touches[0].pageY
+
+                var top = window.innerHeight - obj.height() + part.top
+                if (top <= y && y <= (top + part.height)) {
+                    if (part.left <= x && x <= part.left + buff) {
+                        left++;
+                    }
+                    if (part.left + part.width - buff <= x && x <= part.left + part.width) {
+                        right++;
+                    }
+
+                    if (left >= limit && right >= limit) {
+                        callback()
+                        left = 0;
+                        right = 0;
+                    }
+                }
+            })
+        }
+
+    }
+
+    self.motion = function(imageName, interval) {
+        obj.attr("src", images[1][imageName]);
+        setTimeout(function() {
+            obj.attr("src", defaultImage);
+        }, interval);
+    }
+
+    self.draw = function(callback) {
+        obj.bind("load", function() {
+            self.height = obj.height()
+            self.width = obj.width()
+            callback()
+        })
+    }
+    // // regist actions.
+    actions.map(function(action) {
+        self.action(action.action, action.part, function() {
+            self.motion(action.img, INTERVAL);
+            self.dlg.show(action.msg, INTERVAL);
+        })
+    });
+}
+var Dialog = function(size) {
+    var obj = $("<div />").appendTo("#character");
+    obj.hide();
+    obj.addClass("arrow_box");
+    obj.css("width", size["width"] + 'px').css("height", size["height"] + 'px').css("bottom", size["bottom"] + 'px').css("left", size["left"] + 'px')
+    var textarea = $("<p />").appendTo(obj)
+
     this.show = function(msg, interval) {
-        dlg.css("left", left).css("top", top).css("width", width).css("height", height).css("font-size", size).text(msg).fadeIn("fast");
+        if ( typeof interval === 'undefined') {
+            interval = 1700;
+        }
+        textarea.text(msg)
+        obj.show()
 
         setTimeout(function() {
-            dlg.fadeOut("fast")
+            obj.fadeOut("fast")
         }, interval);
-        return false;
-    };
+    }
+}
+var showArea = function(sprite, area) {
+    var obj = $("<div />").appendTo("#sprite");
+    obj.css("position", "absolute").css("width", area["width"] + "px").css("height", area["height"] + "px").css("left", area["left"] + "px").css("bottom", (sprite.height - area["top"] - area["height"]) + "px").css("z-index", 100).css("background-color", "red")
 }

@@ -7,59 +7,15 @@
         <meta charset="utf-8" />
         <title>WebMascot</title>
         <meta name="apple-mobile-web-app-capable" content="yes"/>
-        <script type="text/javascript" src="http://zeptojs.com/zepto.js"></script>
-        <script type="text/javascript" src="https://raw.github.com/madrobby/zepto/master/src/fx_methods.js"></script>
+        <link rel="stylesheet" href="cui/default.css" type="text/css" media="all">
+        <script type="text/javascript" src="js/zepto.js"></script>
+        <script type="text/javascript" src="js/fx_methods.js"></script>
         <script type="text/javascript" src="cui/util.js"></script>
-        <script type="text/javascript" src="cui/chara/miku/script2.js"></script>
+        <script type="text/javascript" src="cui/core.js"></script>
+        <script type="text/javascript" src="cui/chara/miku/script.js"></script>
         <script type="text/javascript" charset="utf-8" src="cordova-1.8.1.js"></script>
     </head>
     <body>
-<style>
-.arrow_box {
-    position: absolute;
-    background: #e1e6b5;
-    border: 2px solid #414541;
-    z-index:1;
-    -webkit-border-radius: 30px;/* Safari、Google Chrome */
-    -moz-border-radius: 30px;/* Firefox */
-}
-.arrow_box:after, .arrow_box:before {
-    right: 100%;
-    border: solid transparent;
-    content: " ";
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-}
-
-.arrow_box:after {
-    border-right-color: #e1e6b5;
-    border-width: 10px;
-    top: 50%;
-    margin-top: -10px;
-}
-.arrow_box:before {
-    border-right-color: #414541;
-    border-width: 13px;
-    top: 50%;
-    margin-top: -13px;
-}
-.arrow_box p {
-    padding:10px;
-}
-
-#sprite img {
-margin:0px;
-bottom:0px;
-left:0px;
-position:absolute;
-}
-</style>
-<!-- 
-<div class="arrow_box"><p><a href="http://www.google.com">css arrow please!</a></p></div>
-    <img src="cui/chara/miku/images/001_s.png" style="margin:0px;bottom:0px;left:0px;position:absolute;" />
- -->
- <div id="sprite"></div>
+        <div id="character"></div>
     </body>
 </html>
