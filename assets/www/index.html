@@ -6,27 +6,19 @@
     <head>
         <meta charset="utf-8" />
         <title>WebMascot</title>
-        <meta name="viewport" content="width=320;height=520; user-scalable=no" />
         <meta name="apple-mobile-web-app-capable" content="yes"/>
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="http://zeptojs.com/zepto.js"></script>
+        <script type="text/javascript" src="https://raw.github.com/madrobby/zepto/master/src/fx_methods.js"></script>
         <script type="text/javascript" src="cui/util.js"></script>
-        <script type="text/javascript" src="cui/core.js"></script>
-        <script type="text/javascript" src="cui/chara/miku/script.js"></script>
+        <script type="text/javascript" src="cui/chara/miku/script2.js"></script>
         <script type="text/javascript" charset="utf-8" src="cordova-1.8.1.js"></script>
     </head>
     <body>
-    <!-- 
-<div id="sprite"></div>
--->
 <style>
 .arrow_box {
     position: absolute;
     background: #e1e6b5;
     border: 2px solid #414541;
-    width:160px;
-    height:90px;
-    bottom:270px;
-    left:155px;
     z-index:1;
     -webkit-border-radius: 30px;/* Safari、Google Chrome */
     -moz-border-radius: 30px;/* Firefox */
@@ -56,9 +48,18 @@
 .arrow_box p {
     padding:10px;
 }
-</style>
-<div class="arrow_box"><p>css arrow please!</p></div>
-    <img src="cui/chara/miku/images/001_s.png" style="margin:0px;bottom:0px;left:0px;position:absolute;" />
 
+#sprite img {
+margin:0px;
+bottom:0px;
+left:0px;
+position:absolute;
+}
+</style>
+<!-- 
+<div class="arrow_box"><p><a href="http://www.google.com">css arrow please!</a></p></div>
+    <img src="cui/chara/miku/images/001_s.png" style="margin:0px;bottom:0px;left:0px;position:absolute;" />
+ -->
+ <div id="sprite"></div>
     </body>
 </html>

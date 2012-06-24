@@ -3,9 +3,9 @@ var INTERVAL = 1700;
 //
 // define image.
 //
-var 通常 = 'cui/chara/miku/images/001.png';
-var 怒り = 'cui/chara/miku/images/004.png';
-var 喜び = 'cui/chara/miku/images/003.png';
+var 通常 = 'cui/chara/miku/images/001_s.png';
+var 怒り = 'cui/chara/miku/images/002_s.png';
+var 喜び = 'cui/chara/miku/images/003_s.png';
 
 //
 // define part.
@@ -20,6 +20,17 @@ var actions = [
    {"part":胸, "action":["touch"],                 "img":怒り, "msg":"Hなのはいけないと思います！"},
    {"part":頭, "action":["nadenade", {"count":5}], "img":喜び, "msg":"♪〜"}
 ];
+var showArea = function(area){
+	var obj = $("<div />").appendTo("#sprite");
+	obj
+	.css("position", "absolute")
+	.css("width", area["width"] + "px")
+	.css("height", area["height"] + "px")
+	.css("left", area["left"] + "px")
+	.css("top", area["top"] + "px")
+	.css("z-index", 100)
+	.css("background-color","red")
+}
 
 $(function(){
    // initialize

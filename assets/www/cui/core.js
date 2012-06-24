@@ -3,7 +3,6 @@
  */
 var Sprite = function() {
     var obj = $("<img />").appendTo("#sprite");
-    obj.css('position', 'absolute').css("buttom", 0);
 
     /**
      * proxy sprite image bind event.
