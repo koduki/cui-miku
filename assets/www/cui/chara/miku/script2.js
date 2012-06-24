@@ -3,10 +3,14 @@ var INTERVAL = 1700;
 //
 // define image.
 //
-var 通常 = 'cui/chara/miku/images/001_s.png';
-var 怒り = 'cui/chara/miku/images/002_s.png';
-var 喜び = 'cui/chara/miku/images/003_s.png';
-
+var images = [
+{'default':'通常'},
+{
+'通常':'cui/chara/miku/images/001_s.png',
+'怒り':'cui/chara/miku/images/003_s.png',
+'喜び':'cui/chara/miku/images/002_s.png',
+}
+]
 //
 // define part.
 //
@@ -18,7 +22,7 @@ var 頭 = {
 };
 var 胸 = {
 	"left" : 20,
-	"top" : 280,
+	"top" : 220,
 	"width" : 120,
 	"height" : 60
 };
@@ -26,24 +30,24 @@ var 胸 = {
 //
 // define actions.
 //
-var actions = [ {
-	"part" : 胸,
-	"action" : [ "touch" ],
-	"img" : 怒り,
-	"msg" : "Hなのはいけないと思います！"
-}, {
-	"part" : 頭,
-	"action" : [ "nadenade", {
-		"count" : 5
-	} ],
-	"img" : 喜び,
-	"msg" : "♪〜"
-} ];
+//var actions = [ {
+//	"part" : 胸,
+//	"action" : [ "touch" ],
+//	"img" : 怒り,
+//	"msg" : "Hなのはいけないと思います！"
+//}, {
+//	"part" : 頭,
+//	"action" : [ "nadenade", {
+//		"count" : 5
+//	} ],
+//	"img" : 喜び,
+//	"msg" : "♪〜"
+//} ];
 var showArea = function(sprite, area) {
 	var obj = $("<div />").appendTo("#sprite");
 	obj.css("position", "absolute").css("width", area["width"] + "px").css(
 			"height", area["height"] + "px").css("left", area["left"] + "px")
-			.css("bottom", (sprite.height - area["top"])  + "px").css("z-index", -1).css(
+			.css("bottom", (sprite.height - area["top"] - area["height"])  + "px").css("z-index", -1).css(
 					"background-color", "red")
 }
 
@@ -55,7 +59,6 @@ $(function() {
 		var isTap = false;
 		var tapEvent;
 		obj.bind("touchstart", function(e){
-			// alert("start tap");
 			tapEvent = e;
 			isTap = true;
            x = e.touches[0].pageX;
@@ -70,35 +73,50 @@ $(function() {
 		obj.off("tap")
 		obj.tap = function(callback){
 			obj.bind("touchend", function(e){
-				if(isTap){
-					callback(tapEvent);
-				}
+				if(isTap){callback(tapEvent);}
 			})
 		}
 		return obj;
 		}
 	}
-	var Sprite = function() {
+	var Sprite = function(images) {
 		var self = this
 		var obj = $("<img />").appendTo("#sprite");
 		Event.initTap(obj)
 		
-		/**
-		 * change sprite image.
-		 * 
-		 * @params<string> image file path.
-		 */
+		var defaultImage = images[1][images[0]['default']]
+		obj.attr("src", defaultImage);
+		
 		self.image = function(path) {
 			obj.attr("src", path);
 			return this;
 		}
 
 		obj.tap(function(e){
-			alert("fire tap");
 	          x = e.touches[0].pageX;
 	          y = e.touches[0].pageY;
-				  alert("x:" + x + ", y:" + y);
+	          
 		})
+		
+		self.action = function(actionName, part, callback){
+			obj.tap(function(e){
+		          var x = e.touches[0].pageX;
+		          var y = e.touches[0].pageY;
+		          var top = window.innerHeight - obj.height() + part.top
+		          if(part.left <= x && x <= part.width && top <= y && y <= (top + part.height)){
+		        	  callback()
+		          }
+			})
+			
+		}
+		
+		self.motion = function(imageName, interval){
+			var current = obj.attr("src");
+			obj.attr("src", images[1][imageName]);
+			setTimeout(function() {
+				obj.attr("src", current);
+			}, interval);
+		}
 		
 		self.draw = function(callback){obj.bind("load",function(){
 			self.height = obj.height()
@@ -127,7 +145,7 @@ $(function() {
 	}
 
 	// initialize
-	var sprite = new Sprite();
+	var sprite = new Sprite(images);
 	sprite.dlg = new Dialog({
 		"width" : "160px",
 		"height" : "90px",
@@ -135,9 +153,13 @@ $(function() {
 		"left" : "155px"
 	});
 	sprite.draw(function(){showArea(sprite, 胸)});
-	sprite.image(通常);
 
 	sprite.dlg.show("おはようございますー♪", INTERVAL);
+	
+	sprite.action("tap", 胸, function(){
+		sprite.motion('怒り', INTERVAL)
+		sprite.dlg.show("Hなのはイケナイと思います！", INTERVAL);
+	})
 
 	//
 	// // regist actions.
