@@ -59,7 +59,6 @@ $(function() {
     character.dlg.show("おはようございますー♪");
 
     $('.flickSimple').hide()
-
     window.onHome = function() {
         $('.flickSimple').fadeOut()
         character.dlg.show("おはようございますー♪");

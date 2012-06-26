@@ -132,7 +132,7 @@ var Dialog = function(size) {
         obj.show()
         setTimeout(function() {
             obj.fadeOut("fast")
-             if (jQuery.isFunction(callback)) {
+            if (jQuery.isFunction(callback)) {
                 callback();
             }
         }, interval);
