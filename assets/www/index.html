@@ -8,21 +8,18 @@
         <title>CUI</title>
         <meta name="apple-mobile-web-app-capable" content="yes"/>
         <link rel="stylesheet" href="cui/default.css" type="text/css" media="all">
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
         <script type="text/javascript" src="https://raw.github.com/makog/jQuery.flickSimple.js/master/jquery.flicksimple.js"></script>
         <script type="text/javascript" src="cui/util.js"></script>
         <script type="text/javascript" src="cui/core.js"></script>
         <script type="text/javascript" src="cui/chara/miku/script.js"></script>
         <script type="text/javascript" charset="utf-8" src="cordova-1.8.1.js"></script>
         <script type="text/javascript">
-                                    $(function() {
-            
-                    var flipsnap = Flipsnap('#demo-simple .flipsnap');
-               　flipsnap.toNext();
-                window.onNext = function() {
-　flipsnap.toNext();
-};
-            })
+        $(function(){
+    $('#firstitem').flickSimple({
+        snap: "first"
+    });
+})
         </script>
         <style type="text/css" media="screen">
             #demo-simple {
@@ -54,6 +51,59 @@
                 width: 196px;
                 margin: 0px;
             }
+            .flickSimple {
+    width: 320px;
+    position: relative;
+    overflow: auto;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    background-color: #eee;
+}
+
+.flickSimple.landscape {
+    width: 480px;
+}
+
+.flickSimple ul {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+.flickSimple ul.landscape {
+}
+
+.flickSimple ul li {
+    float: left;
+    list-style-type: none;
+    text-align: center;
+}
+
+.flickSimple ul li.landscape {
+}
+#firstitem ul {
+    width: 1920px;
+}
+#firstitem ul.landscape {
+    width: 2880px;
+}
+
+#firstitem ul li {
+    width: 160px;
+}
+
+#firstitem ul li.landscape {
+    width: 240px;
+}
+
+#firstitem ul li a {
+    display: block;
+    height: 80px;
+    margin: 5px;
+    border: solid 1px #ccc;
+    background-color: #fff;
+    line-height: 80px;
+}
+
         </style>
     </head>
     <body>
@@ -62,41 +112,22 @@
             <a href='javascript:onRSS()'><img id="rss" src="cui/RSS.png"/></a>
         </header>
         <div id="character"></div>
-        <div class="section">
-            <section class="demo" id="demo-simple">
+<div id="firstitem" class="flickSimple landscape" style="overflow: hidden; ">
+<ul style="position: relative; -webkit-transition: none; -webkit-transform: translate3d(-179px, 0px, 0px); " class="landscape">
+<li class="landscape"><a href="javascript:;" data-bitly-type="bitly_hover_card">1</a></li>
+<li class="landscape"><a href="javascript:;" data-bitly-type="bitly_hover_card">2</a></li>
+<li class="landscape"><a href="javascript:;" data-bitly-type="bitly_hover_card">3</a></li>
+<li class="landscape"><a href="javascript:;" data-bitly-type="bitly_hover_card">4</a></li>
+<li class="landscape"><a href="javascript:;" data-bitly-type="bitly_hover_card">5</a></li>
+<li class="landscape"><a href="javascript:;" data-bitly-type="bitly_hover_card">6</a></li>
+<li class="landscape"><a href="javascript:;" data-bitly-type="bitly_hover_card">7</a></li>
+<li class="landscape"><a href="javascript:;" data-bitly-type="bitly_hover_card">8</a></li>
+<li class="landscape"><a href="javascript:;" data-bitly-type="bitly_hover_card">9</a></li>
+<li class="landscape"><a href="javascript:;" data-bitly-type="bitly_hover_card">10</a></li>
+<li class="landscape"><a href="javascript:;" data-bitly-type="bitly_hover_card">11</a></li>
+<li class="landscape"><a href="javascript:;" data-bitly-type="bitly_hover_card">12</a></li>
+</ul>
+</div>
 
-                <div class="wrapper">
-                    <div class="flipsnap">
-                        <div class="item">
-                            <h1><a href="http://www.google.com/">次期iPhoneはNFS搭載1、しかも640x1136変態ディスプレイ　！？</a></h1>
-                            <p>
-                                9to5macによると、Appleは二台のiPhone5を試作しており、3.95インチ、640×1136ピクセルの解像度のディスプレイを備えているそうです。これが事実なら、かなり縦長になりそうですね。
-                            </p>
-                        </div>
-                        <div class="item">
-                            <h1><a href="http://www.google.com/">次期iPhoneはNFS搭載2、しかも640x1136変態ディスプレイ　！？</a></h1>
-                            <p>
-                                9to5macによると、Appleは二台のiPhone5を試作しており、3.95インチ、640×1136ピクセルの解像度のディスプレイを備えているそうです。これが事実なら、かなり縦長になりそうですね。
-                            </p>
-                        </div>
-                        <div class="item">
-                            <h1><a href="http://www.google.com/">次期iPhoneはNFS搭載3、しかも640x1136変態ディスプレイ　！？</a></h1>
-                            <p>
-                                9to5macによると、Appleは二台のiPhone5を試作しており、3.95インチ、640×1136ピクセルの解像度のディスプレイを備えているそうです。これが事実なら、かなり縦長になりそうですね。
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                    <div class="pointer">
-                <div class="prev">back</div>
-                <span class="current"></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <div class="next"><a href='javascript:onNext()'>next</a></div>
-            </div>
-
-            </section>
-    </body>
+      </body>
 </html>
