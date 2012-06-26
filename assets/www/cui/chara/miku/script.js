@@ -58,16 +58,16 @@ $(function() {
     // main
     character.dlg.show("おはようございますー♪");
 
-    $('#demo-simple').hide()
+    $('.flickSimple').hide()
 
     window.onHome = function() {
-        $('#demo-simple').fadeOut()
+        $('.flickSimple').fadeOut()
         character.dlg.show("おはようございますー♪");
     }
 
     window.onRSS = function() {
         character.dlg.show("今日のおすめの<br />ニュースでーす♪", function() {
-            $('#demo-simple').fadeIn()
+            $('.flickSimple').fadeIn()
         });
     }
 });
