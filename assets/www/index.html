@@ -8,14 +8,110 @@
         <title>CUI</title>
         <meta name="apple-mobile-web-app-capable" content="yes"/>
         <link rel="stylesheet" href="cui/default.css" type="text/css" media="all">
-        <script type="text/javascript" src="js/zepto.js"></script>
-        <script type="text/javascript" src="js/fx_methods.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="https://raw.github.com/pxgrid/js-flipsnap/master/flipsnap.min.js"></script>
         <script type="text/javascript" src="cui/util.js"></script>
         <script type="text/javascript" src="cui/core.js"></script>
         <script type="text/javascript" src="cui/chara/miku/script.js"></script>
         <script type="text/javascript" charset="utf-8" src="cordova-1.8.1.js"></script>
+        <script type="text/javascript">
+            $(function() {
+                (function simple() {
+                    Flipsnap('#demo-simple .flipsnap');
+                })();
+            })
+        </script>
+        <style type="text/css" media="screen">
+            #demo-simple {
+                position: absolute;
+                bottom: 10px;
+            }
+            .demo .wrapper {
+                width: 300px;
+                overflow: hidden;
+                margin: 0 auto;
+                padding: 0px;
+            }
+            .demo .flipsnap {
+                width: 1195px;
+                /* 230px(item) * 5 + 45px(padding) */
+                padding-left: 45px;
+            }
+            .demo .item {
+                width: 200px;
+                margin: 0px;
+                text-align: center;
+                padding: 0px;
+                background: #e1e6b5;
+                border: 2px solid #414541;
+                float: left;
+                color: #666;
+                -webkit-border-radius: 5px;/* Safari、Google Chrome */
+                -moz-border-radius: 5px;/* Firefox */
+            }
+            .demo .pointer {
+                text-align: center;
+            }
+            .demo .pointer span {
+                display: inline-block;
+                width: 8px;
+                height: 8px;
+                border-radius: 8px;
+                border: 1px solid #000;
+            }
+            .demo .pointer span.current {
+                background: #FC0;
+            }
+            .demo .controls {
+                text-align: center;
+                margin: 0 0 15px 0;
+            }
+            .demo .controls .num {
+                width: 60px;
+            }
+            .demo .item h1 {
+                font-size: medium;
+            }
+            #demo-simple .flipsnap {
+                width: 960px;
+                padding: 0;
+            }
+            #demo-simple .item {
+                width: 290px;
+                margin: 0;
+            }
+        </style>
     </head>
     <body>
+        <header>
+            <img src="cui/RSS.png" />
+        </header>
         <div id="character"></div>
+        <div class="section">
+            <section class="demo" id="demo-simple">
+
+                <div class="wrapper">
+                    <div class="flipsnap">
+                        <div class="item">
+                            <h1><a href="http://www.google.com/">次期iPhoneはNFS搭載2、しかも640x1136変態ディスプレイ　！？</a></h1>
+                            <p>
+                                9to5macによると、Appleは二台のiPhone5を試作しており、3.95インチ、640×1136ピクセルの解像度のディスプレイを備えているそうです。これが事実なら、かなり縦長になりそうですね。
+                            </p>
+                        </div>
+                        <div class="item">
+                            <h1><a href="http://www.google.com/">次期iPhoneはNFS搭載2、しかも640x1136変態ディスプレイ　！？</a></h1>
+                            <p>
+                                9to5macによると、Appleは二台のiPhone5を試作しており、3.95インチ、640×1136ピクセルの解像度のディスプレイを備えているそうです。これが事実なら、かなり縦長になりそうですね。
+                            </p>
+                        </div>
+                        <div class="item">
+                            <h1><a href="http://www.google.com/">次期iPhoneはNFS搭載2、しかも640x1136変態ディスプレイ　！？</a></h1>
+                            <p>
+                                9to5macによると、Appleは二台のiPhone5を試作しており、3.95インチ、640×1136ピクセルの解像度のディスプレイを備えているそうです。これが事実なら、かなり縦長になりそうですね。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
     </body>
 </html>

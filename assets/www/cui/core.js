@@ -5,18 +5,18 @@ var Event = {
         var isTap = false;
         var tapEvent;
         obj.bind("touchstart", function(e) {
-            tapEvent = e;
+            tapEvent = event;
             isTap = true;
-            x = e.touches[0].pageX;
-            y = e.touches[0].pageY;
+            x = event.touches[0].pageX;
+            y = event.touches[0].pageY;
 
         })
 
         obj.bind("touchmove", function(e) {
-            isTap = isTap && (x == e.touches[0].pageX) && (y == e.touches[0].pageY)
+            isTap = isTap && (x == event.touches[0].pageX) && (y == event.touches[0].pageY)
         })
 
-        obj.off("tap")
+       // obj.off("tap")
         obj.tap = function(callback) {
             obj.bind("touchend", function(e) {
                 if (isTap) {
@@ -66,8 +66,8 @@ var Character = function(images, actions) {
                 }, 2000);
             })
             obj.bind("touchmove", function(e) {
-                var x = e.touches[0].pageX
-                var y = e.touches[0].pageY
+                var x = event.touches[0].pageX
+                var y = event.touches[0].pageY
 
                 var top = window.innerHeight - obj.height() + part.top
                 if (top <= y && y <= (top + part.height)) {

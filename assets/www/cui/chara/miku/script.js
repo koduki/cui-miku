@@ -36,7 +36,7 @@ var actions = [{
     "part" : 頭,
     "action" : "nadenade",
     "img" : '喜び',
-    "msg" : "♪〜"
+    "msg" : "♪"
 }];
 
 $(function() {
@@ -57,5 +57,15 @@ $(function() {
 
     // main
     character.dlg.show("おはようございますー♪");
-
+    character.dlg.show(
+        "今日はこんなおすすめのニュース"
+        );
+        
+    var viewBoard = new Dialog({
+        "width" : 280,
+        "height" : 200,
+        "bottom" : 50,
+        "left" : 10
+    });
+    viewBoard.show("ニュース1")
 });
