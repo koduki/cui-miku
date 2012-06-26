@@ -15,8 +15,7 @@ var Event = {
         obj.bind("touchmove", function(e) {
             isTap = isTap && (x == event.touches[0].pageX) && (y == event.touches[0].pageY)
         })
-
-       // obj.off("tap")
+        // obj.off("tap")
         obj.tap = function(callback) {
             obj.bind("touchend", function(e) {
                 if (isTap) {
@@ -112,21 +111,30 @@ var Character = function(images, actions) {
     });
 }
 var Dialog = function(size) {
+    var self = this;
     var obj = $("<div />").appendTo("#character");
+
     obj.hide();
     obj.addClass("arrow_box");
     obj.css("width", size["width"] + 'px').css("height", size["height"] + 'px').css("bottom", size["bottom"] + 'px').css("left", size["left"] + 'px')
     var textarea = $("<p />").appendTo(obj)
 
-    this.show = function(msg, interval) {
-        if ( typeof interval === 'undefined') {
-            interval = 1700;
+    self.show = function(msg, arg1) {
+        if ( typeof arg1 === 'undefined') {
+            var interval = 1700;
+        } else if (jQuery.isFunction(arg1)) {
+            var interval = 1700;
+            var callback = arg1
+        } else {
+            var interval = arg1;
         }
-        textarea.text(msg)
+        textarea.html(msg)
         obj.show()
-
         setTimeout(function() {
             obj.fadeOut("fast")
+             if (jQuery.isFunction(callback)) {
+                callback();
+            }
         }, interval);
     }
 }

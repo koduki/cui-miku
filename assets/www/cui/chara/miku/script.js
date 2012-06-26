@@ -48,7 +48,7 @@ $(function() {
         "bottom" : 270,
         "left" : 155
     });
-    
+
     // debug code.
     character.draw(function() {
         // showArea(character, 胸)
@@ -57,15 +57,17 @@ $(function() {
 
     // main
     character.dlg.show("おはようございますー♪");
-    character.dlg.show(
-        "今日はこんなおすすめのニュース"
-        );
-        
-    var viewBoard = new Dialog({
-        "width" : 280,
-        "height" : 200,
-        "bottom" : 50,
-        "left" : 10
-    });
-    viewBoard.show("ニュース1")
+
+    $('#demo-simple').hide()
+
+    window.onHome = function() {
+        $('#demo-simple').fadeOut()
+        character.dlg.show("おはようございますー♪");
+    }
+
+    window.onRSS = function() {
+        character.dlg.show("今日のおすめの<br />ニュースでーす♪", function() {
+            $('#demo-simple').fadeIn()
+        });
+    }
 });
