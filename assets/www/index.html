@@ -16,6 +16,8 @@
         <script type="text/javascript" charset="utf-8" src="cordova-1.8.1.js"></script>
         <script type="text/javascript">
             $(function() {
+
+               
                 $('#firstitem').flickSimple({
                     snap : "first"
                 });
@@ -28,7 +30,6 @@
             .flickSimple {
                 position: absolute;
                 bottom: 10px;
-                width: 300px;
                 overflow: auto;
             }
 
@@ -36,21 +37,12 @@
                 display: block;
                 margin: 0;
                 padding: 0;
+                width:10000px;
             }
 
             .flickSimple ul li {
                 float: left;
                 list-style-type: none;
-            }
-
-            .flickSimple ul li.landscape {
-            }
-            #firstitem ul {
-                width: 3600px;
-            }
-
-            #firstitem ul li {
-                width: 300px;
             }
 
             #firstitem article {
@@ -71,42 +63,6 @@
             <a href='javascript:onRSS()'><img id="rss" src="cui/RSS.png"/></a>
         </header>
         <div id="character"></div>
-        <div id="firstitem" class="flickSimple landscape" style="overflow: hidden; ">
-            <ul>
-                <li class="landscape">
-                    <article>
-                        <h1><a href="http://www.google.com/">次期iPhoneはNFS搭載1、しかも640x1136変態ディスプレイ　！？</a></h1>
-                        <p>
-                            9to5macによると、Appleは二台のiPhone5を試作しており、3.95インチ、640×1136ピクセルの解像度のディスプレイを備えているそうです。これが事実なら、かなり縦長になりそうですね。
-                        </p>
-                    </article>
-                </li>
-                <li class="landscape">
-                    <article>
-                        <h1><a href="http://www.google.com/">次期iPhoneはNFS搭載2、しかも640x1136変態ディスプレイ　！？</a></h1>
-                        <p>
-                            9to5macによると、Appleは二台のiPhone5を試作しており、3.95インチ、640×1136ピクセルの解像度のディスプレイを備えているそうです。これが事実なら、かなり縦長になりそうですね。
-                        </p>
-                    </article>
-                </li>
-                <li class="landscape">
-                    <article>
-                        <h1><a href="http://www.google.com/">次期iPhoneはNFS搭載3、しかも640x1136変態ディスプレイ　！？</a></h1>
-                        <p>
-                            9to5macによると、Appleは二台のiPhone5を試作しており、3.95インチ、640×1136ピクセルの解像度のディスプレイを備えているそうです。これが事実なら、かなり縦長になりそうですね。
-                        </p>
-                    </article>
-                </li>
-                <li class="landscape">
-                    <article>
-                        <h1><a href="http://www.google.com/">次期iPhoneはNFS搭載4、しかも640x1136変態ディスプレイ　！？</a></h1>
-                        <p>
-                            9to5macによると、Appleは二台のiPhone5を試作しており、3.95インチ、640×1136ピクセルの解像度のディスプレイを備えているそうです。これが事実なら、かなり縦長になりそうですね。
-                        </p>
-                    </article>
-                </li>
-            </ul>
-        </div>
-
+      
     </body>
 </html>
