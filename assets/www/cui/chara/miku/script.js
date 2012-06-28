@@ -74,7 +74,7 @@ $(function() {
             item.css("width", width + "px");
             item.append(article)
             obj.find("ul").append(item)
-          //  obj.find("ul").css("width", width * obj.find("li").size() + "px")
+            obj.find("ul").css("width", width * obj.find("li").size() + "px")
 
             $(".flickSimple").css("width", width + "px")
         }

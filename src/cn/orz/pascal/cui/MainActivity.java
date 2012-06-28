@@ -1,10 +1,10 @@
-package cn.orz.pascal;
+package cn.orz.pascal.cui;
 
 import org.apache.cordova.DroidGap;
 
 import android.os.Bundle;
  
-public class PhoneGapSampleActivity extends DroidGap {
+public class MainActivity extends DroidGap {
     @Override
     public void onCreate(Bundle savedInstanceState)
     {

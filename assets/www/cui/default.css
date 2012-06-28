@@ -32,9 +32,42 @@
     padding: 10px;
 }
 
+.flickSimple h1 {
+    font-size: medium;
+}
+.flickSimple {
+    position: absolute;
+    bottom: 10px;
+    overflow: auto;
+    width: 300px;
+}
+
+.flickSimple ul {
+    display: block;
+    margin: 0;
+    padding: 0;
+    width: 10000px;
+}
+
+.flickSimple ul li {
+    float: left;
+    list-style-type: none;
+}
+
+#firstitem article {
+    margin: 5px;
+    background: #e1e6b5;
+    border: 2px solid #414541;
+    padding: 0px;
+    -webkit-border-radius: 10px;/* SafariÅAGoogle Chrome */
+    -moz-border-radius: 10px;/* Firefox */
+    text-align: center;
+}
+
 #character img {
     margin: 0px;
     bottom: 0px;
     left: 0px;
     position: absolute;
 }
+
