@@ -4,6 +4,18 @@ class window.SimpleBot
     console.log "get text: " + text
     if /ニュース/.test(text)
       window.onNews()
+    else if /おはよ/.test(text)
+      @character.dlg.show "おはようございます♪"
+    else if /こんにちは/.test(text)
+      @character.dlg.show "こんにちはー。"
+    else if /おやすみ/.test(text)
+      @character.motion("喜び")
+      @character.dlg.show "はい。良い夢を♪"
+    else if /得意なことは/.test(text)
+      @character.dlg.show "歌をうたうのが得意です！"
+    else if /かわいい/.test(text)
+      @character.motion("喜び")
+      @character.dlg.show "ありがとうございます♪"
     else
       @onUnknown text
 

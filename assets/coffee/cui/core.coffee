@@ -65,7 +65,7 @@ class window.Character
             left = 0
             right = 0
 
-  motion:(imageName, interval) =>
+  motion:(imageName, interval=1700) =>
     @obj.attr "src", @images[1][imageName]
     setTimeout (=>
       @obj.attr "src", @defaultImage

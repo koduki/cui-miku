@@ -100,6 +100,9 @@
 
     Character.prototype.motion = function(imageName, interval) {
       var _this = this;
+      if (interval == null) {
+        interval = 1700;
+      }
       this.obj.attr("src", this.images[1][imageName]);
       return setTimeout((function() {
         return _this.obj.attr("src", _this.defaultImage);
@@ -259,18 +262,6 @@
     };
 
     return FlickWindow;
-
-  })();
-
-  window.Hoge = (function() {
-
-    function Hoge() {}
-
-    Hoge.prototype.say = function() {
-      return "Hello";
-    };
-
-    return Hoge;
 
   })();
 

@@ -3,11 +3,11 @@ guard :less, :output => 'assets/www/css' do
 end
 
 guard :coffeescript, :output => 'assets/www/cui/' do
-    watch %r{^assets/coffee/cui//.+\.coffee}
+    watch %r{^assets/coffee/cui/.+\.coffee}
 end
 
-guard :coffeescript, :output => 'assets/www/cui/chara/miku' do
-    watch %r{^assets/coffee/cui/chara/miku.+\.coffee}
+guard :coffeescript, :output => 'assets/www/cui/chara/miku/' do
+    watch %r{^assets/coffee/cui/chara/miku/.+\.coffee}
 end
 
 guard :coffeescript, :output => 'assets/www/js/' do

@@ -10,6 +10,18 @@
       console.log("get text: " + text);
       if (/ニュース/.test(text)) {
         return window.onNews();
+      } else if (/おはよ/.test(text)) {
+        return this.character.dlg.show("おはようございます♪");
+      } else if (/こんにちは/.test(text)) {
+        return this.character.dlg.show("こんにちはー。");
+      } else if (/おやすみ/.test(text)) {
+        this.character.motion("喜び");
+        return this.character.dlg.show("はい。良い夢を♪");
+      } else if (/得意なことは/.test(text)) {
+        return this.character.dlg.show("歌をうたうのが得意です！");
+      } else if (/かわいい/.test(text)) {
+        this.character.motion("喜び");
+        return this.character.dlg.show("ありがとうございます♪");
       } else {
         return this.onUnknown(text);
       }
