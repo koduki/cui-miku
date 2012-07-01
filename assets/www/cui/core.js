@@ -116,7 +116,7 @@ var Dialog = function(size) {
 
     obj.hide();
     obj.addClass("arrow_box");
-    obj.css("width", size["width"] + 'px').css("height", size["height"] + 'px').css("bottom", size["bottom"] + 'px').css("left", size["left"] + 'px')
+    obj.css("width", size["width"] + 'px').css("bottom", size["bottom"] + 'px').css("left", size["left"] + 'px')
     var textarea = $("<p />").appendTo(obj)
 
     self.show = function(msg, arg1) {
@@ -131,10 +131,11 @@ var Dialog = function(size) {
         textarea.html(msg)
         obj.show()
         setTimeout(function() {
-            obj.fadeOut("fast")
-            if (jQuery.isFunction(callback)) {
-                callback();
-            }
+            obj.fadeOut("fast", function() {
+                if (jQuery.isFunction(callback)) {
+                    callback();
+                }
+            })
         }, interval);
     }
 }
@@ -142,33 +143,8 @@ var showArea = function(sprite, area) {
     var obj = $("<div />").appendTo("#sprite");
     obj.css("position", "absolute").css("width", area["width"] + "px").css("height", area["height"] + "px").css("left", area["left"] + "px").css("bottom", (sprite.height - area["top"] - area["height"]) + "px").css("z-index", 100).css("background-color", "red")
 }
-
-function SimpleAnalyzer() {
-  this.re = new RegExp;
-  this.re.compile("[一-龠々〆ヵヶ]+|[ぁ-ん]+|[ァ-ヴー]+|[a-zA-Z0-9]+|[ａ-ｚＡ-Ｚ０-９]+|[,.、。！!？?()（）「」『』]+|[ 　]+", "g");
-  this.joshi = new RegExp;
-  this.joshi.compile("(でなければ|について|ならば|までを|までの|くらい|なのか|として|とは|なら|から|まで|して|だけ|より|ほど|など|って|では|は|で|を|の|が|に|へ|と|て)", "g");
-}
-
-SimpleAnalyzer.prototype.parse = function(str) {
-  if (typeof(str) == "string") {
-    var s = str.replace(this.joshi, "$1|");
-    var ary = s.split("|");
-    var result = [];
-    for (var i = 0; i < ary.length; i++) {
-      var token = ary[i].match(this.re);
-      if (token) {
-        for (var n = 0; n < token.length; n++) {
-          result.push(token[n]);
-        }
-      }
-    }
-    return result;
-  }
-};
-
 var Speech = {
-    chatbot:null,
+    chatbot : null,
     onDeviceReady : function() {
         console.log("onDeviceReady");
         window.plugins.speechrecognizer.init(Speech.speechInitOk, Speech.speechInitFail);

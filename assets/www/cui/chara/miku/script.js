@@ -44,7 +44,6 @@ $(function() {
     var character = new Character(images, actions);
     character.dlg = new Dialog({
         "width" : 160,
-        "height" : 90,
         "bottom" : 270,
         "left" : 155
     });
@@ -62,7 +61,7 @@ $(function() {
         var obj = $('<div id="firstitem" class="flickSimple landscape" style="overflow: hidden; "><ul /></div>');
         $("body").append(obj);
         $('.flickSimple').hide()
-
+        $('.yesnoButton').hide()
         this.add = function(title, url, body) {
             var article = $("<article><h1><a></a></h1><p></p>");
             article.find("h1 a").text(title)
@@ -102,7 +101,26 @@ $(function() {
             alert(text)
             if (/ニュース/.test(text)) {
                 window.onRSS()
+            } else {
+                self.onUnknown(text)
             }
+        }
+
+        this.onUnknown = function(text) {
+            character.dlg.show("うーん、「" + text + "」って私知らないです。", function() {
+                character.dlg.show("Webで検索してみてもいいですか？", function() {
+                    Event.initTap($("#yesButton")).tap(function() {
+                        $('.yesnoButton').hide()
+                        character.dlg.show("Googleで探してみますね。", function() {
+                            window.open("https://www.google.co.jp/search?q=" + text)
+                        })
+                    })
+                    Event.initTap($("#noButton")).tap(function() {
+                        $('.yesnoButton').hide()
+                    })
+                    $('.yesnoButton').fadeIn()
+                })
+            });
         }
     }
     Speech.chatbot = new SimpleBot()
