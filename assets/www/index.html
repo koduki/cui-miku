@@ -6,16 +6,19 @@
     <head>
         <meta charset="utf-8" />
         <title>CUI-Miku</title>
-        <meta name="apple-mobile-web-app-capable" content="yes"/>
-        <link rel="stylesheet" href="cui/default.css" type="text/css" media="all">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <link rel="stylesheet" href="cui/default.css" type="text/css"
+        media="all">
+                <script type="text/javascript" charset="utf-8" src="cordova-1.8.1.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/SpeechRecognizer.js"></script>
         <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
         <script type="text/javascript" src="js/jquery.flicksimple.js"></script>
         <script type="text/javascript" src="cui/util.js"></script>
         <script type="text/javascript" src="cui/core.js"></script>
         <script type="text/javascript" src="cui/chara/miku/script.js"></script>
-        <script type="text/javascript" charset="utf-8" src="cordova-1.8.1.js"></script>
         <script type="text/javascript">
             $(function() {
+                document.addEventListener("deviceready", Speech.onDeviceReady, false);
                 $('#firstitem').flickSimple({
                     snap : "first"
                 });
@@ -24,10 +27,9 @@
     </head>
     <body>
         <header>
-            <a href='javascript:onHome()'><img id="home" src="cui/Droid.png" /></a>
-            <a href='javascript:onRSS()'><img id="rss" src="cui/RSS.png"/></a>
+            <a href='javascript:Speech.recognizeSpeech()'><img id="home" src="cui/Droid.png" /></a>
+            <a href='javascript:onRSS()'><img id="rss" src="cui/RSS.png" /></a>
         </header>
         <div id="character"></div>
-
     </body>
 </html>

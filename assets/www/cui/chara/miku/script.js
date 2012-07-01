@@ -81,20 +81,31 @@ $(function() {
     }
     var flickWindow = new FlickWindow(180, 300);
     var url = 'https://twitter.com/statuses/user_timeline/82492709.rss'
-    $.get(url, function(res, code) {
-        var xml = $(res);
-        var items = xml.find("item").map(function(i, x) {
-            return {
-                "title" : $(x).find("title").text(),
-                "link" : $(x).find("link").text(),
-                "description" : $(x).find("description").text(),
-            }
-        })
+    //    $.get(url, function(res, code) {
+    //        var xml = $(res);
+    //        var items = xml.find("item").map(function(i, x) {
+    //            return {
+    //                "title" : $(x).find("title").text(),
+    //                "link" : $(x).find("link").text(),
+    //                "description" : $(x).find("description").text(),
+    //            }
+    //        })
+    //
+    //        items.each(function(i, item) {
+    //            flickWindow.add(item.title, item.link, item.description)
+    //        })
+    //    });
 
-        items.each(function(i, item) {
-            flickWindow.add(item.title, item.link, item.description)
-        })
-    });
+    var SimpleBot = function() {
+        var self = this
+        this.chat = function(text) {
+            alert(text)
+            if (/ニュース/.test(text)) {
+                window.onRSS()
+            }
+        }
+    }
+    Speech.chatbot = new SimpleBot()
 
     window.onHome = function() {
         $('.flickSimple').fadeOut()

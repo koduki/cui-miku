@@ -14,6 +14,7 @@ package com.urbtek.phonegap;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -202,7 +203,10 @@ public class SpeechRecognizer extends Plugin {
 		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
 				RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
 		// If specific language
+		Log.d(LOG_TAG, "lang=" + language);
 		if (!language.equals("")) {
+		    //intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.JAPAN.toString());
+		    	Log.d(LOG_TAG, "lang=" + Locale.JAPAN.toString());
 			intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, language);
 		}
 

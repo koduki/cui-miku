@@ -142,3 +142,69 @@ var showArea = function(sprite, area) {
     var obj = $("<div />").appendTo("#sprite");
     obj.css("position", "absolute").css("width", area["width"] + "px").css("height", area["height"] + "px").css("left", area["left"] + "px").css("bottom", (sprite.height - area["top"] - area["height"]) + "px").css("z-index", 100).css("background-color", "red")
 }
+
+function SimpleAnalyzer() {
+  this.re = new RegExp;
+  this.re.compile("[一-龠々〆ヵヶ]+|[ぁ-ん]+|[ァ-ヴー]+|[a-zA-Z0-9]+|[ａ-ｚＡ-Ｚ０-９]+|[,.、。！!？?()（）「」『』]+|[ 　]+", "g");
+  this.joshi = new RegExp;
+  this.joshi.compile("(でなければ|について|ならば|までを|までの|くらい|なのか|として|とは|なら|から|まで|して|だけ|より|ほど|など|って|では|は|で|を|の|が|に|へ|と|て)", "g");
+}
+
+SimpleAnalyzer.prototype.parse = function(str) {
+  if (typeof(str) == "string") {
+    var s = str.replace(this.joshi, "$1|");
+    var ary = s.split("|");
+    var result = [];
+    for (var i = 0; i < ary.length; i++) {
+      var token = ary[i].match(this.re);
+      if (token) {
+        for (var n = 0; n < token.length; n++) {
+          result.push(token[n]);
+        }
+      }
+    }
+    return result;
+  }
+};
+
+var Speech = {
+    chatbot:null,
+    onDeviceReady : function() {
+        console.log("onDeviceReady");
+        window.plugins.speechrecognizer.init(Speech.speechInitOk, Speech.speechInitFail);
+    },
+
+    speechInitOk : function() {
+        // we're good
+    },
+
+    speechInitFail : function(m) {
+        // recognizer not present?
+    },
+
+    recognizeSpeech : function() {
+        var requestCode = 1234;
+        var maxMatches = 1;
+        var promptString = "お話しよ♪";
+        window.plugins.speechrecognizer.startRecognize(Speech.speechOk, Speech.speechFail, requestCode, maxMatches, promptString, "ja_JP");
+    },
+
+    speechOk : function(result) {
+        var match, respObj, requestCode;
+        console.log("result: " + result);
+        if (result) {
+            respObj = JSON.parse(result);
+            if (respObj) {
+                // This is the code that was sent with the original request
+                requestCode = respObj.speechMatches.requestCode;
+                // 最初にマッチした検索語を取得
+                var text = respObj.speechMatches.speechMatch[0];
+                Speech.chatbot.chat(text)
+            }
+        }
+    },
+
+    speechFail : function(m) {
+        console.log("speechFail: " + m.toString());
+    }
+}
