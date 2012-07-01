@@ -175,7 +175,3 @@ class window.FlickWindow
 
   show: ->
     $(".flickSimple").fadeIn()
-
-class window.Hoge
-  constructor: () ->
-  say: -> "Hello"
