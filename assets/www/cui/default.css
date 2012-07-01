@@ -1,3 +1,6 @@
+/**
+ *     arrow_box.
+ */
 .arrow_box {
     position: absolute;
     background: #e1e6b5;
@@ -32,6 +35,9 @@
     padding: 10px;
 }
 
+/**
+ *     flickBox.
+ */
 .flickSimple h1 {
     font-size: medium;
 }
@@ -64,6 +70,32 @@
     text-align: center;
 }
 
+/**
+ *     YesNoButton.
+ */
+.yesnoButton {
+    position: absolute;
+    margin: 7.5%;
+    background: #e1e6b5;
+    border: 2px solid #414541;
+    width: 80%;
+    height: 40px;
+    line-height: 40px;
+    z-index: 1000;
+    -webkit-border-radius: 10px;/* SafariÅAGoogle Chrome */
+    -moz-border-radius: 10px;/* Firefox */
+    text-align: center;
+}
+#yesButton {
+    bottom: 200px;
+}
+#noButton {
+    bottom: 130px;
+}
+
+/**
+ *     Character.
+ */
 #character img {
     margin: 0px;
     bottom: 0px;

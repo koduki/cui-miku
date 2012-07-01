@@ -27,12 +27,14 @@ var Event = {
     }
 }
 
-var Character = function(images, actions) {
+var Character = function(images, speachMessage, actions) {
     var INTERVAL = 1700;
 
     var self = this
     var obj = $("<img />").appendTo("#character");
     Event.initTap(obj)
+
+    var hiddenMethods = []
 
     var defaultImage = images[1][images[0]['default']]
     obj.attr("src", defaultImage);
@@ -46,11 +48,14 @@ var Character = function(images, actions) {
     self.action = function(actionName, part, callback) {
         if (actionName === "tap") {
             obj.tap(function(e) {
+                self.hiddenAll()
                 var x = e.touches[0].pageX;
                 var y = e.touches[0].pageY;
                 var top = window.innerHeight - obj.height() + part.top
                 if (part.left <= x && x <= part.width && top <= y && y <= (top + part.height)) {
                     callback()
+                } else {
+                    Speech.recognizeSpeech(speachMessage)
                 }
             })
         } else if (actionName === "nadenade") {
@@ -59,6 +64,7 @@ var Character = function(images, actions) {
             var buff = 40;
             var limit = 3;
             obj.bind("touchstart", function(e) {
+                self.hiddenAll()
                 setTimeout(function() {
                     left = 0;
                     right = 0;
@@ -101,6 +107,16 @@ var Character = function(images, actions) {
             self.width = obj.width()
             callback()
         })
+    }
+
+    self.addHiddenMethod = function(callback) {
+        hiddenMethods.push(callback)
+    }
+
+    self.hiddenAll = function() {
+        for (var i = 0; i < hiddenMethods.length; i++) {
+            hiddenMethods[i]()
+        }
     }
     // // regist actions.
     actions.map(function(action) {
@@ -158,10 +174,10 @@ var Speech = {
         // recognizer not present?
     },
 
-    recognizeSpeech : function() {
+    recognizeSpeech : function(message) {
         var requestCode = 1234;
         var maxMatches = 1;
-        var promptString = "お話しよ♪";
+        var promptString = message;
         window.plugins.speechrecognizer.startRecognize(Speech.speechOk, Speech.speechFail, requestCode, maxMatches, promptString, "ja_JP");
     },
 
@@ -182,5 +198,38 @@ var Speech = {
 
     speechFail : function(m) {
         console.log("speechFail: " + m.toString());
+    }
+}
+var FlickWindow = function(height, width) {
+    var obj = $('<div id="firstitem" class="flickSimple" style="overflow: hidden; "><ul /></div>');
+    $("body").append(obj);
+    $('.flickSimple').hide()
+
+    this.add = function(title, url, body) {
+        var article = $("<article><h1><a></a></h1><p></p>");
+        article.find("h1 a").text(title)
+        article.find("h1 a").attr("href", url)
+        article.find("p").text(body)
+        article.css("height", height + "px");
+
+        var item = $("<li>")
+        item.css("width", width + "px");
+        item.append(article)
+        obj.find("ul").append(item)
+        obj.find("ul").css("width", width * obj.find("li").size() + "px")
+
+        $(".flickSimple").css("width", width + "px")
+    }
+
+    this.clear = function() {
+        $("#firstitem article").each(function($i, x) {
+            $(x).remove()
+        })
+    }
+    this.hide = function() {
+        $('.flickSimple').hide()
+    }
+    this.show = function() {
+        $('.flickSimple').fadeIn()
     }
 }

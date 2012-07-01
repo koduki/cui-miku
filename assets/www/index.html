@@ -9,12 +9,14 @@
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <link rel="stylesheet" href="cui/default.css" type="text/css"
         media="all">
-                <script type="text/javascript" charset="utf-8" src="cordova-1.8.1.js"></script>
+        <script type="text/javascript" charset="utf-8" src="cordova-1.8.1.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/SpeechRecognizer.js"></script>
         <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
         <script type="text/javascript" src="js/jquery.flicksimple.js"></script>
         <script type="text/javascript" src="cui/util.js"></script>
         <script type="text/javascript" src="cui/core.js"></script>
+        <script type="text/javascript" src="cui/simplebot.js"></script>
+        <script type="text/javascript" src="cui/function.js"></script>
         <script type="text/javascript" src="cui/chara/miku/script.js"></script>
         <script type="text/javascript">
             $(function() {
@@ -24,35 +26,18 @@
                 });
             })
         </script>
-        <style type="text/css" media="screen">
-            .yesnoButton {
-              position:absolute;
-    margin: 7.5%;
-    background: #e1e6b5;
-    border: 2px solid #414541;
-    width:80%;
-    height:40px;
-    line-height:40px;
-    z-index:1000;
-    -webkit-border-radius: 10px;/* Safari、Google Chrome */
-    -moz-border-radius: 10px;/* Firefox */
-    text-align: center;
-            }
-            #yesButton{
-      bottom: 200px;
-            }
-                        #noButton{
-      bottom: 130px;
-            }
-        </style>
     </head>
     <body>
         <header>
-            <a href='javascript:Speech.recognizeSpeech()'><img id="home" src="cui/Droid.png" /></a>
-            <a href='javascript:onRSS()'><img id="rss" src="cui/RSS.png" /></a>
+            <a href='javascript:onHome()'><img id="home" src="cui/Droid.png" /></a>
+            <a href='javascript:onNews()'><img id="rss" src="cui/RSS.png" /></a>
         </header>
         <div id="character"></div>
-        <div id="yesButton" class="yesnoButton">OK</div>
-        <div id="noButton" class="yesnoButton">NG</div>
+        <div id="yesButton" class="yesnoButton">
+            OK
+        </div>
+        <div id="noButton" class="yesnoButton">
+            NG
+        </div>
     </body>
 </html>

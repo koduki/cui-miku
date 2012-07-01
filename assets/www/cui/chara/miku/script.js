@@ -41,13 +41,21 @@ var actions = [{
 
 $(function() {
     // initialize
-    var character = new Character(images, actions);
+    var character = new Character(images, "", actions);
     character.dlg = new Dialog({
         "width" : 160,
         "bottom" : 270,
         "left" : 155
     });
 
+    var flickWindow = new FlickWindow(180, 300);
+
+    character.addHiddenMethod(function() {
+        $('.yesnoButton').hide()
+    })
+    character.addHiddenMethod(function() {
+        flickWindow.hide()
+    })
     // debug code.
     character.draw(function() {
         // showArea(character, 胸)
@@ -55,84 +63,16 @@ $(function() {
     });
 
     // main
-    character.dlg.show("おはようございますー♪");
-
-    var FlickWindow = function(height, width) {
-        var obj = $('<div id="firstitem" class="flickSimple landscape" style="overflow: hidden; "><ul /></div>');
-        $("body").append(obj);
-        $('.flickSimple').hide()
-        $('.yesnoButton').hide()
-        this.add = function(title, url, body) {
-            var article = $("<article><h1><a></a></h1><p></p>");
-            article.find("h1 a").text(title)
-            article.find("h1 a").attr("href", url)
-            article.find("p").text(body)
-            article.css("height", height + "px");
-
-            var item = $("<li>")
-            item.css("width", width + "px");
-            item.append(article)
-            obj.find("ul").append(item)
-            obj.find("ul").css("width", width * obj.find("li").size() + "px")
-
-            $(".flickSimple").css("width", width + "px")
-        }
-    }
-    var flickWindow = new FlickWindow(180, 300);
-    var url = 'https://twitter.com/statuses/user_timeline/82492709.rss'
-    //    $.get(url, function(res, code) {
-    //        var xml = $(res);
-    //        var items = xml.find("item").map(function(i, x) {
-    //            return {
-    //                "title" : $(x).find("title").text(),
-    //                "link" : $(x).find("link").text(),
-    //                "description" : $(x).find("description").text(),
-    //            }
-    //        })
-    //
-    //        items.each(function(i, item) {
-    //            flickWindow.add(item.title, item.link, item.description)
-    //        })
-    //    });
-
-    var SimpleBot = function() {
-        var self = this
-        this.chat = function(text) {
-            alert(text)
-            if (/ニュース/.test(text)) {
-                window.onRSS()
-            } else {
-                self.onUnknown(text)
-            }
-        }
-
-        this.onUnknown = function(text) {
-            character.dlg.show("うーん、「" + text + "」って私知らないです。", function() {
-                character.dlg.show("Webで検索してみてもいいですか？", function() {
-                    Event.initTap($("#yesButton")).tap(function() {
-                        $('.yesnoButton').hide()
-                        character.dlg.show("Googleで探してみますね。", function() {
-                            window.open("https://www.google.co.jp/search?q=" + text)
-                        })
-                    })
-                    Event.initTap($("#noButton")).tap(function() {
-                        $('.yesnoButton').hide()
-                    })
-                    $('.yesnoButton').fadeIn()
-                })
-            });
-        }
-    }
-    Speech.chatbot = new SimpleBot()
-
+    Speech.chatbot = new SimpleBot(character)
+    character.hiddenAll()
+    character.dlg.show("好きなところをタップしてください♪");
     window.onHome = function() {
-        $('.flickSimple').fadeOut()
-        character.dlg.show("おはようございますー♪");
+        character.dlg.show("好きなところをタップしてください♪");
     }
 
-    window.onRSS = function() {
+    window.onNews = function() {
         character.dlg.show("今日のおすめの<br />ニュースでーす♪", function() {
-            $('.flickSimple').fadeIn()
+            Function.showNews(flickWindow)
         });
     }
 });
