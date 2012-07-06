@@ -52,8 +52,8 @@ SpeechRecognizer.prototype.getSupportedLanguages = function(successCallback, err
 /**
  * Load 
  */ 
-PhoneGap.addConstructor(function() {
-    PhoneGap.addPlugin("speechrecognizer", new SpeechRecognizer());
+cordova.addConstructor(function() {
+    cordova.addPlugin("speechrecognizer", new SpeechRecognizer());
 });
 
 
