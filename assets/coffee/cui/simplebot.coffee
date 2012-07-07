@@ -6,10 +6,11 @@ class window.SimpleBot
       '地図検索': (keyword)=>
         @character.dlg.show "近くの「" + keyword + "」を探すんですね.", =>
           @character.dlg.show "地図を表示します。", =>
-            navigator.geolocation.getCurrentPosition (position) =>
+            navigator.geolocation.getCurrentPosition (position) ->
               url = 'https://maps.google.co.jp/maps?q=' + encodeURI(keyword) + '&hl=ja&ie=UTF8&ll=' + position.coords.latitude + ", " + position.coords.longitude 
+              console.log(url)
               window.open url
-            , => alert('コード: '    + error.code    + '\n' + 'メッセージ: ' + error.message + '\n');
+            , -> alert('コード: '    + error.code    + '\n' + 'メッセージ: ' + error.message + '\n');
       '挨拶:朝': => 
         @character.dlg.show "おはようございます♪"
       '挨拶:昼': => 
