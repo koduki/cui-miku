@@ -54,13 +54,12 @@
         var flag1, flag2, keyword, word, _i, _len;
         flag1 = false;
         flag2 = false;
-        keyword = "";
         for (_i = 0, _len = r.length; _i < _len; _i++) {
           word = r[_i];
           if (word.baseform.indexOf('近く') !== -1) {
             flag1 = true;
           }
-          if (word.baseform.indexOf('探す') !== -1) {
+          if (word.baseform.indexOf('探す') !== -1 || word.baseform.indexOf('教える') !== -1 || word.baseform.indexOf('調べる')) {
             flag2 = true;
           }
           if (word.feature.indexOf('名詞') !== -1 && word.feature.indexOf('一般') !== -1 && word.feature.indexOf('接尾') === -1) {

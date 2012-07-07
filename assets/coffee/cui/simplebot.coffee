@@ -29,11 +29,10 @@ class window.SimpleBot
     analysiser.analyse ((r) ->
       flag1 = false
       flag2 = false
-      keyword=""
       for word in r
         if word.baseform.indexOf('近く') != -1
           flag1 = true
-        if word.baseform.indexOf('探す') != -1
+        if word.baseform.indexOf('探す') != -1 or word.baseform.indexOf('教える') != -1 or word.baseform.indexOf('調べる') 
           flag2 = true
         if word.feature.indexOf('名詞') != -1 and word.feature.indexOf('一般') != -1 and word.feature.indexOf('接尾') == -1
           keyword = word.surface

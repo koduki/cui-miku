@@ -64,7 +64,9 @@
   test("chat parser - 地図検索.\n", function() {
     var bot;
     bot = new window.SimpleBot();
-    return deepEqual(bot.parse('近くのラーメン屋探して'), ['地図検索', ['ラーメン']], '\n');
+    deepEqual(bot.parse('近くのラーメン屋探して'), ['地図検索', ['ラーメン']], '\n');
+    deepEqual(bot.parse('近くにあるコンビニを教えて'), ['地図検索', ['コンビニ']], '\n');
+    return deepEqual(bot.parse('近くの駅調べて'), ['地図検索', ['駅']], '\n');
   });
 
   test("chat parser - その他.\n", function() {
