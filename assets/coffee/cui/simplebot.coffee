@@ -20,7 +20,7 @@ class window.SimpleBot
 
   chat:(text) =>
       console.log "get text: " + text
-      @response = parse(text)
+      response = @parse(text)
       @commands[response[0]].apply(this, response[1])
 
   parse:(text) =>
