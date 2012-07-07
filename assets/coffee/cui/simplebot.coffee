@@ -23,12 +23,10 @@ class window.SimpleBot
         @onUnknown text
 
   chat:(text) =>
-      console.log "get text: " + text
-      response = @parse(text)
-      @commands[response[0]].apply(this, response[1])
+    console.log "get text: " + text
+    @parse(text, (response) => @commands[response[0]].apply(this, response[1]))
 
-  parse:(text) =>
-    result = undefined
+  parse:(text, callback) =>
     analysiser = window.plugins.morphologicalAnalysiser
     analysiser.analyse ((r) ->
       flag1 = false
@@ -40,43 +38,42 @@ class window.SimpleBot
           flag2 = true
         if word.feature.indexOf('名詞') != -1 and word.feature.indexOf('一般') != -1 and word.feature.indexOf('接尾') == -1
           keyword = word.surface
+
       result = if flag1 == true and flag2 == true and keyword != ""
-        keyword
+        ["地図検索",[keyword]]
+      else if /ニュース/.test(text)
+        ['ニュース表示',[]]
+      else if /おはよ/.test(text)
+        ['挨拶:朝',[]]
+      else if /こんにちは/.test(text)
+        ['挨拶:昼',[]]
+      else if /こんにちわ/.test(text)
+        ['挨拶:昼',[]]
+      else if /おやすみ/.test(text)
+        ['挨拶:夜',[]]
+      else if /得意なこと/.test(text)
+        ['得意なこと',[]]
+      else if /特技は/.test(text)
+        ['得意なこと',[]]
+      else if /特技を/.test(text)
+        ['得意なこと',[]]
+      else if /かわいい/.test(text)
+        ['喜び',[]]
+      else if /すごいね/.test(text)
+        ['喜び',[]]
+      else if /可愛い/.test(text)
+        ['喜び',[]]
+      else if /凄いね/.test(text)
+        ['喜び',[]]
       else
-        ""
+        ['その他',[text]]
+
+      callback(result)
     ), text
     # TODO danger
    # while(result == undefined)
     #  true
 
-    if result != ""
-      ["地図検索",[result]]
-    else if /ニュース/.test(text)
-      ['ニュース表示',[]]
-    else if /おはよ/.test(text)
-      ['挨拶:朝',[]]
-    else if /こんにちは/.test(text)
-      ['挨拶:昼',[]]
-    else if /こんにちわ/.test(text)
-      ['挨拶:昼',[]]
-    else if /おやすみ/.test(text)
-      ['挨拶:夜',[]]
-    else if /得意なこと/.test(text)
-      ['得意なこと',[]]
-    else if /特技は/.test(text)
-      ['得意なこと',[]]
-    else if /特技を/.test(text)
-      ['得意なこと',[]]
-    else if /かわいい/.test(text)
-      ['喜び',[]]
-    else if /すごいね/.test(text)
-      ['喜び',[]]
-    else if /可愛い/.test(text)
-      ['喜び',[]]
-    else if /凄いね/.test(text)
-      ['喜び',[]]
-    else
-      ['その他',[text]]
 
   onUnknown:(text) =>
     @character.dlg.show "うーん、わたし「" + text + "」って知らないです。", =>

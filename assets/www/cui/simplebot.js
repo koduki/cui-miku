@@ -47,18 +47,18 @@
     }
 
     SimpleBot.prototype.chat = function(text) {
-      var response;
+      var _this = this;
       console.log("get text: " + text);
-      response = this.parse(text);
-      return this.commands[response[0]].apply(this, response[1]);
+      return this.parse(text, function(response) {
+        return _this.commands[response[0]].apply(_this, response[1]);
+      });
     };
 
-    SimpleBot.prototype.parse = function(text) {
-      var analysiser, result;
-      result = void 0;
+    SimpleBot.prototype.parse = function(text, callback) {
+      var analysiser;
       analysiser = window.plugins.morphologicalAnalysiser;
-      analysiser.analyse((function(r) {
-        var flag1, flag2, keyword, word, _i, _len;
+      return analysiser.analyse((function(r) {
+        var flag1, flag2, keyword, result, word, _i, _len;
         flag1 = false;
         flag2 = false;
         for (_i = 0, _len = r.length; _i < _len; _i++) {
@@ -73,37 +73,9 @@
             keyword = word.surface;
           }
         }
-        return result = flag1 === true && flag2 === true && keyword !== "" ? keyword : "";
+        result = flag1 === true && flag2 === true && keyword !== "" ? ["地図検索", [keyword]] : /ニュース/.test(text) ? ['ニュース表示', []] : /おはよ/.test(text) ? ['挨拶:朝', []] : /こんにちは/.test(text) ? ['挨拶:昼', []] : /こんにちわ/.test(text) ? ['挨拶:昼', []] : /おやすみ/.test(text) ? ['挨拶:夜', []] : /得意なこと/.test(text) ? ['得意なこと', []] : /特技は/.test(text) ? ['得意なこと', []] : /特技を/.test(text) ? ['得意なこと', []] : /かわいい/.test(text) ? ['喜び', []] : /すごいね/.test(text) ? ['喜び', []] : /可愛い/.test(text) ? ['喜び', []] : /凄いね/.test(text) ? ['喜び', []] : ['その他', [text]];
+        return callback(result);
       }), text);
-      if (result !== "") {
-        return ["地図検索", [result]];
-      } else if (/ニュース/.test(text)) {
-        return ['ニュース表示', []];
-      } else if (/おはよ/.test(text)) {
-        return ['挨拶:朝', []];
-      } else if (/こんにちは/.test(text)) {
-        return ['挨拶:昼', []];
-      } else if (/こんにちわ/.test(text)) {
-        return ['挨拶:昼', []];
-      } else if (/おやすみ/.test(text)) {
-        return ['挨拶:夜', []];
-      } else if (/得意なこと/.test(text)) {
-        return ['得意なこと', []];
-      } else if (/特技は/.test(text)) {
-        return ['得意なこと', []];
-      } else if (/特技を/.test(text)) {
-        return ['得意なこと', []];
-      } else if (/かわいい/.test(text)) {
-        return ['喜び', []];
-      } else if (/すごいね/.test(text)) {
-        return ['喜び', []];
-      } else if (/可愛い/.test(text)) {
-        return ['喜び', []];
-      } else if (/凄いね/.test(text)) {
-        return ['喜び', []];
-      } else {
-        return ['その他', [text]];
-      }
     };
 
     SimpleBot.prototype.onUnknown = function(text) {
