@@ -21,10 +21,9 @@
             return _this.character.dlg.show("地図を表示します。", function() {
               return navigator.geolocation.getCurrentPosition(function(position) {
                 var url;
-                url = 'https://maps.google.co.jp/maps?q=' + encodeURI(keyword) + '&hl=ja&ie=UTF8&ll=' + position.coords.latitude + ", " + position.coords.longitude;
-                return window.open(url);
+                return url = 'https://maps.google.co.jp/maps?q=' + encodeURI(keyword) + '&hl=ja&ie=UTF8&ll=' + position.coords.latitude + ", " + position.coords.longitude;
               }, function() {
-                return alert("Map Error.");
+                return alert('コード: ' + error.code + '\n' + 'メッセージ: ' + error.message + '\n');
               });
             });
           });

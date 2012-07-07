@@ -8,8 +8,8 @@ class window.SimpleBot
           @character.dlg.show "地図を表示します。", =>
             navigator.geolocation.getCurrentPosition (position) =>
               url = 'https://maps.google.co.jp/maps?q=' + encodeURI(keyword) + '&hl=ja&ie=UTF8&ll=' + position.coords.latitude + ", " + position.coords.longitude 
-              window.open url
-            , => alert("Map Error.");
+              #window.open url
+            , => alert('コード: '    + error.code    + '\n' + 'メッセージ: ' + error.message + '\n');
       '挨拶:朝': => 
         @character.dlg.show "おはようございます♪"
       '挨拶:昼': => 
