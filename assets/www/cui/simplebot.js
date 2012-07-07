@@ -17,9 +17,9 @@
           return window.onNews();
         },
         '地図検索': function(keyword) {
-          return _this.character.dlg.show("近くの「" + keyword + "」ですね.", function() {
-            return _this.character.dlg.show("地図を表示しますね。", function() {
-              return navigator.geolocation.getCurrentPosition(function() {
+          return _this.character.dlg.show("近くの「" + keyword + "」探すんですね.", function() {
+            return _this.character.dlg.show("地図を表示します。", function() {
+              return navigator.geolocation.getCurrentPosition(function(position) {
                 alert(position.coords.latitude + ", " + position.coords.longitude);
                 return window.open("https://maps.google.co.jp/maps?q=%E3%83%A9%E3%83%BC%E3%83%A1%E3%83%B3&hl=ja&ie=UTF8&sll=35.59689,139.66732&sspn=0.029557,0.066047&brcurrent=3,0x60186052c1a36643:0x4fc26aac505c0d49,0&hq=%E3%83%A9%E3%83%BC%E3%83%A1%E3%83%B3&t=m&z=15");
               }, function() {
