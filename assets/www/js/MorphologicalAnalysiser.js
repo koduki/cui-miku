@@ -1,14 +1,14 @@
 /**
- *  SpeechRecognizer.js
- *  Speech Recognizer PhoneGap plugin (Android)
+ *  MorphologicalAnalysiser.js
+ *  Morphological Analysiser for PhoneGap(Android)
  *
- *  @author Colin Turner
- *  @author Guillaume Charhon
- *  MIT Licensed
+ *
+ *  @author koduki
+ *  
  */
  
 /**
- * c'tor
+ * class.
  */
 function MorphologicalAnalysiser() {
 }
@@ -17,17 +17,12 @@ function MorphologicalAnalysiser() {
  * Initialize
  * 
  * @param successCallback
- * @param errorCallback
+ * @param text
  */
-MorphologicalAnalysiser.prototype.init = function(successCallback, errorCallback) {
-     return PhoneGap.exec(successCallback, errorCallback, "MorphologicalAnalysiser", "init", []);
+MorphologicalAnalysiser.prototype.analyse = function(successCallback, text) {
+     return cordova.exec(successCallback, null, "MorphologicalAnalysiser", "analyse", [text]);
 };
-MorphologicalAnalysiser.prototype.action = function(successCallback) {
-     return PhoneGap.exec(successCallback, null, "MorphologicalAnalysiser", "execute", []);
-};
-MorphologicalAnalysiser.prototype.hoge = function() {
-    return "abc";
-}
+
 /**
  * Load 
  */ 

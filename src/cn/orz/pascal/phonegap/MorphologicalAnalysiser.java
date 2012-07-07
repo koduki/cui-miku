@@ -1,42 +1,29 @@
 package cn.orz.pascal.phonegap;
 
-import org.apache.cordova.api.PluginResult;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import net.reduls.sanmoku.FeatureEx;
+import net.reduls.sanmoku.Morpheme;
+import net.reduls.sanmoku.Tagger;
 
-import android.view.Gravity;
-import android.widget.Toast;
+public class MorphologicalAnalysiser{
 
-import cn.orz.pascal.cui.MainActivity;
+	public List<Map<String, String>>  analyse(final String text) {
+		List<Map<String, String>> morphemes = new ArrayList<Map<String,String>>();
+		for (Morpheme m : Tagger.parse(text)) {
+			FeatureEx fe = new FeatureEx(m);
+			Map<String, String> morpheme = new HashMap<String, String>();
 
-import com.phonegap.api.Plugin;
+			morpheme.put("feature", m.feature);
+			morpheme.put("surface", m.surface);
+			morpheme.put("baseform", fe.baseform);
+			morpheme.put("reading", fe.reading);
+			morpheme.put("pronunciation", fe.pronunciation);
 
-public class MorphologicalAnalysiser extends Plugin {
-
-	/**
-	 * Executes the request and returns PluginResult.
-	 * 
-	 * @param action
-	 *            The action to execute.
-	 * @param args
-	 *            JSONArry of arguments for the plugin.
-	 * @param callbackId
-	 *            The callback id used when calling back into JavaScript.
-	 * @return A PluginResult object with a status and message.
-	 */
-	public PluginResult execute(String action, JSONArray args, String callbackId) {
-		final MainActivity c = (MainActivity) this.ctx;
-		final String message = action;
-		JSONObject result = new JSONObject();
-		try {
-			result.put("id", 1);
-			result.put("message", "hello");
-		} catch (JSONException e) {
-			e.printStackTrace();
+			morphemes.add(morpheme);
 		}
-
-		return new PluginResult(PluginResult.Status.OK, result);
+		return morphemes;
 	}
-
 }

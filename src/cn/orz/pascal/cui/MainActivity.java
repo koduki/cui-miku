@@ -8,9 +8,6 @@ public class MainActivity extends DroidGap {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-	       // Add plugins here or in JavaScript.
-     // super.addService("SamplePlugin", "sample.app.SamplePlugin"); // #1
-        
 		super.loadUrl("file:///android_asset/www/index.html");
 	}
 }

@@ -37,5 +37,5 @@
     <plugin name="SplashScreen" value="org.apache.cordova.SplashScreen"/>
     <!-- SpeechRecognizerプラグイン -->
     <plugin name="SpeechRecognizer" value="com.urbtek.phonegap.SpeechRecognizer"/>
-    <plugin name="MorphologicalAnalysiser" value="cn.orz.pascal.phonegap.MorphologicalAnalysiser"/>
+    <plugin name="MorphologicalAnalysiser" value="cn.orz.pascal.phonegap.MorphologicalAnalysiserPlugin"/>
 </plugins>

@@ -5,7 +5,10 @@
     function SimpleBot(character) {
       this.character = character;
     }
-
+    SimpleBot.prototype.chat2 = function(text) {
+        console.log("get text: " + text);
+        return "おはようございます♪";
+    }
     SimpleBot.prototype.chat = function(text) {
       console.log("get text: " + text);
       if (/ニュース/.test(text)) {
