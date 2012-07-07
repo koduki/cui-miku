@@ -16,6 +16,13 @@
         'ニュース表示': function() {
           return window.onNews();
         },
+        '地図検索': function(keyword) {
+          return _this.character.dlg.show("近くの「" + keyword + "」ですね.", function() {
+            return _this.character.dlg.show("地図を表示しますね。", function() {
+              return alert(1);
+            });
+          });
+        },
         '挨拶:朝': function() {
           return _this.character.dlg.show("おはようございます♪");
         },

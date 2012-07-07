@@ -3,6 +3,10 @@ class window.SimpleBot
     @commands = 
       'ニュース表示': =>  
         window.onNews()
+      '地図検索': (keyword)=>
+        @character.dlg.show "近くの「" + keyword + "」ですね.", =>
+            @character.dlg.show "地図を表示しますね。", =>
+              alert(1)
       '挨拶:朝': => 
         @character.dlg.show "おはようございます♪"
       '挨拶:昼': => 
