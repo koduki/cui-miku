@@ -20,7 +20,8 @@ Cordova.prototype.exec = function(success, fail, name, action, args) {
         }
     } else {
         if (fail != null) {
-            fail(eval(result.getResult()));
+            var r = result.getResult() + "";
+            fail(eval(r));
         }
     }
 }

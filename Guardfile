@@ -6,6 +6,10 @@ guard :coffeescript, :output => 'assets/www/cui/' do
     watch %r{^assets/coffee/cui/.+\.coffee}
 end
 
+guard :coffeescript, :output => 'assets/test/js/' do
+    watch %r{^assets/test/coffee/.+\.coffee}
+end
+
 guard :coffeescript, :output => 'assets/www/cui/chara/miku/' do
     watch %r{^assets/coffee/cui/chara/miku/.+\.coffee}
 end
