@@ -56,7 +56,7 @@
     SimpleBot.prototype.parse = function(text) {
       var analysiser, result;
       result = void 0;
-      analysiser = window.morphologicalAnalysiser;
+      analysiser = window.plugins.morphologicalAnalysiser;
       analysiser.analyse((function(r) {
         var flag1, flag2, keyword, word, _i, _len;
         flag1 = false;

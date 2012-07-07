@@ -8,7 +8,10 @@ Cordova.prototype.addConstructor = function(callback) {
 }
 
 Cordova.prototype.addPlugin = function(name, obj) {
-    window[name] = obj
+    if (window['plugins'] === undefined) {
+        window['plugins'] = {}
+    }
+    window.plugins[name] = obj
 }
 
 Cordova.prototype.exec = function(success, fail, name, action, args) {

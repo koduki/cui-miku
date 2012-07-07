@@ -29,7 +29,7 @@ class window.SimpleBot
 
   parse:(text) =>
     result = undefined
-    analysiser = window.morphologicalAnalysiser
+    analysiser = window.plugins.morphologicalAnalysiser
     analysiser.analyse ((r) ->
       flag1 = false
       flag2 = false
