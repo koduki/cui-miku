@@ -53,11 +53,23 @@
         return ['挨拶:朝', []];
       } else if (/こんにちは/.test(text)) {
         return ['挨拶:昼', []];
+      } else if (/こんにちわ/.test(text)) {
+        return ['挨拶:昼', []];
       } else if (/おやすみ/.test(text)) {
         return ['挨拶:夜', []];
-      } else if (/得意なことは/.test(text)) {
+      } else if (/得意なこと/.test(text)) {
+        return ['得意なこと', []];
+      } else if (/特技は/.test(text)) {
+        return ['得意なこと', []];
+      } else if (/特技を/.test(text)) {
         return ['得意なこと', []];
       } else if (/かわいい/.test(text)) {
+        return ['喜び', []];
+      } else if (/すごいね/.test(text)) {
+        return ['喜び', []];
+      } else if (/可愛い/.test(text)) {
+        return ['喜び', []];
+      } else if (/凄いね/.test(text)) {
         return ['喜び', []];
       } else {
         return ['その他', [text]];

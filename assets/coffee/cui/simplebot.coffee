@@ -30,11 +30,23 @@ class window.SimpleBot
       ['挨拶:朝',[]]
     else if /こんにちは/.test(text)
       ['挨拶:昼',[]]
+    else if /こんにちわ/.test(text)
+      ['挨拶:昼',[]]
     else if /おやすみ/.test(text)
       ['挨拶:夜',[]]
-    else if /得意なことは/.test(text)
+    else if /得意なこと/.test(text)
+      ['得意なこと',[]]
+    else if /特技は/.test(text)
+      ['得意なこと',[]]
+    else if /特技を/.test(text)
       ['得意なこと',[]]
     else if /かわいい/.test(text)
+      ['喜び',[]]
+    else if /すごいね/.test(text)
+      ['喜び',[]]
+    else if /可愛い/.test(text)
+      ['喜び',[]]
+    else if /凄いね/.test(text)
       ['喜び',[]]
     else
       ['その他',[text]]
