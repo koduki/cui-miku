@@ -40,9 +40,8 @@
     }
 
     SimpleBot.prototype.chat = function(text) {
-      var response;
       console.log("get text: " + text);
-      response = parse(text);
+      this.response = parse(text);
       return this.commands[response[0]].apply(this, response[1]);
     };
 
