@@ -17,11 +17,12 @@
           return window.onNews();
         },
         '地図検索': function(keyword) {
-          return _this.character.dlg.show("近くの「" + keyword + "」探すんですね.", function() {
+          return _this.character.dlg.show("近くの「" + keyword + "」を探すんですね.", function() {
             return _this.character.dlg.show("地図を表示します。", function() {
               return navigator.geolocation.getCurrentPosition(function(position) {
                 var url;
-                return url = 'https://maps.google.co.jp/maps?q=' + encodeURI(keyword) + '&hl=ja&ie=UTF8&ll=' + position.coords.latitude + ", " + position.coords.longitude;
+                url = 'https://maps.google.co.jp/maps?q=' + encodeURI(keyword) + '&hl=ja&ie=UTF8&ll=' + position.coords.latitude + ", " + position.coords.longitude;
+                return window.open(url);
               }, function() {
                 return alert('コード: ' + error.code + '\n' + 'メッセージ: ' + error.message + '\n');
               });
