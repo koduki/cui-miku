@@ -21,11 +21,6 @@
             $(function() {
                 document.addEventListener("deviceready", function(){
                     Speech.onDeviceReady()
-                        window.plugins.morphologicalAnalysiser.analyse(function(result){
-                            
-                            alert(result[0].reading);
-                        }, "美味しいラーメン屋.")
-                        console.log("step2");
                 }, false);
                 $('#firstitem').flickSimple({
                     snap : "first"

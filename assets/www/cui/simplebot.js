@@ -1,36 +1,53 @@
 (function() {
+  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   window.SimpleBot = (function() {
 
     function SimpleBot(character) {
       this.character = character;
+      this.chat = __bind(this.chat, this);
+
     }
-    SimpleBot.prototype.chat2 = function(text) {
-        console.log("get text: " + text);
-        return "おはようございます♪";
-    }
+
     SimpleBot.prototype.chat = function(text) {
+      var commands, response,
+        _this = this;
+      commands = {
+        'ニュース表示': function() {
+          return window.onNews();
+        },
+        '挨拶:朝': function() {
+          return _this.character.dlg.show("おはようございます♪");
+        },
+        '挨拶:昼': function() {
+          return _this.character.dlg.show("こんにちはー。");
+        },
+        '挨拶:夜': function() {
+          _this.character.motion("喜び");
+          return _this.character.dlg.show("はい。良い夢を♪");
+        },
+        '得意なこと': function() {
+          return _this.character.dlg.show("歌をうたうのが得意です！");
+        },
+        '喜び': function() {
+          _this.character.motion("喜び");
+          return _this.character.dlg.show("ありがとうございます♪");
+        },
+        'その他': function(text) {
+          return _this.onUnknown(text);
+        }
+      };
       console.log("get text: " + text);
-      if (/ニュース/.test(text)) {
-        return window.onNews();
-      } else if (/おはよ/.test(text)) {
-        return this.character.dlg.show("おはようございます♪");
-      } else if (/こんにちは/.test(text)) {
-        return this.character.dlg.show("こんにちはー。");
-      } else if (/おやすみ/.test(text)) {
-        this.character.motion("喜び");
-        return this.character.dlg.show("はい。良い夢を♪");
-      } else if (/得意なことは/.test(text)) {
-        return this.character.dlg.show("歌をうたうのが得意です！");
-      } else if (/かわいい/.test(text)) {
-        this.character.motion("喜び");
-        return this.character.dlg.show("ありがとうございます♪");
-      } else {
-        return this.onUnknown(text);
-      }
+      response = /ニュース/.test(text) ? ['ニュース表示', []] : /おはよ/.test(text) ? ['挨拶:朝', []] : /こんにちは/.test(text) ? ['挨拶:昼', []] : /おやすみ/.test(text) ? ['挨拶:夜', []] : /得意なことは/.test(text) ? ['得意なこと', []] : /かわいい/.test(text) ? ['喜び', []] : ['その他', [text]];
+      return commands[response[0]].apply(this, response[1]);
     };
 
-    SimpleBot.prototype.onUnknown = function(text) {
+    return SimpleBot;
+
+  })();
+
+  ({
+    onUnknown: function(text) {
       var _this = this;
       return this.character.dlg.show("うーん、わたし「" + text + "」って知らないです。", function() {
         return _this.character.dlg.show("Webで検索してみてもいいですか？", function() {
@@ -46,10 +63,7 @@
           return $(".yesnoButton").fadeIn();
         });
       });
-    };
-
-    return SimpleBot;
-
-  })();
+    }
+  });
 
 }).call(this);
