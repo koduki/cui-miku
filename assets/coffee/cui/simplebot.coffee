@@ -24,7 +24,31 @@ class window.SimpleBot
       @commands[response[0]].apply(this, response[1])
 
   parse:(text) =>
-    if /ニュース/.test(text)
+    result = undefined
+    analysiser = window.morphologicalAnalysiser
+    analysiser.analyse ((r) ->
+      flag1 = false
+      flag2 = false
+      keyword=""
+      for word in r
+        if word.baseform.indexOf('近く') != -1
+          flag1 = true
+        if word.baseform.indexOf('探す') != -1
+          flag2 = true
+        if word.feature.indexOf('名詞') != -1 and word.feature.indexOf('一般') != -1 and word.feature.indexOf('接尾') == -1
+          keyword = word.surface
+      result = if flag1 == true and flag2 == true and keyword != ""
+        keyword
+      else
+        ""
+    ), text
+    # TODO danger
+    while(result == undefined)
+      true
+
+    if result != ""
+      ["地図検索",[result]]
+    else if /ニュース/.test(text)
       ['ニュース表示',[]]
     else if /おはよ/.test(text)
       ['挨拶:朝',[]]

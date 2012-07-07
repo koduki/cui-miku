@@ -43,7 +43,11 @@ test "chat parser - 喜び.\n", ->
   deepEqual bot.parse('かわいい'), ['喜び',[]], '\n'
   deepEqual bot.parse('すごいね'), ['喜び',[]], '\n'
   deepEqual bot.parse('凄いね'), ['喜び',[]], '\n'
-
+  
+test "chat parser - 地図検索.\n", ->
+  bot = new window.SimpleBot()
+  deepEqual bot.parse('近くのラーメン屋探して'), ['地図検索',['ラーメン']], '\n'
+  
 test "chat parser - その他.\n", ->
   bot = new window.SimpleBot()
   deepEqual bot.parse('ラーメン'), ['その他',['ラーメン']], '\n'

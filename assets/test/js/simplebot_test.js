@@ -61,6 +61,12 @@
     return deepEqual(bot.parse('凄いね'), ['喜び', []], '\n');
   });
 
+  test("chat parser - 地図検索.\n", function() {
+    var bot;
+    bot = new window.SimpleBot();
+    return deepEqual(bot.parse('近くのラーメン屋探して'), ['地図検索', ['ラーメン']], '\n');
+  });
+
   test("chat parser - その他.\n", function() {
     var bot;
     bot = new window.SimpleBot();

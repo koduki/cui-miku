@@ -47,7 +47,34 @@
     };
 
     SimpleBot.prototype.parse = function(text) {
-      if (/ニュース/.test(text)) {
+      var analysiser, result;
+      result = void 0;
+      analysiser = window.morphologicalAnalysiser;
+      analysiser.analyse((function(r) {
+        var flag1, flag2, keyword, word, _i, _len;
+        flag1 = false;
+        flag2 = false;
+        keyword = "";
+        for (_i = 0, _len = r.length; _i < _len; _i++) {
+          word = r[_i];
+          if (word.baseform.indexOf('近く') !== -1) {
+            flag1 = true;
+          }
+          if (word.baseform.indexOf('探す') !== -1) {
+            flag2 = true;
+          }
+          if (word.feature.indexOf('名詞') !== -1 && word.feature.indexOf('一般') !== -1 && word.feature.indexOf('接尾') === -1) {
+            keyword = word.surface;
+          }
+        }
+        return result = flag1 === true && flag2 === true && keyword !== "" ? keyword : "";
+      }), text);
+      while (result === void 0) {
+        true;
+      }
+      if (result !== "") {
+        return ["地図検索", [result]];
+      } else if (/ニュース/.test(text)) {
         return ['ニュース表示', []];
       } else if (/おはよ/.test(text)) {
         return ['挨拶:朝', []];
