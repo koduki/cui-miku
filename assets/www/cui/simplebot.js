@@ -75,9 +75,6 @@
         }
         return result = flag1 === true && flag2 === true && keyword !== "" ? keyword : "";
       }), text);
-      while (result === void 0) {
-        true;
-      }
       if (result !== "") {
         return ["地図検索", [result]];
       } else if (/ニュース/.test(text)) {

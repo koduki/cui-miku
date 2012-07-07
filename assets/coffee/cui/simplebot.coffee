@@ -46,8 +46,8 @@ class window.SimpleBot
         ""
     ), text
     # TODO danger
-    while(result == undefined)
-      true
+   # while(result == undefined)
+    #  true
 
     if result != ""
       ["地図検索",[result]]
