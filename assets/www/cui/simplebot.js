@@ -4,15 +4,15 @@
   window.SimpleBot = (function() {
 
     function SimpleBot(character) {
+      var _this = this;
       this.character = character;
+      this.onUnknown = __bind(this.onUnknown, this);
+
+      this.parse = __bind(this.parse, this);
+
       this.chat = __bind(this.chat, this);
 
-    }
-
-    SimpleBot.prototype.chat = function(text) {
-      var commands, response,
-        _this = this;
-      commands = {
+      this.commands = {
         'ニュース表示': function() {
           return window.onNews();
         },
@@ -37,17 +37,34 @@
           return _this.onUnknown(text);
         }
       };
+    }
+
+    SimpleBot.prototype.chat = function(text) {
+      var response;
       console.log("get text: " + text);
-      response = /ニュース/.test(text) ? ['ニュース表示', []] : /おはよ/.test(text) ? ['挨拶:朝', []] : /こんにちは/.test(text) ? ['挨拶:昼', []] : /おやすみ/.test(text) ? ['挨拶:夜', []] : /得意なことは/.test(text) ? ['得意なこと', []] : /かわいい/.test(text) ? ['喜び', []] : ['その他', [text]];
-      return commands[response[0]].apply(this, response[1]);
+      response = parse(text);
+      return this.commands[response[0]].apply(this, response[1]);
     };
 
-    return SimpleBot;
+    SimpleBot.prototype.parse = function(text) {
+      if (/ニュース/.test(text)) {
+        return ['ニュース表示', []];
+      } else if (/おはよ/.test(text)) {
+        return ['挨拶:朝', []];
+      } else if (/こんにちは/.test(text)) {
+        return ['挨拶:昼', []];
+      } else if (/おやすみ/.test(text)) {
+        return ['挨拶:夜', []];
+      } else if (/得意なことは/.test(text)) {
+        return ['得意なこと', []];
+      } else if (/かわいい/.test(text)) {
+        return ['喜び', []];
+      } else {
+        return ['その他', [text]];
+      }
+    };
 
-  })();
-
-  ({
-    onUnknown: function(text) {
+    SimpleBot.prototype.onUnknown = function(text) {
       var _this = this;
       return this.character.dlg.show("うーん、わたし「" + text + "」って知らないです。", function() {
         return _this.character.dlg.show("Webで検索してみてもいいですか？", function() {
@@ -63,7 +80,10 @@
           return $(".yesnoButton").fadeIn();
         });
       });
-    }
-  });
+    };
+
+    return SimpleBot;
+
+  })();
 
 }).call(this);
