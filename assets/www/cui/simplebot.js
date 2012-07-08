@@ -19,17 +19,11 @@
         '地図検索': function(keyword) {
           return _this.character.dlg.show("近くの「" + keyword + "」を探すんですね.", function() {
             return _this.character.dlg.show("地図を表示します。", function() {
-              navigator.geolocation.getCurrentPosition(function(position) {
-                return (function(lat, lon) {
-                  var url;
-                  url = 'http://maps.google.co.jp/maps?q=' + encodeURI(keyword) + '&hl=ja&ie=UTF8&ll=' + lat + "," + lon;
-                  console.log("open:url" + url);
-                  return console.log("opened:url");
-                })(position.coords.latitude, position.coords.longitude);
-              }, function() {
-                return alert('コード: ' + error.code + '\n' + 'メッセージ: ' + error.message + '\n');
-              });
-              return window.open('http://www.googole.co.jp');
+              var url;
+              url = 'http://maps.google.co.jp/maps?q=' + encodeURI(keyword) + '&hl=ja&ie=UTF8&ll=' + Location.latitude + "," + Location.longitude;
+              console.log("open:url" + url);
+              window.open(url);
+              return console.log("open:end");
             });
           });
         },
