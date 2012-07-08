@@ -3721,7 +3721,6 @@ var port = null,
 
               // If error, revert to polling
               else {
-                  console.log("status"+xmlhttp.status);
                   console.log("JSCallback Error: Request failed.");
                   cordova.UsePolling = true;
                   polling();
