@@ -229,7 +229,7 @@
       options = {
         frequency: 3000
       };
-      return watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
+      return watchID = navigator.geolocation.watchPosition(Location.onSuccess, Location.onError, options);
     },
     onSuccess: function(position) {
       Location.latitude = position.coords.latitude;

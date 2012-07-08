@@ -152,7 +152,7 @@ window.Location =
     console.log "onGeolocationReady"
     options = 
       frequency : 3000
-    watchID = navigator.geolocation.watchPosition(onSuccess, onError, options)
+    watchID = navigator.geolocation.watchPosition(Location.onSuccess, Location.onError, options)
 
   onSuccess:(position) ->
     Location.latitude = position.coords.latitude
