@@ -20,7 +20,7 @@
           return _this.character.dlg.show("近くの「" + keyword + "」を探すんですね.", function() {
             return _this.character.dlg.show("地図を表示します。", function() {
               var url;
-              url = 'http://maps.google.co.jp/maps?q=' + encodeURI(keyword) + '&hl=ja&ie=UTF8&ll=' + Location.latitude + "," + Location.longitude;
+              url = 'http://maps.google.co.jp/maps?q=' + encodeURI(keyword) + '&hl=ja&ie=UTF8&ll=' + window.Location.latitude + "," + window.Location.longitude;
               console.log("open:url" + url);
               window.open(url);
               return console.log("open:end");

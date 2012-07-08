@@ -6,7 +6,7 @@ class window.SimpleBot
       '地図検索': (keyword)=>
         @character.dlg.show "近くの「" + keyword + "」を探すんですね.", =>
           @character.dlg.show "地図を表示します。", =>
-            url = 'http://maps.google.co.jp/maps?q=' + encodeURI(keyword) + '&hl=ja&ie=UTF8&ll=' + Location.latitude + "," + Location.longitude
+            url = 'http://maps.google.co.jp/maps?q=' + encodeURI(keyword) + '&hl=ja&ie=UTF8&ll=' + window.Location.latitude + "," + window.Location.longitude
             console.log("open:url" + url)
             window.open(url)
             console.log("open:end")
