@@ -21,7 +21,7 @@
             return _this.character.dlg.show("地図を表示します。", function() {
               return navigator.geolocation.getCurrentPosition(function(position) {
                 var url;
-                url = 'https://maps.google.co.jp/maps?q=' + encodeURI(keyword) + '&hl=ja&ie=UTF8&ll=' + position.coords.latitude + ", " + position.coords.longitude;
+                url = 'http://maps.google.co.jp/maps?q=' + encodeURI(keyword) + '&hl=ja&ie=UTF8&ll=' + position.coords.latitude + "," + position.coords.longitude;
                 console.log(url);
                 return window.open(url);
               }, function() {
