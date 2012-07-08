@@ -190,7 +190,7 @@
   window.Speech = {
     chatbot: null,
     onDeviceReady: function() {
-      console.log("onDeviceReady");
+      console.log("onSpeechRecognizerReady");
       return window.plugins.speechrecognizer.init(Speech.speechInitOk, Speech.speechInitFail);
     },
     speechInitOk: function() {},
@@ -219,6 +219,12 @@
     },
     speechFail: function(m) {
       return console.log("speechFail: " + m.toString());
+    }
+  };
+
+  window.Location = {
+    onDeviceReady: function() {
+      return console.log("onGeolocationReady");
     }
   };
 

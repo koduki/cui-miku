@@ -119,7 +119,7 @@ window.showArea = (sprite, area) ->
 window.Speech =
   chatbot: null
   onDeviceReady: ->
-    console.log "onDeviceReady"
+    console.log "onSpeechRecognizerReady"
     window.plugins.speechrecognizer.init Speech.speechInitOk, Speech.speechInitFail
 
   speechInitOk: ->
@@ -146,6 +146,11 @@ window.Speech =
 
   speechFail: (m) ->
     console.log "speechFail: " + m.toString()
+
+window.Location =
+  onDeviceReady: ->
+    console.log "onGeolocationReady"
+
 
 class window.FlickWindow
   constructor:(@height, @width) ->
