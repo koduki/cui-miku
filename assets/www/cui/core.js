@@ -232,8 +232,8 @@
       return watchID = navigator.geolocation.watchPosition(Location.onSuccess, Location.onError, options);
     },
     onSuccess: function(position) {
-      Location.latitude = 35.562479;
-      return Location.longitude = 139.716051;
+      Location.latitude = position.coords.latitude;
+      return Location.longitude = position.coords.longitude;
     },
     onError: function(error) {
       return alert('コード: ' + error.code + '\n' + 'メッセージ: ' + error.message);

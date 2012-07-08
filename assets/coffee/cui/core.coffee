@@ -155,10 +155,10 @@ window.Location =
     watchID = navigator.geolocation.watchPosition(Location.onSuccess, Location.onError, options)
 
   onSuccess:(position) ->
-    #Location.latitude = position.coords.latitude
-    #Location.longitude = position.coords.longitude
-    Location.latitude = 35.562479
-    Location.longitude = 139.716051
+    Location.latitude = position.coords.latitude
+    Location.longitude = position.coords.longitude
+    #Location.latitude = 35.562479
+    #Location.longitude = 139.716051
 
   onError:(error) ->
     alert('コード: ' + error.code + '\n' + 'メッセージ: ' + error.message)
