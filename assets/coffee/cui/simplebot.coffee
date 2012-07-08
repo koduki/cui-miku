@@ -9,11 +9,12 @@ class window.SimpleBot
             navigator.geolocation.getCurrentPosition (position) ->
               ((lat, lon) ->
                 url = 'http://maps.google.co.jp/maps?q=' + encodeURI(keyword) + '&hl=ja&ie=UTF8&ll=' + lat + "," + lon
-                console.log("open:url")
-                window.open(url)
+                console.log("open:url" + url)
+                #window.open(url)
                 console.log("opened:url")
                 )(position.coords.latitude, position.coords.longitude)
             , -> alert('コード: '    + error.code    + '\n' + 'メッセージ: ' + error.message + '\n');
+            window.open('http://www.googole.co.jp')
       '挨拶:朝': => 
         @character.dlg.show "おはようございます♪"
       '挨拶:昼': => 
