@@ -20,7 +20,7 @@
           return _this.character.dlg.show("近くの「" + keyword + "」を探すんですね.", function() {
             return _this.character.dlg.show("地図を表示します。", function() {
               var url;
-              url = 'http://maps.google.co.jp/maps?q=' + encodeURI(keyword) + '&hl=ja&ie=UTF8&sll=' + window.Location.latitude + "," + window.Location.longitude;
+              url = 'http://maps.google.co.jp/maps?q=' + encodeURI(keyword) + '&hl=ja&ie=UTF8&sll=' + window.Location.latitude + "," + window.Location.longitude + '&ll=' + window.Location.latitude + "," + window.Location.longitude;
               console.log("open" + url);
               return window.open(url);
             });
@@ -58,10 +58,11 @@
     };
 
     SimpleBot.prototype.parse = function(text, callback) {
-      var analysiser;
+      var analysiser, searchLocation,
+        _this = this;
       analysiser = window.plugins.morphologicalAnalysiser;
-      return analysiser.analyse((function(r) {
-        var flag1, flag2, keyword, result, word, _i, _len;
+      searchLocation = function(r) {
+        var flag1, flag2, keyword, word, _i, _len;
         flag1 = false;
         flag2 = false;
         for (_i = 0, _len = r.length; _i < _len; _i++) {
@@ -76,7 +77,15 @@
             keyword = word.surface;
           }
         }
-        result = flag1 === true && flag2 === true && keyword !== "" ? ["地図検索", [keyword]] : /ニュース/.test(text) ? ['ニュース表示', []] : /おはよ/.test(text) ? ['挨拶:朝', []] : /こんにちは/.test(text) ? ['挨拶:昼', []] : /こんにちわ/.test(text) ? ['挨拶:昼', []] : /おやすみ/.test(text) ? ['挨拶:夜', []] : /得意なこと/.test(text) ? ['得意なこと', []] : /特技は/.test(text) ? ['得意なこと', []] : /特技を/.test(text) ? ['得意なこと', []] : /かわいい/.test(text) ? ['喜び', []] : /すごいね/.test(text) ? ['喜び', []] : /可愛い/.test(text) ? ['喜び', []] : /凄いね/.test(text) ? ['喜び', []] : ['その他', [text]];
+        if (flag1 === true && flag2 === true && keyword !== "") {
+          return keyword;
+        } else {
+          return "";
+        }
+      };
+      return analysiser.analyse((function(r) {
+        var keyword, result;
+        result = (keyword = searchLocation(r)) !== "" ? ["地図検索", [keyword]] : /ニュース/.test(text) ? ['ニュース表示', []] : /おはよ/.test(text) ? ['挨拶:朝', []] : /こんにちは/.test(text) ? ['挨拶:昼', []] : /こんにちわ/.test(text) ? ['挨拶:昼', []] : /おやすみ/.test(text) ? ['挨拶:夜', []] : /得意なこと/.test(text) ? ['得意なこと', []] : /特技は/.test(text) ? ['得意なこと', []] : /特技を/.test(text) ? ['得意なこと', []] : /かわいい/.test(text) ? ['喜び', []] : /すごいね/.test(text) ? ['喜び', []] : /可愛い/.test(text) ? ['喜び', []] : /凄いね/.test(text) ? ['喜び', []] : ['その他', [text]];
         return callback(result);
       }), text);
     };

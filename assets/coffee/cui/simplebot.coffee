@@ -6,7 +6,7 @@ class window.SimpleBot
       '地図検索': (keyword)=>
         @character.dlg.show "近くの「" + keyword + "」を探すんですね.", =>
           @character.dlg.show "地図を表示します。", =>
-            url = 'http://maps.google.co.jp/maps?q=' + encodeURI(keyword) + '&hl=ja&ie=UTF8&sll=' + window.Location.latitude + "," + window.Location.longitude
+            url = 'http://maps.google.co.jp/maps?q=' + encodeURI(keyword) + '&hl=ja&ie=UTF8&sll=' + window.Location.latitude + "," + window.Location.longitude + '&ll=' + window.Location.latitude + "," + window.Location.longitude;
             console.log("open" + url)
             window.open(url)
       '挨拶:朝': => 
@@ -30,7 +30,7 @@ class window.SimpleBot
 
   parse:(text, callback) =>
     analysiser = window.plugins.morphologicalAnalysiser
-    analysiser.analyse ((r) ->
+    searchLocation = (r) =>
       flag1 = false
       flag2 = false
       for word in r
@@ -40,8 +40,13 @@ class window.SimpleBot
           flag2 = true
         if word.feature.indexOf('名詞') != -1 and word.feature.indexOf('一般') != -1 and word.feature.indexOf('接尾') == -1
           keyword = word.surface
-
-      result = if flag1 == true and flag2 == true and keyword != ""
+      if flag1 == true and flag2 == true and keyword != ""
+        keyword
+      else
+         ""
+ 
+    analysiser.analyse ((r) ->
+      result = if (keyword = searchLocation(r)) != ""
         ["地図検索",[keyword]]
       else if /ニュース/.test(text)
         ['ニュース表示',[]]
