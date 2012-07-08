@@ -224,7 +224,19 @@
 
   window.Location = {
     onDeviceReady: function() {
-      return console.log("onGeolocationReady");
+      var options, watchID;
+      console.log("onGeolocationReady");
+      options = {
+        frequency: 3000
+      };
+      return watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
+    },
+    onSuccess: function(position) {
+      Location.latitude = position.coords.latitude;
+      return Location.longitude = position.coords.longitude;
+    },
+    onError: function(error) {
+      return alert('コード: ' + error.code + '\n' + 'メッセージ: ' + error.message);
     }
   };
 

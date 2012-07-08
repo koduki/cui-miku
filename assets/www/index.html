@@ -22,28 +22,11 @@
                 document.addEventListener("deviceready", function() {
                     Speech.onDeviceReady()
                     Location.onDeviceReady()
-                    var options = {
-                        frequency : 3000
-                    };
-                    watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
                 }, false);
                 $('#firstitem').flickSimple({
                     snap : "first"
                 });
-
             })
-            // onSuccess Geolocation
-            //
-            function onSuccess(position) {
-                Location.latitude = position.coords.latitude;
-                Location.longitude = position.coords.longitude;
-            }
-
-            // 失敗時のコールバックは、PositionErrorオブジェクトを受けとる
-            //
-            function onError(error) {
-                alert('コード: ' + error.code + '\n' + 'メッセージ: ' + error.message + '\n');
-            }
         </script>
     </head>
     <body>

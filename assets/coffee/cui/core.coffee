@@ -150,6 +150,16 @@ window.Speech =
 window.Location =
   onDeviceReady: ->
     console.log "onGeolocationReady"
+    options = 
+      frequency : 3000
+    watchID = navigator.geolocation.watchPosition(onSuccess, onError, options)
+
+  onSuccess:(position) ->
+    Location.latitude = position.coords.latitude
+    Location.longitude = position.coords.longitude
+
+  onError:(error) ->
+    alert('コード: ' + error.code + '\n' + 'メッセージ: ' + error.message)
 
 
 class window.FlickWindow

@@ -6,10 +6,9 @@ class window.SimpleBot
       '地図検索': (keyword)=>
         @character.dlg.show "近くの「" + keyword + "」を探すんですね.", =>
           @character.dlg.show "地図を表示します。", =>
-            url = 'http://maps.google.co.jp/maps?q=' + encodeURI(keyword) + '&hl=ja&ie=UTF8&ll=' + window.Location.latitude + "," + window.Location.longitude
-            console.log("open:url" + url)
+            url = 'http://maps.google.co.jp/maps?q=' + encodeURI(keyword) + '&hl=ja&ie=UTF8&sll=' + window.Location.latitude + "," + window.Location.longitude
+            console.log("open" + url)
             window.open(url)
-            console.log("open:end")
       '挨拶:朝': => 
         @character.dlg.show "おはようございます♪"
       '挨拶:昼': => 
@@ -73,10 +72,6 @@ class window.SimpleBot
 
       callback(result)
     ), text
-    # TODO danger
-   # while(result == undefined)
-    #  true
-
 
   onUnknown:(text) =>
     @character.dlg.show "うーん、わたし「" + text + "」って知らないです。", =>
