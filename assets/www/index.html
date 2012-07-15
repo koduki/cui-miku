@@ -9,6 +9,7 @@
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <link rel="stylesheet" href="css/default.css" type="text/css" media="all">
         <script type="text/javascript" charset="utf-8" src="cordova-1.8.1.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/childbrowser.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/SpeechRecognizer.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/MorphologicalAnalysiser.js"></script>
         <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
@@ -22,6 +23,7 @@
                 document.addEventListener("deviceready", function() {
                     Speech.onDeviceReady()
                     Location.onDeviceReady()
+                    window.plugins.childBrowser.showWebPage("http://google.com");
                 }, false);
                 $('#firstitem').flickSimple({
                     snap : "first"
