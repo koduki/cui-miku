@@ -23,7 +23,35 @@
                 document.addEventListener("deviceready", function() {
                     Speech.onDeviceReady()
                     Location.onDeviceReady()
-                    window.plugins.childBrowser.showWebPage("http://google.com");
+                    
+                    window.plugins.childBrowser.onLocationChange = function(loc){
+						var code_match = loc.match(/\?code=(.+)$/)
+						if(code_match != null){
+							var code = code_match[1]
+							window.plugins.childBrowser.close();
+							$.ajax(
+								{
+									type:'post',
+									url:"https://accounts.google.com/o/oauth2/token", 
+									data:{
+										"client_id":"150899810974.apps.googleusercontent.com",
+										"client_secret":"xZNP0yvUqP9Neul9dbF9m_9g",
+										"redirect_uri":"http%3A%2F%2Flocalhost",
+										"grant_type":"authorization_code",
+										"code":code
+									}, 
+									success:function(data){
+										alert(data)
+										alert(data["access_token"])
+									}
+								})
+							}
+						
+					}
+                    
+                    var url = "https://accounts.google.com/o/oauth2/auth?client_id=150899810974.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar&response_type=code"
+                    window.plugins.childBrowser.showWebPage(url);
+                    
                 }, false);
                 $('#firstitem').flickSimple({
                     snap : "first"
