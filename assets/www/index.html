@@ -23,29 +23,7 @@
                 document.addEventListener("deviceready", function() {
                     Speech.onDeviceReady()
                     Location.onDeviceReady()
-                    f2 = function() {
-                        $.ajax({
-                            type : "POST",
-                            url : "https://accounts.google.com/o/oauth2/token",
-                            data : {
-                                client_id : "150899810974.apps.googleusercontent.com",
-                                client_secret : "xZNP0yvUqP9Neul9dbF9m_9g",
-                                redirect_uri : "http://localhost",
-                                grant_type : "authorization_code",
-                                code : '4/zAb7bJaHOJJaNW7fUU4t4WAgHSwL.go3EmT9zVIQdgrKXntQAax2-VmlScQI'
-                            },
-                            success : function(data) {
-                                alert("hello")
-                                console.log("access_token" + data["access_token"])
-                                console.log("refresh_token" + data["refresh_token"])
 
-                            },
-                            error : function(jqXHR, textStatus, errorThrown) {
-                                alert(jqXHR.responseText + 'textStatus: ' + textStatus + ', errorThrown: ' + errorThrown);
-                            }
-                        });
-
-                    }
                     f = function() {
                         window.plugins.childBrowser.onLocationChange = function(loc) {
                             var code_match = loc.match(/\?code=(.+)$/)
@@ -66,7 +44,8 @@
                                     },
                                     success : function(data) {
                                         alert("hello")
-                                        alert(data["access_token"])
+                                        console.log("access_token: " + data["access_token"])
+                                        console.log("refresh_token: " + data["refresh_token"])
                                     },
                                     error : function(jqXHR, textStatus, errorThrown) {
                                         alert(jqXHR.responseText + 'textStatus: ' + textStatus + ', errorThrown: ' + errorThrown);
