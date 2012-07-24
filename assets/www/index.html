@@ -43,9 +43,24 @@
                                         code : code2
                                     },
                                     success : function(data) {
-                                        alert("hello")
+                                        alert("hello2")
                                         console.log("access_token: " + data["access_token"])
                                         console.log("refresh_token: " + data["refresh_token"])
+                                        $.ajax({
+                                            type:"GET",
+                                            url:"https://www.googleapis.com/calendar/v3/users/me/calendarList?key=" +data["access_token"],
+                                            success :function(data2){
+                                                alert(data2["items"][0]["summary"]);    
+                                        
+                                                    } ,
+                                                                               success :function(data2){
+                                                alert(data2["items"][0]["summary"]);    
+                                        
+                                                    } ,
+                                                 error : function(jqXHR, textStatus, errorThrown) {
+                                        alert(jqXHR.responseText + 'textStatus: ' + textStatus + ', errorThrown: ' + errorThrown);
+                                    }
+                                        })
                                     },
                                     error : function(jqXHR, textStatus, errorThrown) {
                                         alert(jqXHR.responseText + 'textStatus: ' + textStatus + ', errorThrown: ' + errorThrown);
