@@ -40,4 +40,5 @@
     <!-- ChildBrowserプラグイン -->
     <plugin name="ChildBrowser" value="com.phonegap.plugins.childBrowser.ChildBrowser"/>
     <plugin name="MorphologicalAnalysiser" value="cn.orz.pascal.phonegap.MorphologicalAnalysiserPlugin"/>
+    
 </plugins>

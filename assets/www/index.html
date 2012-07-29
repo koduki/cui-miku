@@ -12,6 +12,7 @@
         <script type="text/javascript" charset="utf-8" src="js/childbrowser.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/SpeechRecognizer.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/MorphologicalAnalysiser.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/Ruby.js"></script>
         <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
         <script type="text/javascript" src="js/jquery.flicksimple.js"></script>
         <script type="text/javascript" src="cui/core.js"></script>
@@ -47,19 +48,19 @@
                                         console.log("access_token: " + data["access_token"])
                                         console.log("refresh_token: " + data["refresh_token"])
                                         $.ajax({
-                                            type:"GET",
-                                            url:"https://www.googleapis.com/calendar/v3/users/me/calendarList?key=" +data["access_token"],
-                                            success :function(data2){
-                                                alert(data2["items"][0]["summary"]);    
-                                        
-                                                    } ,
-                                                                               success :function(data2){
-                                                alert(data2["items"][0]["summary"]);    
-                                        
-                                                    } ,
-                                                 error : function(jqXHR, textStatus, errorThrown) {
-                                        alert(jqXHR.responseText + 'textStatus: ' + textStatus + ', errorThrown: ' + errorThrown);
-                                    }
+                                            type : "GET",
+                                            url : "https://www.googleapis.com/calendar/v3/users/me/calendarList?key=" + data["access_token"],
+                                            success : function(data2) {
+                                                alert(data2["items"][0]["summary"]);
+
+                                            },
+                                            success : function(data2) {
+                                                alert(data2["items"][0]["summary"]);
+
+                                            },
+                                            error : function(jqXHR, textStatus, errorThrown) {
+                                                alert(jqXHR.responseText + 'textStatus: ' + textStatus + ', errorThrown: ' + errorThrown);
+                                            }
                                         })
                                     },
                                     error : function(jqXHR, textStatus, errorThrown) {
@@ -84,7 +85,6 @@
             <a href='javascript:onHome()'><img id="home" src="cui/Droid.png" /></a>
             <a href='javascript:onNews()'><img id="rss" src="cui/RSS.png" /></a>
         </header>
-        <a href='javascript:f()'>button</a>
         <div id="character"></div>
         <div id="yesButton" class="yesnoButton">
             OK
