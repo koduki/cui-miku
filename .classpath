@@ -9,6 +9,6 @@
 	<classpathentry kind="lib" path="libs/cordova-1.8.1.jar"/>
 	<classpathentry kind="lib" path="libs/sanmoku-0.0.6.jar"/>
 	<classpathentry kind="lib" path="libs/sanmoku-feature-ex-0.0.1.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/icedtea-bin-6.1.11.3"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
