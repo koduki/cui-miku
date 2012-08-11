@@ -84,6 +84,9 @@ ChildBrowser.install = function(){
 /**
  * Load ChildBrowser
  */
-cordova.addConstructor(function() {
-    cordova.addPlugin("childBrowser", new ChildBrowser());
-});
+if(!window.plugins) {
+    window.plugins = {};
+}
+if (!window.plugins.tts) {
+    window.plugins.childBrowser =  new ChildBrowser();
+}

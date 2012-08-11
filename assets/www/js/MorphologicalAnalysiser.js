@@ -26,8 +26,10 @@ MorphologicalAnalysiser.prototype.analyse = function(successCallback, text) {
 /**
  * Load 
  */ 
-cordova.addConstructor(function() {
-    cordova.addPlugin("morphologicalAnalysiser", new MorphologicalAnalysiser());
-});
-
+if(!window.plugins) {
+    window.plugins = {};
+}
+if (!window.plugins.tts) {
+    window.plugins.morphologicalAnalysiser = new MorphologicalAnalysiser();
+}
 
