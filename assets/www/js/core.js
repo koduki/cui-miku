@@ -168,6 +168,7 @@
       }
       this.textarea.html(msg);
       this.obj.show();
+      TextToSpeech.speak(msg);
       return setTimeout((function() {
         return _this.obj.fadeOut("fast", function() {
           if (jQuery.isFunction(callback)) {
@@ -237,6 +238,33 @@
     },
     onError: function(error) {
       return alert('コード: ' + error.code + '\n' + 'メッセージ: ' + error.message);
+    }
+  };
+
+  window.TextToSpeech = {
+    isReady: false,
+    onDeviceReady: function() {
+      console.log("onTextToSpeechReady");
+      return window.plugins.tts.startup(TextToSpeech.startupWin, TextToSpeech.fail);
+    },
+    startupWin: function(result) {
+      if (result === TTS.STARTED) {
+        window.plugins.tts.setLanguage("ja", TextToSpeech.win, TextToSpeech.fail);
+        return TextToSpeech.isReady = true;
+      }
+    },
+    win: function(result) {
+      return console.log(result);
+    },
+    fail: function(result) {
+      return console.log("Error = " + result);
+    },
+    speak: function(text) {
+      if (TextToSpeech.isReady) {
+        return window.plugins.tts.speak(text);
+      } else {
+        return console.log("WARNING:TTS is not ready.");
+      }
     }
   };
 

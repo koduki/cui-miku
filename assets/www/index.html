@@ -12,7 +12,7 @@
         <script type="text/javascript" charset="utf-8" src="js/childbrowser.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/SpeechRecognizer.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/MorphologicalAnalysiser.js"></script>
-        <script type="text/javascript" charset="utf-8" src="js/Ruby.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/tts.js"></script>
         <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
         <script type="text/javascript" src="js/jquery.flicksimple.js"></script>
         <script type="text/javascript" src="cui/core.js"></script>
@@ -24,59 +24,8 @@
                 document.addEventListener("deviceready", function() {
                     Speech.onDeviceReady()
                     Location.onDeviceReady()
-
-                    f = function() {
-                        window.plugins.childBrowser.onLocationChange = function(loc) {
-                            var code_match = loc.match(/\?code=(.+)$/)
-                            if (code_match != null) {
-                                var code2 = code_match[1]
-                                window.plugins.childBrowser.close();
-                                alert(code2)
-                                console.log(code2)
-                                $.ajax({
-                                    type : "POST",
-                                    url : "https://accounts.google.com/o/oauth2/token",
-                                    data : {
-                                        client_id : "150899810974.apps.googleusercontent.com",
-                                        client_secret : "xZNP0yvUqP9Neul9dbF9m_9g",
-                                        redirect_uri : "http://localhost",
-                                        grant_type : "authorization_code",
-                                        code : code2
-                                    },
-                                    success : function(data) {
-                                        alert("hello2")
-                                        console.log("access_token: " + data["access_token"])
-                                        console.log("refresh_token: " + data["refresh_token"])
-                                        $.ajax({
-                                            type : "GET",
-                                            url : "https://www.googleapis.com/calendar/v3/users/me/calendarList?key=" + data["access_token"],
-                                            success : function(data2) {
-                                                alert(data2["items"][0]["summary"]);
-
-                                            },
-                                            success : function(data2) {
-                                                alert(data2["items"][0]["summary"]);
-
-                                            },
-                                            error : function(jqXHR, textStatus, errorThrown) {
-                                                alert(jqXHR.responseText + 'textStatus: ' + textStatus + ', errorThrown: ' + errorThrown);
-                                            }
-                                        })
-                                    },
-                                    error : function(jqXHR, textStatus, errorThrown) {
-                                        alert(jqXHR.responseText + 'textStatus: ' + textStatus + ', errorThrown: ' + errorThrown);
-                                    }
-                                })
-                            }
-
-                        }
-                        var url = "https://accounts.google.com/o/oauth2/auth?client_id=150899810974.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar&response_type=code"
-                        window.plugins.childBrowser.showWebPage(url);
-                    }
-                }, false);
-                $('#firstitem').flickSimple({
-                    snap : "first"
-                });
+                    TextToSpeech.onDeviceReady()
+            	})
             })
         </script>
     </head>

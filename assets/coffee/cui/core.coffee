@@ -107,6 +107,7 @@ class window.Dialog
       interval = arg1
     @textarea.html msg
     @obj.show()
+    TextToSpeech.speak(msg)
     setTimeout (=>
       @obj.fadeOut "fast", ->
         callback()  if jQuery.isFunction(callback)
@@ -163,7 +164,29 @@ window.Location =
   onError:(error) ->
     alert('コード: ' + error.code + '\n' + 'メッセージ: ' + error.message)
 
+window.TextToSpeech =
+  isReady:false
+  onDeviceReady: ->
+    console.log "onTextToSpeechReady"
+    window.plugins.tts.startup(TextToSpeech.startupWin, TextToSpeech.fail)
 
+  startupWin:(result) ->
+    if result == TTS.STARTED
+      window.plugins.tts.setLanguage("ja", TextToSpeech.win, TextToSpeech.fail)
+      TextToSpeech.isReady = true
+
+  win:(result) ->
+    console.log(result);
+
+  fail:(result) ->
+    console.log("Error = " + result)
+
+  speak:(text) ->
+    if TextToSpeech.isReady
+      window.plugins.tts.speak(text)
+    else
+      console.log("WARNING:TTS is not ready.")
+    
 class window.FlickWindow
   constructor:(@height, @width) ->
     @obj = $("<div id=\"firstitem\" class=\"flickSimple\" style=\"overflow: hidden; \"><ul /></div>")
