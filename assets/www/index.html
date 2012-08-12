@@ -3,43 +3,60 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" manifest="cache.manifest">
 -->
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
-    <head>
-        <meta charset="utf-8" />
-        <title>CUI-Miku</title>
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <link rel="stylesheet" href="css/default.css" type="text/css" media="all">
-        <script type="text/javascript" charset="utf-8" src="cordova-2.0.0.js"></script>
-        <script type="text/javascript" charset="utf-8" src="js/childbrowser.js"></script>
-        <script type="text/javascript" charset="utf-8" src="js/SpeechRecognizer.js"></script>
-        <script type="text/javascript" charset="utf-8" src="js/MorphologicalAnalysiser.js"></script>
-        <script type="text/javascript" charset="utf-8" src="js/tts.js"></script>
-        <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
-        <script type="text/javascript" src="js/jquery.flicksimple.js"></script>
-        <script type="text/javascript" src="cui/core.js"></script>
-        <script type="text/javascript" src="cui/simplebot.js"></script>
-        <script type="text/javascript" src="cui/function.js"></script>
-        <script type="text/javascript" src="cui/chara/miku/script.js"></script>
-        <script type="text/javascript">
-            $(function() {
-                document.addEventListener("deviceready", function() {
-                    Speech.onDeviceReady()
-                    Location.onDeviceReady()
-                    TextToSpeech.onDeviceReady()
-            	})
-            })
-        </script>
-    </head>
-    <body>
-        <header>
-            <a href='javascript:onHome()'><img id="home" src="cui/Droid.png" /></a>
-            <a href='javascript:onNews()'><img id="rss" src="cui/RSS.png" /></a>
-        </header>
-        <div id="character"></div>
-        <div id="yesButton" class="yesnoButton">
-            OK
-        </div>
-        <div id="noButton" class="yesnoButton">
-            NG
-        </div>
-    </body>
+	<head>
+		<meta charset="utf-8" />
+		<title>CUI-Miku</title>
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<link rel="stylesheet" href="css/default.css" type="text/css" media="all">
+		<script type="text/javascript" charset="utf-8" src="cordova-2.0.0.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/childbrowser.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/SpeechRecognizer.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/MorphologicalAnalysiser.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/tts.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/jquery.flicksimple.js"></script>
+		<script type="text/javascript" charset="utf-8" src="cui/core.js"></script>
+		<script type="text/javascript" charset="utf-8" src="cui/simplebot.js"></script>
+		<script type="text/javascript" charset="utf-8" src="cui/function.js"></script>
+		<script type="text/javascript" charset="utf-8" src="cui/chara/miku/script.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				document.addEventListener("deviceready", function() {
+					Speech.onDeviceReady()
+					Location.onDeviceReady()
+					TextToSpeech.onDeviceReady()
+
+					window.plugins.childBrowser.onLocationChange = function(loc) {
+						var code_match = loc.match(/&access_token=(.+?)&/)
+						if (code_match) {
+							console.log("LocalChange success;" + code_match)
+							var code = code_match[1]
+							alert(code)
+							console.log(code)
+							window.plugins.childBrowser.close()
+						}else{
+							console.log("LocalChange unmatch:" + loc);
+						}
+					}
+					var url = "https://accounts.google.com/o/oauth2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar&state=%2Fprofile&redirect_uri=https%3A%2F%2Flocalhost%2Foauth2callback&response_type=token&client_id=150899810974-qv8fu9ck15n5cmojbrfd1r8o4l0leatk.apps.googleusercontent.com";
+					window.plugins.childBrowser.showWebPage(url, {
+						showLocationBar : false
+					});
+				})
+			})
+		</script>
+	</head>
+	<body>
+		<header>
+			<a href='javascript:onHome()'><img id="home" src="cui/Droid.png" /></a>
+			<a href='javascript:onNews()'><img id="rss" src="cui/RSS.png" /></a>
+		</header>
+		<div id="character"></div>
+		<div id="yesButton" class="yesnoButton">
+			OK
+		</div>
+		<div id="noButton" class="yesnoButton">
+			NG
+		</div>
+	</body>
 </html>
