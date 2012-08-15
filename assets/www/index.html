@@ -30,11 +30,25 @@
 						var code_match = loc.match(/&access_token=(.+?)&/)
 						if (code_match) {
 							console.log("LocalChange success;" + code_match)
-							var code = code_match[1]
-							alert(code)
-							console.log(code)
-							window.plugins.childBrowser.close()
-						}else{
+							var access_token = code_match[1]
+							alert(access_token)
+							console.log(access_token)
+							
+							$.ajax({
+								url : 'https://www.googleapis.com/calendar/v3/users/me/calendarList',
+								data : {},
+								headers : {'Authorization':'OAuth ' + access_token },
+								dataType : 'json',
+								success : function(data) {
+									alert(data)
+									console.log(data)
+								},
+								error:function(jqXHR, textStatus, errorThrown){
+									console.log("failed:ajax:" + access_token + ","+jqXHR+", " + textStatus + ", " + errorThrown)
+									}
+							})
+							window.plugins.childBrowser.close();
+						} else {
 							console.log("LocalChange unmatch:" + loc);
 						}
 					}
