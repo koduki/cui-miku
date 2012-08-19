@@ -23,8 +23,6 @@
         <script type="text/javascript">
             $(function() {
                 document.addEventListener("deviceready", function() {
-                    var cal = new GoogleCalendar()
-                    cal.getCalendarList()
                     Speech.onDeviceReady()
                     Location.onDeviceReady()
                     TextToSpeech.onDeviceReady()
@@ -36,6 +34,8 @@
         <header>
             <a href='javascript:onHome()'><img id="home" src="cui/Droid.png" /></a>
             <a href='javascript:onNews()'><img id="rss" src="cui/RSS.png" /></a>
+            <a href='setting.html'><img id="rss" src="cui/Settings.png" /></a>
+
         </header>
         <div id="character"></div>
         <div id="yesButton" class="yesnoButton">

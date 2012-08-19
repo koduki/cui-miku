@@ -4,11 +4,37 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>CUI-Miku Setting</title>
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
+        <link rel="stylesheet" href="css/jquery.mobile-1.1.1.min.css" />
         <link rel="stylesheet" href="css/setting.css" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.1.1.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/jquery.flicksimple.js"></script>
+        <script type="text/javascript" charset="utf-8" src="cordova-2.0.0.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/childbrowser.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/SpeechRecognizer.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/MorphologicalAnalysiser.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/tts.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/google_calendar.js"></script>
+        <script type="text/javascript" charset="utf-8" src="cui/core.js"></script>
+        <script type="text/javascript" charset="utf-8" src="cui/simplebot.js"></script>
+        <script type="text/javascript" charset="utf-8" src="cui/function.js"></script>
         <script src="js/setting.js"></script>
+        <script type="text/javascript">
+            $(function() {
+                document.addEventListener("deviceready", function() {
+                    // Speech.onDeviceReady()
+                    // Location.onDeviceReady()
+                    // TextToSpeech.onDeviceReady()
+                })
+
+                $("#slider2").bind("change", function(event, ui) {
+                    window.hoge = ui
+                    alert(ui)
+                    //                 var cal = new GoogleCalendar()
+                    //                 cal.getCalendarList()
+                });
+            })
+        </script>
     </head>
     <body>
         <div data-role="page" id="page1">
@@ -23,7 +49,7 @@
                         </li>
                         <li data-role="fieldcontain">
                             <label for="slider2">Google Calendar</label>
-                            <select name="slider2" id="slider2" data-role="slider">
+                            <select name="slider2" id="slider2" data-role="slider" data-mini="true">
                                 <option value="off">Off</option>
                                 <option value="on">On</option>
                             </select>
@@ -35,7 +61,7 @@
                         </li>
                         <li data-role="fieldcontain">
                             <label for="slider2">音声出力</label>
-                            <select name="slider2" id="slider2" data-role="slider">
+                            <select name="slider2" id="slider2" data-role="slider" data-mini="true">
                                 <option value="off">Off</option>
                                 <option value="on">On</option>
                             </select>
