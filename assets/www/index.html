@@ -34,14 +34,34 @@
 							alert(access_token)
 							console.log(access_token)
 							
+							
+							$.ajax({
+								url : 'accounts.google.com',
+								data : {
+									"code":access_token,
+									"client_secret":"NuHzWDgOqRQ3HIbtrTaJtZjE",
+									"client_id":"150899810974-qv8fu9ck15n5cmojbrfd1r8o4l0leatk.apps.googleusercontent.com",
+									"redirect_uri":"https://oauth2-login-demo.appspot.com/code",
+									"grant_type":"authorization_code"
+								},
+								dataType : 'json',
+								success : function(data) {
+									alert(data.refresh_token)
+									console.log(data.refresh_token)
+								},
+								error:function(jqXHR, textStatus, errorThrown){
+									console.log("failed:ajax:" + access_token + ","+jqXHR+", " + textStatus + ", " + errorThrown)
+									}
+							})
+							
 							$.ajax({
 								url : 'https://www.googleapis.com/calendar/v3/users/me/calendarList',
 								data : {},
 								headers : {'Authorization':'OAuth ' + access_token },
 								dataType : 'json',
 								success : function(data) {
-									alert(data)
-									console.log(data)
+									alert(data.items[0].description)
+									console.log(data.items[0].description)
 								},
 								error:function(jqXHR, textStatus, errorThrown){
 									console.log("failed:ajax:" + access_token + ","+jqXHR+", " + textStatus + ", " + errorThrown)
