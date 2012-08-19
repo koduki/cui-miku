@@ -10,7 +10,6 @@
         <link rel="stylesheet" href="css/default.css" type="text/css" media="all">
         <script type="text/javascript" charset="utf-8" src="cordova-2.0.0.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/childbrowser.js"></script>
-        <script src="http://debug.phonegap.com/target/target-script-min.js#koduki1234"></script>
         <script type="text/javascript" charset="utf-8" src="js/SpeechRecognizer.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/MorphologicalAnalysiser.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/tts.js"></script>
@@ -24,11 +23,11 @@
         <script type="text/javascript">
             $(function() {
                 document.addEventListener("deviceready", function() {
+                    var cal = new GoogleCalendar()
+                    cal.getCalendarList()
                     Speech.onDeviceReady()
                     Location.onDeviceReady()
                     TextToSpeech.onDeviceReady()
-                    var cal = new GoogleCalendar()
-                    cal.authorize()
                 })
             })
         </script>
