@@ -7,19 +7,8 @@ class window.GoogleCalendar
         access_token = code_match[1]
         alert(access_token)
         console.log(access_token)
-
-        $.ajax
-          url : 'https://www.googleapis.com/calendar/v3/users/me/calendarList'
-          data : {}
-          headers : {'Authorization':'OAuth ' + access_token }
-          dataType : 'json',
-          success : (data) =>
-            alert(data.items[0].description)
-            onsole.log(data.items[0].description)
-          error:(jqXHR, textStatus, errorThrown) =>
-            console.log("failed:ajax:" + access_token + ","+jqXHR+", " + textStatus + ", " + errorThrown)
-   
-        window.plugins.childBrowser.close();
+        window.plugins.childBrowser.close()
+        @getCalendarList(access_token)
       else
         console.log("LocalChange unmatch:" + loc);
 
@@ -28,3 +17,19 @@ class window.GoogleCalendar
     window.plugins.childBrowser.showWebPage url,{
       showLocationBar : false
     }
+
+  getCalendarList:(access_token) => 
+    url = 'https://www.googleapis.com/calendar/v3/users/me/calendarList'
+    @callAPI url, access_token, {}, (data) ->
+      alert(data.items[0].description)
+      onsole.log(data.items[0].description)
+
+  callAPI:(url, access_token, data, success) => 
+    $.ajax
+      url : url
+      data : data
+      headers : {'Authorization':'OAuth ' + access_token }
+      dataType : 'json',
+      success : (data) => success(data)
+      error:(jqXHR, textStatus, errorThrown) =>
+        console.log("failed:call google api:" + url + ", " + access_token + ","+ jqXHR +", " + textStatus + ", " + errorThrown)
