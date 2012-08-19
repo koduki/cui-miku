@@ -14,6 +14,7 @@
         <script type="text/javascript" charset="utf-8" src="js/SpeechRecognizer.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/MorphologicalAnalysiser.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/tts.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/config.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/google_calendar.js"></script>
         <script type="text/javascript" charset="utf-8" src="cui/core.js"></script>
         <script type="text/javascript" charset="utf-8" src="cui/simplebot.js"></script>
@@ -22,16 +23,35 @@
         <script type="text/javascript">
             $(function() {
                 document.addEventListener("deviceready", function() {
-                    // Speech.onDeviceReady()
-                    // Location.onDeviceReady()
-                    // TextToSpeech.onDeviceReady()
+                    Speech.onDeviceReady()
+                    Location.onDeviceReady()
+                    TextToSpeech.onDeviceReady()
                 })
 
-                $("#slider2").bind("change", function(event, ui) {
-                    window.hoge = ui
-                    alert(ui)
-                    //                 var cal = new GoogleCalendar()
-                    //                 cal.getCalendarList()
+                $("#externalapi_googlecalendar").bind("change", function(event, ui) {
+                    var options = event.target.options
+                    option = options[options.selectedIndex].value
+
+                    var cal = new GoogleCalendar()
+                    if (option === "on") {
+                        cal.authorize(function() {
+                        })
+                    } else {
+                        cal.unauthorize()
+                    }
+                });
+
+                $("#etc_tts").bind("change", function(event, ui) {
+                    var options = event.target.options
+                    option = options[options.selectedIndex].value
+
+                    var cal = new GoogleCalendar()
+                    if (option === "on") {
+                        cal.authorize(function() {
+                        })
+                    } else {
+                        cal.unauthorize()
+                    }
                 });
             })
         </script>
@@ -48,8 +68,8 @@
                             外部API
                         </li>
                         <li data-role="fieldcontain">
-                            <label for="slider2">Google Calendar</label>
-                            <select name="slider2" id="slider2" data-role="slider" data-mini="true">
+                            <label for="externalapi_googlecalendar">Google Calendar</label>
+                            <select name="externalapi_googlecalendar" id="externalapi_googlecalendar" data-role="slider" data-mini="true">
                                 <option value="off">Off</option>
                                 <option value="on">On</option>
                             </select>
@@ -60,8 +80,8 @@
                             その他
                         </li>
                         <li data-role="fieldcontain">
-                            <label for="slider2">音声出力</label>
-                            <select name="slider2" id="slider2" data-role="slider" data-mini="true">
+                            <label for="etc_tts">音声出力</label>
+                            <select name="etc_tts" id="etc_tts" data-role="slider" data-mini="true">
                                 <option value="off">Off</option>
                                 <option value="on">On</option>
                             </select>

@@ -14,10 +14,13 @@
 
       this.getRefreshToken = __bind(this.getRefreshToken, this);
 
+      this.unauthorize = __bind(this.unauthorize, this);
+
       this.authorize = __bind(this.authorize, this);
       this.client_id = "150899810974-qv8fu9ck15n5cmojbrfd1r8o4l0leatk.apps.googleusercontent.com";
       this.scope = "https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar";
       this.client_secret = 'NuHzWDgOqRQ3HIbtrTaJtZjE';
+      this.token_key = "googleapi.calendar.refresh_token";
     }
 
     GoogleCalendar.prototype.authorize = function(success) {
@@ -41,6 +44,10 @@
       });
     };
 
+    GoogleCalendar.prototype.unauthorize = function() {
+      return window.localStorage.removeItem(this.token_key);
+    };
+
     GoogleCalendar.prototype.getRefreshToken = function(code, success) {
       var _this = this;
       console.log("start:getRefreshToken");
@@ -59,7 +66,7 @@
           var refresh_token;
           window.resultStatus = data;
           refresh_token = data.refresh_token;
-          window.localStorage.setItem("googleapi.calendar.refresh_token", refresh_token);
+          window.localStorage.setItem(_this.token_key, refresh_token);
           return success(refresh_token);
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -115,7 +122,7 @@
     GoogleCalendar.prototype.executeAPI = function(url, data, success) {
       var refresh_token,
         _this = this;
-      refresh_token = window.localStorage.getItem("googleapi.calendar.refresh_token");
+      refresh_token = window.localStorage.getItem(this.token_key);
       if (refresh_token === null) {
         console.log("not found refresh token");
         return this.authorize(function(refresh_token) {

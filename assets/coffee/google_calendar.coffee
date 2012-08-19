@@ -3,6 +3,7 @@ class window.GoogleCalendar
     @client_id = "150899810974-qv8fu9ck15n5cmojbrfd1r8o4l0leatk.apps.googleusercontent.com"
     @scope = "https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar"
     @client_secret = 'NuHzWDgOqRQ3HIbtrTaJtZjE'
+    @token_key = "googleapi.calendar.refresh_token"
 
   authorize:(success) => 
     url = "https://accounts.google.com/o/oauth2/auth?scope=#{@scope}&state=%2Fprofile&redirect_uri=https%3A%2F%2Flocalhost%2Foauth2callback&response_type=code&client_id=#{@client_id}&access_type=offline";
@@ -20,6 +21,9 @@ class window.GoogleCalendar
       showLocationBar : false
     }
 
+  unauthorize:() => 
+    window.localStorage.removeItem(@token_key)
+
   getRefreshToken:(code, success) =>
     console.log("start:getRefreshToken")
     $.ajax
@@ -35,7 +39,7 @@ class window.GoogleCalendar
       success:(data) =>
         window.resultStatus = data
         refresh_token = data.refresh_token
-        window.localStorage.setItem("googleapi.calendar.refresh_token", refresh_token)
+        window.localStorage.setItem(@token_key, refresh_token)
         success(refresh_token)
       error:(jqXHR, textStatus, errorThrown) =>
         window.errorStatus = jqXHR
@@ -71,7 +75,7 @@ class window.GoogleCalendar
         console.log("failed:call google api:" + url + ", " + access_token + ","+ jqXHR +", " + textStatus + ", " + errorThrown)
 
   executeAPI:(url, data, success) =>
-    refresh_token = window.localStorage.getItem("googleapi.calendar.refresh_token")
+    refresh_token = window.localStorage.getItem(@token_key)
 
     if refresh_token == null
       console.log("not found refresh token")
