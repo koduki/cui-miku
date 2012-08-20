@@ -168,7 +168,10 @@
       }
       this.textarea.html(msg);
       this.obj.show();
-      TextToSpeech.speak(msg);
+      console.log("debug:tts=" + Config.load().etc.tts.enable);
+      if (Config.load().etc.tts.enable) {
+        TextToSpeech.speak(msg);
+      }
       return setTimeout((function() {
         return _this.obj.fadeOut("fast", function() {
           if (jQuery.isFunction(callback)) {

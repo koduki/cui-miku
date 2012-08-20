@@ -107,7 +107,9 @@ class window.Dialog
       interval = arg1
     @textarea.html msg
     @obj.show()
-    TextToSpeech.speak(msg)
+    console.log("debug:tts=" + Config.load().etc.tts.enable)
+    if Config.load().etc.tts.enable
+      TextToSpeech.speak(msg)
     setTimeout (=>
       @obj.fadeOut "fast", ->
         callback()  if jQuery.isFunction(callback)

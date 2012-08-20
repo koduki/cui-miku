@@ -20,7 +20,7 @@ window.Config.load = () ->
                  else
                   value
     obj
-  parse(new Config, "config")
+  parse(new Config(), "config")
 
 window.Config.save = (obj) ->
   parse = (obj, key) ->

@@ -34,7 +34,7 @@
       }
       return obj;
     };
-    return parse(new Config, "config");
+    return parse(new Config(), "config");
   };
 
   window.Config.save = function(obj) {
