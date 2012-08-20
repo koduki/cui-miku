@@ -21,38 +21,64 @@
         <script type="text/javascript" charset="utf-8" src="cui/function.js"></script>
         <script src="js/setting.js"></script>
         <script type="text/javascript">
+            var initValue = function(key, value) {
+                if (value == true) {
+                    flag = 1
+                } else {
+                    flag = 0
+                }
+                $(key)[0].options.selectedIndex = flag
+                $(key).slider('refresh');
+            }
+            var init = function() {
+                initValue("#externalapi_googlecalendar_enable", Config.load().externalApi.googleCalendar.enable)
+                initValue("#etc_tts_enable ", Config.load().etc.tts.enable)
+            }
+            var bindEvent = function() {
+                $("#externalapi_googlecalendar_enable").bind("change", function(event, ui) {
+                    var options = event.target.options
+                    option = options[options.selectedIndex].value
+
+                    var cal = new GoogleCalendar()
+                    if (option === "on") {
+                        cal.authorize(function() {
+                            config = Config.load()
+                            config.externalApi.googleCalendar.enable = true
+                            Config.save(config)
+                        })
+                    } else {
+                        cal.unauthorize()
+                        config = Config.load()
+                        config.externalApi.googleCalendar.enable = false
+                        Config.save(config)
+                    }
+                });
+
+                $("#etc_tts_enable").bind("change", function(event, ui) {
+                    var options = event.target.options
+                    option = options[options.selectedIndex].value
+
+                    if (option === "on") {
+                        console.log("#etc_tts_enable on")
+                        config = Config.load()
+                        config.etc.tts.enable = true
+                        Config.save(config)
+                    } else {
+                        console.log("#etc_tts_enable off")
+                        config = Config.load()
+                        config.etc.tts.enable = false
+                        Config.save(config)
+                    }
+                });
+            }
             $(function() {
                 document.addEventListener("deviceready", function() {
                     Speech.onDeviceReady()
                     Location.onDeviceReady()
                     TextToSpeech.onDeviceReady()
                 })
-
-                $("#externalapi_googlecalendar").bind("change", function(event, ui) {
-                    var options = event.target.options
-                    option = options[options.selectedIndex].value
-
-                    var cal = new GoogleCalendar()
-                    if (option === "on") {
-                        cal.authorize(function() {
-                        })
-                    } else {
-                        cal.unauthorize()
-                    }
-                });
-
-                $("#etc_tts").bind("change", function(event, ui) {
-                    var options = event.target.options
-                    option = options[options.selectedIndex].value
-
-                    var cal = new GoogleCalendar()
-                    if (option === "on") {
-                        cal.authorize(function() {
-                        })
-                    } else {
-                        cal.unauthorize()
-                    }
-                });
+                init()
+                bindEvent()
             })
         </script>
     </head>
@@ -68,8 +94,8 @@
                             外部API
                         </li>
                         <li data-role="fieldcontain">
-                            <label for="externalapi_googlecalendar">Google Calendar</label>
-                            <select name="externalapi_googlecalendar" id="externalapi_googlecalendar" data-role="slider" data-mini="true">
+                            <label for="externalapi_googlecalendar_enable">Google Calendar</label>
+                            <select name="externalapi_googlecalendar_enable" id="externalapi_googlecalendar_enable" data-role="slider" data-mini="true">
                                 <option value="off">Off</option>
                                 <option value="on">On</option>
                             </select>
@@ -80,8 +106,8 @@
                             その他
                         </li>
                         <li data-role="fieldcontain">
-                            <label for="etc_tts">音声出力</label>
-                            <select name="etc_tts" id="etc_tts" data-role="slider" data-mini="true">
+                            <label for="etc_tts_enable">音声出力</label>
+                            <select name="etc_tts_enable" id="etc_tts_enable" data-role="slider" data-mini="true">
                                 <option value="off">Off</option>
                                 <option value="on">On</option>
                             </select>

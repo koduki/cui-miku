@@ -6,10 +6,8 @@
 
     Config.prototype.externalApi = {
       googleCalendar: {
-        enable: false,
-        test: 123
-      },
-      googleInfo: "abc"
+        enable: "true"
+      }
     };
 
     Config.prototype.etc = {
@@ -25,13 +23,13 @@
   window.Config.load = function() {
     var parse;
     parse = function(obj, key) {
-      var p;
+      var p, value;
       for (p in obj) {
         if (Object.prototype.toString.call(obj[p]) === "[object Object]") {
           parse(obj[p], key + "." + p);
         } else {
-          obj[p] = window.localStorage.getItem(key + "." + p);
-          console.log(key + "." + p + " = " + obj[p]);
+          value = window.localStorage.getItem(key + "." + p);
+          obj[p] = value === "true" ? true : value === "false" ? false : value;
         }
       }
       return obj;
@@ -48,8 +46,7 @@
         if (Object.prototype.toString.call(obj[p]) === "[object Object]") {
           _results.push(parse(obj[p], key + "." + p));
         } else {
-          window.localStorage.setItem(key + "." + p, obj[p]);
-          _results.push(console.log(key + "." + p + " = " + obj[p]));
+          _results.push(window.localStorage.setItem(key + "." + p, obj[p]));
         }
       }
       return _results;
