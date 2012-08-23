@@ -31,6 +31,7 @@
         var code, code_match;
         code_match = loc.match(/&code=(.+)&*/);
         if (code_match) {
+          console.log("LocalChange match");
           code = code_match[1];
           console.log(code);
           window.plugins.childBrowser.close();
@@ -45,6 +46,7 @@
     };
 
     GoogleCalendar.prototype.unauthorize = function() {
+      console.log("remove:getRefreshToken");
       return window.localStorage.removeItem(this.token_key);
     };
 

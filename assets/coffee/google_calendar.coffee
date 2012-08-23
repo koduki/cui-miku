@@ -10,6 +10,7 @@ class window.GoogleCalendar
     window.plugins.childBrowser.onLocationChange = (loc) =>
       code_match = loc.match(/&code=(.+)&*/)
       if code_match
+        console.log("LocalChange match");
         code = code_match[1]
         console.log(code)
         window.plugins.childBrowser.close()
@@ -22,6 +23,7 @@ class window.GoogleCalendar
     }
 
   unauthorize:() => 
+    console.log("remove:getRefreshToken")
     window.localStorage.removeItem(@token_key)
 
   getRefreshToken:(code, success) =>

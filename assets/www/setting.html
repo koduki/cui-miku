@@ -45,6 +45,7 @@
                             config = Config.load()
                             config.externalApi.googleCalendar.enable = true
                             Config.save(config)
+                            cal.getCalendarList();
                         })
                     } else {
                         cal.unauthorize()
