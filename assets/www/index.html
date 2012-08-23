@@ -24,11 +24,20 @@
         <script type="text/javascript" charset="utf-8" src="cui/chara/miku/script.js"></script>
         <script type="text/javascript">
             $(function() {
-                document.addEventListener("deviceready", function() {
+                if ( typeof device === 'undefined') {
+                    console.log("un ready device")
+                    document.addEventListener("deviceready", onDeviceReady2);
+                } else {
+                    onDeviceReady();
+                }
+
+                function onDeviceReady2() {
+                    console.log("onDeviceReady2")
                     Speech.onDeviceReady()
                     Location.onDeviceReady()
                     TextToSpeech.onDeviceReady()
-                })
+                }
+
             })
         </script>
     </head>

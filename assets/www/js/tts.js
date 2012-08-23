@@ -96,7 +96,13 @@ TTS.prototype.pitch = function(pitch, successCallback, errorCallback) {
  * @param {Object} errorCallback
  */
 TTS.prototype.startup = function(successCallback, errorCallback) {
+    window.hoge_t1=cordova
+    console.log("debug_1:"+cordova)
+    if(typeof window.device === "undefined" ){
+        console.log("debug_2")
+    }else{
      return cordova.exec(successCallback, errorCallback, "TTS", "startup", []);
+     }
 };
 
 /**

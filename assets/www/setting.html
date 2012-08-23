@@ -72,11 +72,6 @@
                 });
             }
             $(function() {
-                document.addEventListener("deviceready", function() {
-                    Speech.onDeviceReady()
-                    Location.onDeviceReady()
-                    TextToSpeech.onDeviceReady()
-                })
                 init()
                 bindEvent()
             })

@@ -254,6 +254,8 @@
       if (result === TTS.STARTED) {
         window.plugins.tts.setLanguage("ja", TextToSpeech.win, TextToSpeech.fail);
         return TextToSpeech.isReady = true;
+      } else {
+        return console.log("WARNING:TTS is not ready. step1, " + result);
       }
     },
     win: function(result) {
@@ -263,10 +265,19 @@
       return console.log("Error = " + result);
     },
     speak: function(text) {
+      var _this = this;
+      console.log("debug_speak:" + text);
       if (TextToSpeech.isReady) {
+        console.log("INFO:TTS is ready.");
         return window.plugins.tts.speak(text);
       } else {
-        return console.log("WARNING:TTS is not ready.");
+        return window.plugins.tts.startup(function(result) {
+          window.plugins.tts.setLanguage("ja", TextToSpeech.win, TextToSpeech.fail);
+          TextToSpeech.isReady = true;
+          return window.plugins.tts.speak(text);
+        }, function() {
+          return console.log("WARNING:TTS is not ready.");
+        });
       }
     }
   };

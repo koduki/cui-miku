@@ -15,6 +15,6 @@ QUnit.init();
 QUnit.config.updateRate = 0;
 
 // load test case.
-load("js/simplebot_test.js");
+//load("js/simplebot_test.js");
 
 QUnit.start();

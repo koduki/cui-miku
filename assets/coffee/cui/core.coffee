@@ -176,7 +176,8 @@ window.TextToSpeech =
     if result == TTS.STARTED
       window.plugins.tts.setLanguage("ja", TextToSpeech.win, TextToSpeech.fail)
       TextToSpeech.isReady = true
-
+    else
+      console.log("WARNING:TTS is not ready. step1, " + result)
   win:(result) ->
     console.log(result);
 
@@ -184,11 +185,18 @@ window.TextToSpeech =
     console.log("Error = " + result)
 
   speak:(text) ->
+    console.log("debug_speak:" + text);
     if TextToSpeech.isReady
+      console.log("INFO:TTS is ready.")
       window.plugins.tts.speak(text)
     else
-      console.log("WARNING:TTS is not ready.")
-    
+      window.plugins.tts.startup(
+        (result) => 
+          window.plugins.tts.setLanguage("ja", TextToSpeech.win, TextToSpeech.fail)
+          TextToSpeech.isReady = true
+          window.plugins.tts.speak(text)
+        () -> console.log("WARNING:TTS is not ready."))
+
 class window.FlickWindow
   constructor:(@height, @width) ->
     @obj = $("<div id=\"firstitem\" class=\"flickSimple\" style=\"overflow: hidden; \"><ul /></div>")
