@@ -1,7 +1,11 @@
 package cn.orz.pascal.cui.utils;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -45,9 +49,9 @@ public class PluginTestRunner {
 		return result;
 	}
 
-	public void load(String filename) throws ScriptException {
+	public void load(String filename) throws ScriptException, IOException {
 		try {
-			this.engine.eval(new FileReader(filename));
+			this.engine.eval(new InputStreamReader(new FileInputStream(filename), "utf-8"));
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException("Error loading javascript file: "
 					+ filename, e);
