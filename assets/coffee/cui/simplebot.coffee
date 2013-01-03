@@ -44,10 +44,27 @@ class window.SimpleBot
         keyword
       else
          ""
- 
+    getSchdule = (r) =>
+      flag1 = false
+      flag2 = false
+      for word in r
+        if word.baseform.indexOf('予定') != -1
+          flag1 = true
+        if word.baseform.indexOf('ある') != -1 or word.baseform.indexOf('教える') != -1 or word.baseform.indexOf('調べる') 
+          flag2 = true
+        if word.feature.indexOf('名詞') != -1 and word.feature.indexOf('副詞可能') != -1
+          keyword = word.surface
+        #console.log(word.surface)
+        #console.log(word.feature)
+      if flag1 == true and flag2 == true and keyword != ""
+        keyword
+      else
+         "" 
     analysiser.analyse ((r) ->
       result = if (keyword = searchLocation(r)) != ""
         ["地図検索",[keyword]]
+      else if (keyword = getSchdule(r)) != ""
+        ['予定取得',[keyword]]
       else if /ニュース/.test(text)
         ['ニュース表示',[]]
       else if /おはよ/.test(text)

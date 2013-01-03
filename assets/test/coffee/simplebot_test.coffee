@@ -50,6 +50,12 @@ test "chat parser - 地図検索.\n", ->
   bot.parse '近くにあるコンビニを教えて', (actual) -> deepEqual actual, ['地図検索',['コンビニ']], '\n'
   bot.parse '近くの駅調べて', (actual) -> deepEqual actual, ['地図検索',['駅']], '\n'
 
+test "chat parser - 予定取得.\n", ->
+  bot = new window.SimpleBot()
+  bot.parse '今日の予定を教えて', (actual) -> deepEqual actual, ['予定取得',['今日']], '\n'
+  bot.parse '明日予定いあったっけ', (actual) -> deepEqual actual, ['予定取得',['明日']], '\n'
+  bot.parse '日曜日予定いある', (actual) -> deepEqual actual, ['予定取得',['日曜日']], '\n'
+
 test "chat parser - その他.\n", ->
   bot = new window.SimpleBot()
   bot.parse 'ラーメン', (actual) -> deepEqual actual, ['その他',['ラーメン']], '\n'
