@@ -5,8 +5,8 @@ class window.GoogleCalendar
     @client_secret = 'NuHzWDgOqRQ3HIbtrTaJtZjE'
     @token_key = "googleapi.calendar.refresh_token"
 
-  authorize:(success) => 
-    url = "https://accounts.google.com/o/oauth2/auth?scope=#{@scope}&state=%2Fprofile&redirect_uri=https%3A%2F%2Flocalhost%2Foauth2callback&response_type=code&client_id=#{@client_id}&access_type=offline";
+  authorize:(success_callback) => 
+    url = "https://accounts.google.com/o/oauth2/auth?approval_prompt=force&scope=#{@scope}&state=%2Fprofile&redirect_uri=https%3A%2F%2Flocalhost%2Foauth2callback&response_type=code&client_id=#{@client_id}&access_type=offline";
     window.plugins.childBrowser.onLocationChange = (loc) =>
       code_match = loc.match(/&code=(.+)&*/)
       if code_match
@@ -14,7 +14,7 @@ class window.GoogleCalendar
         code = code_match[1]
         console.log(code)
         window.plugins.childBrowser.close()
-        @getRefreshToken(code, success)
+        @getRefreshToken(code, success_callback)
       else
         console.log("LocalChange unmatch:" + loc);
  
@@ -26,7 +26,7 @@ class window.GoogleCalendar
     console.log("remove:getRefreshToken")
     window.localStorage.removeItem(@token_key)
 
-  getRefreshToken:(code, success) =>
+  getRefreshToken:(code, success_callback) =>
     console.log("start:getRefreshToken")
     $.ajax
       type:'post'
@@ -40,15 +40,19 @@ class window.GoogleCalendar
       dataType : 'json'
       success:(data) =>
         window.resultStatus = data
+        alert(data)
+        for key of data
+          console.log "data.#{key}:#{data[key]}"
         refresh_token = data.refresh_token
         window.localStorage.setItem(@token_key, refresh_token)
-        success(refresh_token)
+        console.log("success:getRefreshToken:" + refresh_token)
+        success_callback(refresh_token)
       error:(jqXHR, textStatus, errorThrown) =>
         window.errorStatus = jqXHR
-        console.log("failed:getRefreshToken:" + ", " + code + ","+ @client_id + ", " + @client_secret + ", " + errorThrown)
+        console.log("failed:getRefreshToken:" + " " + code + ","+ @client_id + ", " + @client_secret + ", " + errorThrown)
 
-  getAccessToken:(refresh_token, success) =>
-    console.log("start:getAccessToken")
+  getAccessToken:(refresh_token, success_callback) =>
+    console.log("start:getAccessToken: refreshToken=" + refresh_token)
     $.ajax
       type:'post'
       url : 'https://accounts.google.com/o/oauth2/token'
@@ -60,10 +64,10 @@ class window.GoogleCalendar
       dataType : 'json'
       success:(data) =>
         window.resultStatus = data
-        success(data.access_token)
+        success_callback(data.access_token)
       error:(jqXHR, textStatus, errorThrown) =>
         window.errorStatus = jqXHR
-        console.log("failed:getAccessToken :" + ", " + refresh_token + ","+ @client_id + ", " + @client_secret + ", " + errorThrown)
+        console.log("failed:getAccessToken :" + " " + refresh_token + ","+ @client_id + ", " + @client_secret + ", " + errorThrown)
 
   callAPI:(url, access_token, data, success) =>
     $.ajax
@@ -79,18 +83,18 @@ class window.GoogleCalendar
   executeAPI:(url, data, success) =>
     refresh_token = window.localStorage.getItem(@token_key)
 
-    if refresh_token == null
+    if refresh_token? and refresh_token != undefined and refresh_token != 'undefined'
+      console.log("found refresh token: " + refresh_token + "___")
+      @getAccessToken refresh_token, (access_token) =>
+        @callAPI(url, access_token, data, success)
+    else
       console.log("not found refresh token")
       @authorize (refresh_token) => 
         @getAccessToken refresh_token, (access_token) =>
           @callAPI(url, access_token, data, success)
-    else
-      console.log("found refresh token")
-      @getAccessToken refresh_token, (access_token) =>
-        @callAPI(url, access_token, data, success)
 
   getCalendarList:() => 
     url = 'https://www.googleapis.com/calendar/v3/users/me/calendarList'
     @executeAPI url, {}, (data) ->
       alert(data.items[0].description)
-      console.log(data.items[0].description)
+      data.items
