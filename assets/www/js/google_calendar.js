@@ -5,6 +5,8 @@
   window.GoogleCalendar = (function() {
 
     function GoogleCalendar() {
+      this.getEventList = __bind(this.getEventList, this);
+
       this.getCalendarList = __bind(this.getCalendarList, this);
 
       this.executeAPI = __bind(this.executeAPI, this);
@@ -130,6 +132,7 @@
     GoogleCalendar.prototype.executeAPI = function(url, data, success) {
       var refresh_token,
         _this = this;
+      console.log("url:" + url);
       refresh_token = window.localStorage.getItem(this.token_key);
       if ((refresh_token != null) && refresh_token !== void 0 && refresh_token !== 'undefined') {
         console.log("found refresh token: " + refresh_token + "___");
@@ -146,12 +149,20 @@
       }
     };
 
-    GoogleCalendar.prototype.getCalendarList = function() {
+    GoogleCalendar.prototype.getCalendarList = function(callback) {
       var url;
       url = 'https://www.googleapis.com/calendar/v3/users/me/calendarList';
       return this.executeAPI(url, {}, function(data) {
-        alert(data.items[0].description);
-        return data.items;
+        return callback(data.items);
+      });
+    };
+
+    GoogleCalendar.prototype.getEventList = function(calendar_id, callback) {
+      var url;
+      url = 'https://www.googleapis.com/calendars/' + calendar_id + '/events';
+      console.log("getEventList:" + url);
+      return this.executeAPI(url, {}, function(data) {
+        return callback(data);
       });
     };
 

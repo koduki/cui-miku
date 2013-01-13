@@ -81,6 +81,7 @@ class window.GoogleCalendar
         console.log("failed:call google api:" + url + ", " + access_token + ","+ jqXHR +", " + textStatus + ", " + errorThrown)
 
   executeAPI:(url, data, success) =>
+    console.log("url:" + url)
     refresh_token = window.localStorage.getItem(@token_key)
 
     if refresh_token? and refresh_token != undefined and refresh_token != 'undefined'
@@ -93,8 +94,13 @@ class window.GoogleCalendar
         @getAccessToken refresh_token, (access_token) =>
           @callAPI(url, access_token, data, success)
 
-  getCalendarList:() => 
+  getCalendarList:(callback) => 
     url = 'https://www.googleapis.com/calendar/v3/users/me/calendarList'
     @executeAPI url, {}, (data) ->
-      alert(data.items[0].description)
-      data.items
+      callback data.items
+
+  getEventList:(calendar_id, callback) => 
+    url = 'https://www.googleapis.com/calendars/' + calendar_id + '/events'
+    console.log("getEventList:" + url)
+    @executeAPI url, {}, (data) ->
+      callback data

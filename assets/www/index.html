@@ -41,10 +41,15 @@
             })
             function showCal(){
                 var cal = new GoogleCalendar()
-                var items = cal.getCalendarList();
+                var items = cal.getCalendarList(function(items){
+                for(key in items){
+                    console.log("hoge.key=" + key + ", v=" + items[key].summary + ":"+ items[key].id)
+                }
                 //alert(items)
-                //console.log(items[0].description)
-
+                alert(items[0].description)
+                alert(items[1].summary)
+                cal.getEventList(items[1].id, function(data){alert(data)})
+                })
             }
         </script>
     </head>
