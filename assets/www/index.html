@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="css/default.css" type="text/css" media="all">
         <script type="text/javascript" charset="utf-8" src="cordova-2.0.0.js"></script>
         <script src="http://debug.phonegap.com/target/target-script-min.js#koduki12345"></script>
+        <script type="text/javascript" charset="utf-8" src="js/node-date-utils/date-utils.min.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/childbrowser.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/SpeechRecognizer.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/MorphologicalAnalysiser.js"></script>
@@ -46,10 +47,15 @@
                     console.log("hoge.key=" + key + ", v=" + items[key].summary + ":"+ items[key].id)
                 }
                 //alert(items)
-                alert(items[0].description)
-                alert(items[1].summary)
-                cal.getEventList(items[2].id, function(data){
-                    alert(data)
+                //alert(items[0].description)
+                //alert(items[1].summary)
+                var date = new Date(2013, 0, 21)
+                var start_datetime = date.toFormat('YYYY-MM-DD') + 'T00:00:00Z'
+                var end_datetime = date.addDays(1).toFormat('YYYY-MM-DD') + 'T00:00:00Z'
+                cal.getEventList(items[1].id, start_datetime, end_datetime, function(data){
+                    var items = data.items;
+                    var item = items[0]
+                    alert(item.summary + ", start:" + item.start.dateTime + ", end:"+ item.end.dateTime )
                     
                    })
                 })

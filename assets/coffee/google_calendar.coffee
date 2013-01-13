@@ -99,10 +99,12 @@ class window.GoogleCalendar
     @executeAPI url, {}, (data) ->
       callback data.items
 
-  getEventList:(calendar_id, callback) => 
+  getEventList:(calendar_id, start_datetime, end_datetime, callback) => 
+    console.log('getEventList01:' + 'calendar_id=' + calendar_id + ', start_datetime=' + start_datetime + ', end_datetime=' + end_datetime);
     base_url = 'https://www.googleapis.com/calendar/v3'
-    api_url = '/calendars/' + encodeURI(calendar_id) + '/events';
-    url = base_url + api_url
-    console.log("getEventList:" + url)
+    api_url = '/calendars/' + encodeURIComponent(calendar_id) + '/events';
+    options = 'timeMin=' + encodeURIComponent(start_datetime) + '&timeMax=' + encodeURIComponent(end_datetime);
+    url = base_url + api_url + '?' + options
+    console.log("getEventList02:" + url)
     @executeAPI url, {}, (data) ->
       callback data
