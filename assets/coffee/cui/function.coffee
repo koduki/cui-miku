@@ -12,7 +12,18 @@ showRss = (flickWindow, url) ->
 
   flickWindow.show()
 
+# Open News FlickWindow.
 Function.showNews = (flickWindow) ->
   url = "https://twitter.com/statuses/user_timeline/82492709.rss"
   url = "http://feeds.feedburner.com/hatena/b/hotentry"
   showRss flickWindow, url
+
+# Open GoogleMap Window.
+Function.searchMap = (keyword) ->
+  url = 'http://maps.google.co.jp/maps?q=' + encodeURIComponent(keyword) + '&hl=ja&ie=UTF8&sll=' + window.Location.latitude + "," + window.Location.longitude + '&ll=' + window.Location.latitude + "," + window.Location.longitude;
+  console.log("searchMap:url=" + url)
+  window.open(url)
+
+# Open Schedule FlickWindow.
+Function.getSchedule = (date) ->
+  date

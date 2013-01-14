@@ -13,3 +13,4 @@ http://www.nicovideo.jp/watch/sm18299784
 ## Platform
 
 Only Android is supported now. 
+

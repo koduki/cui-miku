@@ -18,5 +18,6 @@ guard :coffeescript, :output => 'assets/www/js/' do
     watch %r{^assets/coffee/.+?\.coffee}
 end
 
-
-
+guard 'rocco', :run_on => [:start, :change], :dir => 'doc', :stylesheet => 'http://jashkenas.github.com/docco/resources/docco.css' do
+    watch %r{^assets/coffee/.+?\.coffee}
+end

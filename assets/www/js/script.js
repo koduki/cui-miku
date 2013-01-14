@@ -48,6 +48,7 @@
       bottom: 270,
       left: 155
     });
+    Speech.chatbot = new SimpleBot(character);
     flickWindow = new FlickWindow(180, 300);
     character.addHiddenMethod(function() {
       return $(".yesnoButton").hide();
@@ -55,8 +56,6 @@
     character.addHiddenMethod(function() {
       return flickWindow.hide();
     });
-    Speech.chatbot = new SimpleBot(character);
-    character.dlg.show("好きなところをタップしてください♪");
     window.onHome = function() {
       return character.dlg.show("好きなところをタップしてください♪");
     };
@@ -65,7 +64,8 @@
         return Function.showNews(flickWindow);
       });
     };
-    return character.hiddenAll();
+    character.hiddenAll();
+    return character.dlg.show("好きなところをタップしてください♪");
   });
 
 }).call(this);

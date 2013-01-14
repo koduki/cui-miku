@@ -3,12 +3,12 @@ class window.SimpleBot
     @commands = 
       'ニュース表示': =>  
         window.onNews()
-      '地図検索': (keyword)=>
+      '地図検索': (keyword) =>
         @character.dlg.show "近くの「" + keyword + "」を探すんですね.", =>
           @character.dlg.show "地図を表示します。", =>
-            url = 'http://maps.google.co.jp/maps?q=' + encodeURI(keyword) + '&hl=ja&ie=UTF8&sll=' + window.Location.latitude + "," + window.Location.longitude + '&ll=' + window.Location.latitude + "," + window.Location.longitude;
-            console.log("open" + url)
-            window.open(url)
+            window.Function.searchMap keyword
+      '予定取得': (date) =>
+        @character.dlg.show "「" + date + "」の予定ですね."
       '挨拶:朝': => 
         @character.dlg.show "おはようございます♪"
       '挨拶:昼': => 
@@ -54,43 +54,41 @@ class window.SimpleBot
           flag2 = true
         if word.feature.indexOf('名詞') != -1 and word.feature.indexOf('副詞可能') != -1
           keyword = word.surface
-        #console.log(word.surface)
-        #console.log(word.feature)
       if flag1 == true and flag2 == true and keyword != ""
         keyword
       else
          "" 
     analysiser.analyse ((r) ->
       result = if (keyword = searchLocation(r)) != ""
-        ["地図検索",[keyword]]
-      else if (keyword = getSchdule(r)) != ""
-        ['予定取得',[keyword]]
+        ["地図検索", [keyword]]
+      else if (date = getSchdule(r)) != ""
+        ['予定取得', [date]]
       else if /ニュース/.test(text)
-        ['ニュース表示',[]]
+        ['ニュース表示', []]
       else if /おはよ/.test(text)
-        ['挨拶:朝',[]]
+        ['挨拶:朝', []]
       else if /こんにちは/.test(text)
-        ['挨拶:昼',[]]
+        ['挨拶:昼', []]
       else if /こんにちわ/.test(text)
-        ['挨拶:昼',[]]
+        ['挨拶:昼', []]
       else if /おやすみ/.test(text)
-        ['挨拶:夜',[]]
+        ['挨拶:夜', []]
       else if /得意なこと/.test(text)
-        ['得意なこと',[]]
+        ['得意なこと', []]
       else if /特技は/.test(text)
-        ['得意なこと',[]]
+        ['得意なこと', []]
       else if /特技を/.test(text)
-        ['得意なこと',[]]
+        ['得意なこと', []]
       else if /かわいい/.test(text)
-        ['喜び',[]]
+        ['喜び', []]
       else if /すごいね/.test(text)
-        ['喜び',[]]
+        ['喜び', []]
       else if /可愛い/.test(text)
-        ['喜び',[]]
+        ['喜び', []]
       else if /凄いね/.test(text)
-        ['喜び',[]]
+        ['喜び', []]
       else
-        ['その他',[text]]
+        ['その他', [text]]
 
       callback(result)
     ), text

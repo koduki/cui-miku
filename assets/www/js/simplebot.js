@@ -19,12 +19,12 @@
         '地図検索': function(keyword) {
           return _this.character.dlg.show("近くの「" + keyword + "」を探すんですね.", function() {
             return _this.character.dlg.show("地図を表示します。", function() {
-              var url;
-              url = 'http://maps.google.co.jp/maps?q=' + encodeURI(keyword) + '&hl=ja&ie=UTF8&sll=' + window.Location.latitude + "," + window.Location.longitude + '&ll=' + window.Location.latitude + "," + window.Location.longitude;
-              console.log("open" + url);
-              return window.open(url);
+              return window.Function.searchMap(keyword);
             });
           });
+        },
+        '予定取得': function(date) {
+          return _this.character.dlg.show("「" + date + "」の予定ですね.");
         },
         '挨拶:朝': function() {
           return _this.character.dlg.show("おはようございます♪");
@@ -58,7 +58,7 @@
     };
 
     SimpleBot.prototype.parse = function(text, callback) {
-      var analysiser, searchLocation,
+      var analysiser, getSchdule, searchLocation,
         _this = this;
       analysiser = window.plugins.morphologicalAnalysiser;
       searchLocation = function(r) {
@@ -83,9 +83,31 @@
           return "";
         }
       };
+      getSchdule = function(r) {
+        var flag1, flag2, keyword, word, _i, _len;
+        flag1 = false;
+        flag2 = false;
+        for (_i = 0, _len = r.length; _i < _len; _i++) {
+          word = r[_i];
+          if (word.baseform.indexOf('予定') !== -1) {
+            flag1 = true;
+          }
+          if (word.baseform.indexOf('ある') !== -1 || word.baseform.indexOf('教える') !== -1 || word.baseform.indexOf('調べる')) {
+            flag2 = true;
+          }
+          if (word.feature.indexOf('名詞') !== -1 && word.feature.indexOf('副詞可能') !== -1) {
+            keyword = word.surface;
+          }
+        }
+        if (flag1 === true && flag2 === true && keyword !== "") {
+          return keyword;
+        } else {
+          return "";
+        }
+      };
       return analysiser.analyse((function(r) {
-        var keyword, result;
-        result = (keyword = searchLocation(r)) !== "" ? ["地図検索", [keyword]] : /ニュース/.test(text) ? ['ニュース表示', []] : /おはよ/.test(text) ? ['挨拶:朝', []] : /こんにちは/.test(text) ? ['挨拶:昼', []] : /こんにちわ/.test(text) ? ['挨拶:昼', []] : /おやすみ/.test(text) ? ['挨拶:夜', []] : /得意なこと/.test(text) ? ['得意なこと', []] : /特技は/.test(text) ? ['得意なこと', []] : /特技を/.test(text) ? ['得意なこと', []] : /かわいい/.test(text) ? ['喜び', []] : /すごいね/.test(text) ? ['喜び', []] : /可愛い/.test(text) ? ['喜び', []] : /凄いね/.test(text) ? ['喜び', []] : ['その他', [text]];
+        var date, keyword, result;
+        result = (keyword = searchLocation(r)) !== "" ? ["地図検索", [keyword]] : (date = getSchdule(r)) !== "" ? ['予定取得', [date]] : /ニュース/.test(text) ? ['ニュース表示', []] : /おはよ/.test(text) ? ['挨拶:朝', []] : /こんにちは/.test(text) ? ['挨拶:昼', []] : /こんにちわ/.test(text) ? ['挨拶:昼', []] : /おやすみ/.test(text) ? ['挨拶:夜', []] : /得意なこと/.test(text) ? ['得意なこと', []] : /特技は/.test(text) ? ['得意なこと', []] : /特技を/.test(text) ? ['得意なこと', []] : /かわいい/.test(text) ? ['喜び', []] : /すごいね/.test(text) ? ['喜び', []] : /可愛い/.test(text) ? ['喜び', []] : /凄いね/.test(text) ? ['喜び', []] : ['その他', [text]];
         return callback(result);
       }), text);
     };

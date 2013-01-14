@@ -29,6 +29,7 @@ actions = [
   msg: "♪"
  ]
 $ ->
+  # initialize character.
   character = new Character(images, "")
   character.init(actions)
   character.dlg = new Dialog(
@@ -36,18 +37,25 @@ $ ->
     bottom: 270
     left: 155
   )
+
+  # initialize chat engine.
+  Speech.chatbot = new SimpleBot(character)
+
+  # initialize flick window.
   flickWindow = new FlickWindow(180, 300)
   character.addHiddenMethod ->
     $(".yesnoButton").hide()
   character.addHiddenMethod ->
     flickWindow.hide()
 
-  Speech.chatbot = new SimpleBot(character)
-  character.dlg.show "好きなところをタップしてください♪"
+  # initialize button.
   window.onHome = ->
     character.dlg.show "好きなところをタップしてください♪"
 
   window.onNews = ->
     character.dlg.show "今日のおすめの<br />ニュースでーす♪", ->
       Function.showNews flickWindow
+
+  # start.
   character.hiddenAll()
+  character.dlg.show "好きなところをタップしてください♪"
