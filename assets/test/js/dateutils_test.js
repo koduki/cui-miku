@@ -48,4 +48,32 @@
     return equal(DateUtils.getCorrectDatetime('日曜日'), '2013-01-20T00:00:00Z', '\n');
   });
 
+  test("getCorrectDatetime - 来週の日曜日.\n", function() {
+    return equal(DateUtils.getCorrectDatetime('来週の日曜日'), '2013-01-20T00:00:00Z', '\n');
+  });
+
+  test("getCorrectDatetime - 来週の月曜日.\n", function() {
+    return equal(DateUtils.getCorrectDatetime('来週の月曜日'), '2013-01-21T00:00:00Z', '\n');
+  });
+
+  test("getCorrectDatetime - 来週の火曜日.\n", function() {
+    return equal(DateUtils.getCorrectDatetime('来週の火曜日'), '2013-01-22T00:00:00Z', '\n');
+  });
+
+  test("getCorrectDatetime - 来週の水曜日.\n", function() {
+    return equal(DateUtils.getCorrectDatetime('来週の水曜日'), '2013-01-23T00:00:00Z', '\n');
+  });
+
+  test("getCorrectDatetime - 来週の木曜.\n", function() {
+    return equal(DateUtils.getCorrectDatetime('来週の木曜'), '2013-01-24T00:00:00Z', '\n');
+  });
+
+  test("getCorrectDatetime - 来週の金曜日.\n", function() {
+    return equal(DateUtils.getCorrectDatetime('来週の金曜日'), '2013-01-25T00:00:00Z', '\n');
+  });
+
+  test("getCorrectDatetime - 来週の土曜日.\n", function() {
+    return equal(DateUtils.getCorrectDatetime('来週の土曜日'), '2013-01-26T00:00:00Z', '\n');
+  });
+
 }).call(this);
