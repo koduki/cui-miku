@@ -76,4 +76,8 @@
     return equal(DateUtils.getCorrectDatetime('来週の土曜日'), '2013-01-26T00:00:00Z', '\n');
   });
 
+  test("getCorrectDatetime - 4月1日.\n", function() {
+    return equal(DateUtils.getCorrectDatetime('4月1日'), '2013-04-01T00:00:00Z', '\n');
+  });
+
 }).call(this);
