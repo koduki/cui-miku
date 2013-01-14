@@ -80,4 +80,8 @@
     return equal(DateUtils.getCorrectDatetime('4月1日'), '2013-04-01T00:00:00Z', '\n');
   });
 
+  test("getCorrectDatetime - 12月31日.\n", function() {
+    return equal(DateUtils.getCorrectDatetime('12月31日'), '2013-12-31T00:00:00Z', '\n');
+  });
+
 }).call(this);

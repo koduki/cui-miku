@@ -1,5 +1,5 @@
 (function() {
-  var DateUtils, calcDay, calcWeekAndDay, week,
+  var DateUtils, calcDay, calcDirectDate, calcWeekAndDay, week,
     _this = this;
 
   DateUtils = {};
@@ -37,8 +37,16 @@
     return today.addDays(d);
   };
 
+  calcDirectDate = function(group) {
+    var d, m, y;
+    y = DateUtils.getCurrentDate().getFullYear();
+    m = group[1] - 1;
+    d = group[2];
+    return new Date(y, m, d);
+  };
+
   DateUtils.getCorrectDatetime = function(text) {
-    var date;
+    var date, group;
     switch (text) {
       case "今日":
         date = DateUtils.getCurrentDate();
@@ -47,7 +55,7 @@
         date = (DateUtils.getCurrentDate()).addDays(1);
         break;
       default:
-        date = text.substring(0, 2) === "来週" ? calcWeekAndDay(text) : week.hasOwnProperty(text.substring(0, 1)) ? calcDay(text) : void 0;
+        date = text.substring(0, 2) === "来週" ? calcWeekAndDay(text) : week.hasOwnProperty(text.substring(0, 1)) ? calcDay(text) : (group = text.match(/^(\d+)月(\d+)/)) ? calcDirectDate(group) : void 0;
     }
     return date.toFormat('YYYY-MM-DD') + 'T00:00:00Z';
   };

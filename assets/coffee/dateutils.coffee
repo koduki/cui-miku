@@ -22,6 +22,13 @@ calcWeekAndDay = (text) =>
   d = next + target
   today.addDays(d)
 
+# 月日を直接指定された場合の日付を計算.
+calcDirectDate = (group) =>
+  y = DateUtils.getCurrentDate().getFullYear()
+  m = group[1] - 1
+  d = group[2]
+  new Date(y, m, d)
+
 # 入力された文字列から適切な日付に変換する.
 DateUtils.getCorrectDatetime = (text) =>
   switch text
@@ -36,6 +43,9 @@ DateUtils.getCorrectDatetime = (text) =>
       else if week.hasOwnProperty text.substring(0, 1) 
          # 直近の曜日
         calcDay(text)
+      else if group = text.match(/^(\d+)月(\d+)/)
+        # 月日を直接指定
+       calcDirectDate(group)
   date.toFormat('YYYY-MM-DD') + 'T00:00:00Z'
 
 window.DateUtils = DateUtils

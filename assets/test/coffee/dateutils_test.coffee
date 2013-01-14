@@ -54,3 +54,6 @@ test "getCorrectDatetime - 来週の土曜日.\n", ->
 
 test "getCorrectDatetime - 4月1日.\n", ->
   equal DateUtils.getCorrectDatetime('4月1日'), '2013-04-01T00:00:00Z',  '\n'
+
+test "getCorrectDatetime - 12月31日.\n", ->
+  equal DateUtils.getCorrectDatetime('12月31日'), '2013-12-31T00:00:00Z',  '\n'
