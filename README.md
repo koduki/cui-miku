@@ -14,3 +14,10 @@ http://www.nicovideo.jp/watch/sm18299784
 
 Only Android is supported now. 
 
+## Test
+
+ant coffee-test
+
+## Install
+
+ant -Dadb.device.arg="-s emulator-5554" clean coffee-compile debug install
