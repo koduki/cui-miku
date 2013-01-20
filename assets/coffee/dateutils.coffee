@@ -4,7 +4,6 @@ week = {"日":0,"月":1,"火":2,"水":3,"木":4,"金":5,"土":6 }
 
 # 直近の曜日の日付を計算.
 calcDay = (text) =>
-  console.log("hello world")
   day = text.substring(0, 1)
   target = week[day]
   today = DateUtils.getCurrentDate()
@@ -46,6 +45,9 @@ DateUtils.getCorrectDatetime = (text) =>
       else if group = text.match(/^(\d+)月(\d+)/)
         # 月日を直接指定
        calcDirectDate(group)
-  #date.toFormat('YYYY-MM-DD') + 'T00:00:00Z'
   date
+
+# YYYY-MM-DDT00:00:00Z 形式に変換する.
+DateUtils.toString = (date) -> date.toFormat('YYYY-MM-DD') + 'T00:00:00Z'
+
 window.DateUtils = DateUtils

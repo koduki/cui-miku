@@ -21,7 +21,6 @@
 
   calcDay = function(text) {
     var d, day, target, today;
-    console.log("hello world");
     day = text.substring(0, 1);
     target = week[day];
     today = DateUtils.getCurrentDate();
@@ -59,6 +58,10 @@
         date = text.substring(0, 2) === "来週" ? calcWeekAndDay(text) : week.hasOwnProperty(text.substring(0, 1)) ? calcDay(text) : (group = text.match(/^(\d+)月(\d+)/)) ? calcDirectDate(group) : void 0;
     }
     return date;
+  };
+
+  DateUtils.toString = function(date) {
+    return date.toFormat('YYYY-MM-DD') + 'T00:00:00Z';
   };
 
   window.DateUtils = DateUtils;
