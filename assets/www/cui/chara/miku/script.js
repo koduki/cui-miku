@@ -41,8 +41,8 @@
   ];
 
   $(function() {
-    var character, flickWindow;
-    character = new Character(images, "");
+    var flickWindow;
+    window.character = new Character(images, "");
     character.init(actions);
     character.dlg = new Dialog({
       width: 160,

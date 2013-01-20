@@ -36,8 +36,37 @@
     return window.open(url);
   };
 
-  Function.getSchedule = function(date) {
-    return date;
+  Function.showSchedule = function(date, success, fail) {
+    var cal, items;
+    console.log("getschedule:date=" + date);
+    cal = new GoogleCalendar();
+    return items = cal.getCalendarList(function(items) {
+      var end_datetime, start_datetime;
+      start_datetime = date.toFormat('YYYY-MM-DD') + 'T00:00:00Z';
+      end_datetime = date.addDays(1).toFormat('YYYY-MM-DD') + 'T00:00:00Z';
+      return cal.getEventList(items[1].id, start_datetime, end_datetime, function(data) {
+        var detail, e_datetime, flickWindow, item, place, s_datetime;
+        items = data.items;
+        window.items2 = items;
+        if (items != null) {
+          success();
+          item = items[0];
+          s_datetime = item.start.dateTime.replace(":00+09:00", "");
+          e_datetime = item.end.dateTime.replace(":00+09:00", "");
+          place = item.location != null ? item.location : "なし";
+          detail = $("<table />");
+          detail.append($("<tr />").append("<th>開始:</th>").append("<td>" + s_datetime + "</td>"));
+          detail.append($("<tr />").append("<th>終了:</th>").append("<td>" + e_datetime + "</td>"));
+          detail.append($("<tr />").append("<th>場所:</th>").append("<td>" + place + "</td>"));
+          flickWindow = new FlickWindow(180, 300);
+          flickWindow.add(item.summary, item.htmlLink, "<table>" + detail.html() + "</table>");
+          return flickWindow.show();
+        } else {
+          console.log("not found schedule.");
+          return fail();
+        }
+      });
+    });
   };
 
 }).call(this);

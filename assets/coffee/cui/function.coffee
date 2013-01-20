@@ -25,5 +25,43 @@ Function.searchMap = (keyword) ->
   window.open(url)
 
 # Open Schedule FlickWindow.
-Function.getSchedule = (date) ->
-  date
+Function.showSchedule = (date, success, fail) ->
+  console.log("getschedule:date=" + date)
+  cal = new GoogleCalendar()
+  items = cal.getCalendarList (items) ->
+    start_datetime = date.toFormat('YYYY-MM-DD') + 'T00:00:00Z'
+    end_datetime = date.addDays(1).toFormat('YYYY-MM-DD') + 'T00:00:00Z'
+    cal.getEventList items[1].id, start_datetime, end_datetime, (data) -> 
+      items = data.items
+      window.items2 = items
+      if items?
+        success()
+        item = items[0]
+
+        s_datetime = item.start.dateTime.replace(":00+09:00", "") 
+        e_datetime = item.end.dateTime.replace(":00+09:00", "")
+        place = if item.location?
+          item.location
+        else
+          "なし"
+  
+        detail = $("<table />")
+        detail.append($("<tr />")
+                  .append("<th>開始:</th>")
+                  .append("<td>" + s_datetime + "</td>")
+        )
+        detail.append($("<tr />")
+                  .append("<th>終了:</th>")
+                  .append("<td>" + e_datetime + "</td>")
+        )
+        detail.append($("<tr />")
+                  .append("<th>場所:</th>")
+                  .append("<td>" + place + "</td>")
+        )
+  
+        flickWindow = new FlickWindow(180, 300)
+        flickWindow.add item.summary, item.htmlLink, "<table>" + detail.html() + "</table>"
+        flickWindow.show()
+      else
+        console.log("not found schedule.")
+        fail()

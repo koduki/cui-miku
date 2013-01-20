@@ -30,7 +30,7 @@ actions = [
  ]
 $ ->
   # initialize character.
-  character = new Character(images, "")
+  window.character = new Character(images, "")
   character.init(actions)
   character.dlg = new Dialog(
     width: 160

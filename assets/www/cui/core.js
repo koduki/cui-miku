@@ -298,7 +298,7 @@
       article = $("<article><h1><a></a></h1><p></p>");
       article.find("h1 a").text(title);
       article.find("h1 a").attr("href", url);
-      article.find("p").text(body);
+      article.find("p").html(body);
       article.css("height", this.height + "px");
       item = $("<li>");
       item.css("width", this.width + "px");

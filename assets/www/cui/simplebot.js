@@ -25,7 +25,12 @@
           });
         },
         '予定取得': function(date) {
-          return _this.character.dlg.show("「" + date + "」の予定ですね.");
+          _this.character.dlg.show(date + "の予定ですね.");
+          return window.Function.showSchedule(window.DateUtils.getCorrectDatetime(date), function() {
+            return this.character.dlg.show(date + "の予定はこんな感じです♪");
+          }, function() {
+            return this.character.dlg.show(date + "の予定はないですね。");
+          });
         },
         '挨拶:朝': function() {
           return _this.character.dlg.show("おはようございます♪");

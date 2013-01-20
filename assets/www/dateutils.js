@@ -58,7 +58,7 @@
       default:
         date = text.substring(0, 2) === "来週" ? calcWeekAndDay(text) : week.hasOwnProperty(text.substring(0, 1)) ? calcDay(text) : (group = text.match(/^(\d+)月(\d+)/)) ? calcDirectDate(group) : void 0;
     }
-    return date.toFormat('YYYY-MM-DD') + 'T00:00:00Z';
+    return date;
   };
 
   window.DateUtils = DateUtils;

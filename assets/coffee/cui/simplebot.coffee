@@ -8,7 +8,11 @@ class window.SimpleBot
           @character.dlg.show "地図を表示します。", =>
             window.Function.searchMap keyword
       '予定取得': (date) =>
-        @character.dlg.show "「" + date + "」の予定ですね."
+        @character.dlg.show date + "の予定ですね."
+        window.Function.showSchedule(window.DateUtils.getCorrectDatetime(date), 
+            () -> @character.dlg.show date + "の予定はこんな感じです♪",
+            () -> @character.dlg.show date + "の予定はないですね。"
+        )
       '挨拶:朝': => 
         @character.dlg.show "おはようございます♪"
       '挨拶:昼': => 

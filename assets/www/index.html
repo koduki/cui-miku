@@ -16,14 +16,14 @@
         <script type="text/javascript" charset="utf-8" src="js/SpeechRecognizer.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/MorphologicalAnalysiser.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/tts.js"></script>
+        <script type="text/javascript" charset="utf-8" src="dateutils.js"></script>
         <script type="text/javascript" charset="utf-8" src="google_calendar.js"></script>
         <script type="text/javascript" charset="utf-8" src="cui/config.js"></script>
         <script type="text/javascript" charset="utf-8" src="cui/core.js"></script>
         <script type="text/javascript" charset="utf-8" src="cui/simplebot.js"></script>
         <script type="text/javascript" charset="utf-8" src="cui/function.js"></script>
         <script type="text/javascript" charset="utf-8" src="cui/chara/miku/script.js"></script>
-        <script type="text/javascript" charset="utf-8" src="http://192.168.0.5:8080/target/target-script-min.js#anonymous"></script>
-
+        <script type="text/javascript" charset="utf-8" src="http://debug.phonegap.com/target/target-script-min.js#anonymouskoudki214"></script>
         <script type="text/javascript">
             $(function() {
                 if ( typeof device === 'undefined') {
@@ -41,23 +41,6 @@
                 }
 
             })
-            function showCal(){
-                var cal = new GoogleCalendar()
-                var items = cal.getCalendarList(function(items){
-                for(key in items){
-                    console.log("hoge.key=" + key + ", v=" + items[key].summary + ":"+ items[key].id)
-                }
-                var date = new Date(2013, 0, 21)
-                var start_datetime = date.toFormat('YYYY-MM-DD') + 'T00:00:00Z'
-                var end_datetime = date.addDays(1).toFormat('YYYY-MM-DD') + 'T00:00:00Z'
-                cal.getEventList(items[1].id, start_datetime, end_datetime, function(data){
-                    var items = data.items;
-                    var item = items[0]
-                    alert(item.summary + ", start:" + item.start.dateTime + ", end:"+ item.end.dateTime )
-                    
-                   })
-                })
-            }
         </script>
     </head>
     <body>
@@ -65,8 +48,6 @@
             <a href='javascript:onHome()'><img id="home" src="cui/Droid.png" /></a>
             <a href='javascript:onNews()'><img id="rss" src="cui/RSS.png" /></a>
             <a href='setting.html'><img id="rss" src="cui/Settings.png" /></a>
-                        <a href='javascript:showCal()'><img id="home" src="cui/Droid.png" /></a>
-
         </header>
         <div id="character"></div>
         <div id="yesButton" class="yesnoButton">

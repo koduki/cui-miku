@@ -46,6 +46,6 @@ DateUtils.getCorrectDatetime = (text) =>
       else if group = text.match(/^(\d+)月(\d+)/)
         # 月日を直接指定
        calcDirectDate(group)
-  date.toFormat('YYYY-MM-DD') + 'T00:00:00Z'
-
+  #date.toFormat('YYYY-MM-DD') + 'T00:00:00Z'
+  date
 window.DateUtils = DateUtils
