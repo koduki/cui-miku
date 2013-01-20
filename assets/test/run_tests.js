@@ -8,7 +8,7 @@ cordova.init()
 
 // load test target.
 load("../www/cui/simplebot.js");
-load("../www/js/dateutils.js");
+load("../www/dateutils.js");
 
 qunitTap(QUnit, print, {noPlan: true});
 
