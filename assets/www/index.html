@@ -35,9 +35,12 @@
 
                 function onDeviceReady2() {
                     console.log("onDeviceReady2")
+                    var myAudio = new Media("http://ns5.anyap.info:8080/sound/sm1715919.mp3");
+                    myAudio.play();
                     Speech.onDeviceReady()
                     Location.onDeviceReady()
                     TextToSpeech.onDeviceReady()
+
                 }
 
             })
