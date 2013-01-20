@@ -32,11 +32,29 @@
                 } else {
                     onDeviceReady();
                 }
+                function getBaseURL() {
+
+                    var str = location.pathname;
+                    var i = str.lastIndexOf('/');
+                    return str.substring(0, i + 1);
+                }
 
                 function onDeviceReady2() {
                     console.log("onDeviceReady2")
-                    var myAudio = new Media("http://ns5.anyap.info:8080/sound/sm1715919.mp3");
-                    myAudio.play();
+                    var url = getBaseURL() + "melt.mp3";
+                    console.log("media:" + url)
+                    var my_media = new Media(url,
+                    // success callback
+                    function() {
+                        console.log("playAudio():Audio Success");
+                    },
+                    // error callback
+                    function(err) {
+                        console.log("playAudio():Audio Error: " + err);
+                    });
+
+                    // Play audio
+                    my_media.play();
                     Speech.onDeviceReady()
                     Location.onDeviceReady()
                     TextToSpeech.onDeviceReady()
