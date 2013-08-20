@@ -21,6 +21,7 @@
         <script type="text/javascript" charset="utf-8" src="cui/function.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/setting.js"></script>
         <script type="text/javascript">
+            var isDBEnable = false;
             var initValue = function(key, value) {
                 if (value == true) {
                     flag = 1
@@ -33,6 +34,11 @@
             var init = function() {
                 initValue("#externalapi_googlecalendar_enable", Config.load().externalApi.googleCalendar.enable)
                 initValue("#etc_tts_enable ", Config.load().etc.tts.enable)
+                if ( typeof device === 'undefined') {
+                    console.log("unready device")
+                } else {
+                    document.addEventListener("deviceready", function(){isDBEnable = true }, false);
+                }
             }
             var bindEvent = function() {
                 $("#externalapi_googlecalendar_enable").bind("change", function(event, ui) {
@@ -77,6 +83,53 @@
                         var config = Config.load()
                         config.event.alerm.time = $(event.target).val();
                         Config.save(config)
+                        
+                        var executeSQL = function(db, sql){
+                            var execute = function(tx) {
+                                tx.executeSql(sql);
+                                }
+                            var onerror = function(tx, error){
+                                alert(error);
+                                }
+                            var onsuccess = function(){
+                                console.log("success")
+                                }
+                            db.transaction(execute, onerror, onsuccess);
+                        }
+                        
+                        var executeQuery = function(db, sql, callback){
+                            var onerror = function(tx, error){
+                                alert(error);
+                                }
+                            var onsuccess = function(tx, results){
+                                console.log("success")
+                                }
+                            var execute = function(tx) {
+                                tx.executeSql(sql, [], callback, onerror);
+                                }
+                            db.transaction(execute, onerror, onsuccess);
+                        }
+                     //   if(isDBEnable === true){
+                            var db = window.openDatabase("colas_db", "1.0", "colas_db", 1000000);
+                            executeSQL(db, 'CREATE TABLE IF NOT EXISTS EVENT (id integer primary key, time text)');
+                            executeQuery(db, 'select id from EVENT', function(tx, results){
+                                var count = results.rows.length;
+                                console.log("rows = " + count)
+                                if(count == 0){
+                                    executeSQL(db, "insert INTO EVENT(time) values('" + "hoge" + "')");
+                                } else {
+                                    executeSQL(db, "update EVENT set time = '" + "hoge2" + "'");
+                                }
+                                executeQuery(db, 'select time from EVENT', function(tx, results){
+                                    data = {}
+                                    $.each(results.rows.item(0), function(key,value){
+                                                console.log(key + " = " + value);
+                                                data[key]=value;
+                                             });
+                                    console.log("rowdata = " + data["time"])}
+                                );
+                            });
+                                // }
                         alert($(event.target).val());
                 });
             }
