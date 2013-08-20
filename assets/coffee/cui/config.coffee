@@ -5,7 +5,10 @@ class window.Config
   etc:
     tts:
       enable:false
-
+  event:
+    alerm:
+      time:""
+      
 window.Config.load = () ->
   parse = (obj, key) ->
     for p of obj

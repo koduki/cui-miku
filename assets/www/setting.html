@@ -14,7 +14,7 @@
         <script type="text/javascript" charset="utf-8" src="js/SpeechRecognizer.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/MorphologicalAnalysiser.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/tts.js"></script>
-        <script type="text/javascript" charset="utf-8" src="config.js"></script>
+        <script type="text/javascript" charset="utf-8" src="cui/config.js"></script>
         <script type="text/javascript" charset="utf-8" src="google_calendar.js"></script>
         <script type="text/javascript" charset="utf-8" src="cui/core.js"></script>
         <script type="text/javascript" charset="utf-8" src="cui/simplebot.js"></script>
@@ -42,14 +42,14 @@
                     var cal = new GoogleCalendar()
                     if (option === "on") {
                         cal.authorize(function() {
-                            config = Config.load()
+                            var config = Config.load()
                             config.externalApi.googleCalendar.enable = true
                             Config.save(config)
                             cal.getCalendarList();
                         })
                     } else {
                         cal.unauthorize()
-                        config = Config.load()
+                        var config = Config.load()
                         config.externalApi.googleCalendar.enable = false
                         Config.save(config)
                     }
@@ -61,7 +61,7 @@
 
                     if (option === "on") {
                         console.log("#etc_tts_enable on")
-                        config = Config.load()
+                        var config = Config.load()
                         config.etc.tts.enable = true
                         Config.save(config)
                     } else {
@@ -70,6 +70,14 @@
                         config.etc.tts.enable = false
                         Config.save(config)
                     }
+                });
+
+                $("#alerm_time").bind("change", function(event, ui) {
+                        console.log("alerm_picker")
+                        var config = Config.load()
+                        config.event.alerm.time = $(event.target).val();
+                        Config.save(config)
+                        alert($(event.target).val());
                 });
             }
             $(function() {
@@ -107,6 +115,15 @@
                                 <option value="off">Off</option>
                                 <option value="on">On</option>
                             </select>
+                        </li>
+                    </ul>
+                    <ul data-role="listview" data-divider-theme="" data-inset="true">
+                        <li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-d ui-corner-top">
+                            イベント
+                        </li>
+                        <li data-role="fieldcontain">
+                            <label for="alerm">Alerm</label>
+                            <input id="alerm_time" type="time" name="alerm_time" value="" />
                         </li>
                     </ul>
                 </form>

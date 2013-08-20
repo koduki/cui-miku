@@ -10,10 +10,11 @@ import net.reduls.sanmoku.Morpheme;
 import net.reduls.sanmoku.FeatureEx; // 追加
 
 public class MorphologicalAnalysiser {
-public static void main(String[] args) {
-	System.out.println("Hello World.");
-	new MorphologicalAnalysiser().test();
-}
+	public static void main(String[] args) {
+		System.out.println("Hello World.");
+		new MorphologicalAnalysiser().test();
+	}
+
 	@Test
 	public void test() {
 		System.out.println("Hello World.");
@@ -33,9 +34,9 @@ public static void main(String[] args) {
 
 	@Test
 	public void test2() {
-//		System.out.println(search("近くのラーメン屋を探して"));
-//		String keyword = new Template().with("近く").and("探す")
-//				.result(type("名詞").and("一般").and(not("接尾"))).apply();
+		// System.out.println(search("近くのラーメン屋を探して"));
+		// String keyword = new Template().with("近く").and("探す")
+		// .result(type("名詞").and("一般").and(not("接尾"))).apply();
 	}
 
 	public class Template {
@@ -72,26 +73,25 @@ public static void main(String[] args) {
 		boolean flag1 = false;
 		boolean flag2 = false;
 		String keyword = null;
-		Map<String, Boolean> baseforms = new HashMap<String, Boolean>(); 
+		Map<String, Boolean> baseforms = new HashMap<String, Boolean>();
 		baseforms.put("近く", false);
 		baseforms.put("探す", false);
-		
+
 		Map<String, Boolean> keywordPredicate = new HashMap<String, Boolean>();
 		keywordPredicate.put("名詞", true);
 		keywordPredicate.put("一般", true);
 		keywordPredicate.put("接尾", false);
-		
-		
+
 		for (Morpheme m : Tagger.parse(text)) { // 形態素解析
 			FeatureEx fe = new FeatureEx(m); // 解析結果の形態素インスタンスから、追加の素性データを取得
-			
+
 			if (baseforms.containsKey(fe.baseform)) {
 				baseforms.put(fe.baseform, true);
 			}
-			
+
 			keyword = applyKeyword(keywordPredicate, m);
 		}
-		
+
 		if (flag1 && flag2 && keyword != null) {
 			return keyword;
 		} else {
@@ -101,8 +101,9 @@ public static void main(String[] args) {
 
 	private String applyKeyword(Map<String, Boolean> keywordPredicate,
 			Morpheme m) {
-		for(Entry<String, Boolean> predicate:keywordPredicate.entrySet()){
-			if((m.feature.indexOf(predicate.getKey()) == -1) == predicate.getValue()){
+		for (Entry<String, Boolean> predicate : keywordPredicate.entrySet()) {
+			if ((m.feature.indexOf(predicate.getKey()) == -1) == predicate
+					.getValue()) {
 				return "";
 			}
 		}
