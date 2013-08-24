@@ -5,15 +5,11 @@ import java.util.List;
 
 import android.app.Service;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.IBinder;
 import android.util.Log;
 
 public class EventService extends Service {
-	 EventOpenHelper helper;
-	 SQLiteDatabase db;
-
 	public EventService() {
 
 	}
@@ -29,9 +25,6 @@ public class EventService extends Service {
 		super.onStart(intent, startId);
 
 		Log.d("COLAS", "サービスが起動しました。");
-		
-		this.helper = new EventOpenHelper(this);
-		this.db = helper.getReadableDatabase();
 		
 		Thread eventTimer = new Thread(null, eventTimerThread, "BYTimerService");
 		eventTimer.start();
@@ -50,11 +43,6 @@ public class EventService extends Service {
 					e.printStackTrace();
 				}
 				for (BaseEvent event : events) {
-						Cursor c = db.query("EVENT", new String[] { "time" }, null, null, null, null, null);
-						c.moveToFirst();
-						String time = c.getString(0);
-						Log.d("COLAS", time);
-
 					event.executeTask();
 				}
 			}

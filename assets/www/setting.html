@@ -84,53 +84,28 @@
                         var config = Config.load()
                         config.event.alerm.time = $(event.target).val();
                         Config.save(config)
-                        
-                        var executeSQL = function(db, sql){
-                            var execute = function(tx) {
-                                tx.executeSql(sql);
-                                }
-                            var onerror = function(tx, error){
-                                alert(error);
-                                }
-                            var onsuccess = function(){
-                                console.log("success")
-                                }
-                            db.transaction(execute, onerror, onsuccess);
+
+                        var fail = function(){
+                            alert("failed file open.");
                         }
-                        
-                        var executeQuery = function(db, sql, callback){
-                            var onerror = function(tx, error){
-                                alert(error);
-                                }
-                            var onsuccess = function(tx, results){
-                                console.log("success")
-                                }
-                            var execute = function(tx) {
-                                tx.executeSql(sql, [], callback, onerror);
-                                }
-                            db.transaction(execute, onerror, onsuccess);
+
+                        function gotFS(fileSystem) {
+                            fileSystem.root.getDirectory('COLAS', {create: true}, function(dirEntry) {
+                                dirEntry.getFile("readme.txt", {create: true, exclusive: false}, gotFileEntry, fail);
+                            },fail)
                         }
-                     //   if(isDBEnable === true){
-                            var db = window.openDatabase("colas.db", "1.0", "colas.db", 1000000);
-                            executeSQL(db, 'CREATE TABLE IF NOT EXISTS EVENT (id integer primary key, time text)');
-                            executeQuery(db, 'select id from EVENT', function(tx, results){
-                                var count = results.rows.length;
-                                console.log("rows = " + count)
-                                if(count == 0){
-                                    executeSQL(db, "insert INTO EVENT(time) values('" + time + "')");
-                                } else {
-                                    executeSQL(db, "update EVENT set time = '" + time + "'");
-                                }
-                                executeQuery(db, 'select time from EVENT', function(tx, results){
-                                    data = {}
-                                    $.each(results.rows.item(0), function(key,value){
-                                                console.log(key + " = " + value);
-                                                data[key]=value;
-                                             });
-                                    console.log("rowdata = " + data["time"])}
-                                );
-                            });
-                                // }
+
+                        function gotFileEntry(fileEntry) {
+                            console.log("fillepath:" + fileEntry.fullPath);
+                            fileEntry.createWriter(gotFileWriter, fail);
+                        }
+                        function gotFileWriter(writer) {
+                            
+                            writer.write("{this:'123'}");
+                        }
+                        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+                        
+
                         alert($(event.target).val());
                 });
             }
