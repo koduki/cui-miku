@@ -18,18 +18,25 @@
     }
 
     FileUtil.prototype.onGetFileSystem = function(fileSystem) {
-      var readFile,
+      var entries, readFile,
         _this = this;
       console.log("tracemethod:onGetFileSystem.");
+      entries = this.filepath.split("/");
       readFile = function(dirEntry) {
-        return dirEntry.getFile("readme.txt", {
-          create: true,
-          exclusive: false
-        }, _this.onGetFileEntry, _this.handleError);
+        var name;
+        name = entries.shift();
+        if (entries.length === 0) {
+          return dirEntry.getFile(name, {
+            create: true,
+            exclusive: false
+          }, _this.onGetFileEntry, _this.handleError);
+        } else {
+          return dirEntry.getDirectory(name, {
+            create: true
+          }, readFile, _this.handleError);
+        }
       };
-      return fileSystem.root.getDirectory("COLAS", {
-        create: true
-      }, readFile, this.handleError);
+      return readFile(fileSystem.root);
     };
 
     FileUtil.prototype.onGetFileEntry = function(fileEntry) {
@@ -38,9 +45,9 @@
       return fileEntry.createWriter(this.onGetFileWriter, this.handleError);
     };
 
-    FileUtil.prototype.onGetFileWriter = function(writer) {
+    FileUtil.prototype.onGetFileWriter = function(file) {
       console.log("tracemethodonGetFileWriter.");
-      return writer.write("{this:'hogehoge3'}");
+      return this.callback(file);
     };
 
     FileUtil.prototype.handleError = function() {

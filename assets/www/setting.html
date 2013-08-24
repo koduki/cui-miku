@@ -85,11 +85,9 @@
                         var config = Config.load()
                         config.event.alerm.time = $(event.target).val();
                         Config.save(config)
-console.log("kstep1")
                         FileUtil.open("COLAS/config.json", function(file){
-                            file.write("{test:'hogehoge3'}")
+                            file.write("{test:'hogehoge4'}")
                             })
-console.log("kstep2")
 
                         alert($(event.target).val());
                 });

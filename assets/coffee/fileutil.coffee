@@ -6,18 +6,24 @@ class FileUtil
 
     onGetFileSystem:(fileSystem) =>
         console.log "tracemethod:onGetFileSystem."
+        entries = @filepath.split("/")
         readFile = (dirEntry) =>
-            dirEntry.getFile "readme.txt",{create: true, exclusive: false}, @onGetFileEntry, @handleError
-        fileSystem.root.getDirectory "COLAS", {create: true}, readFile, @handleError
+            name = entries.shift()
+
+            if (entries.length == 0) 
+                dirEntry.getFile name, {create: true, exclusive: false}, @onGetFileEntry, @handleError
+            else
+                dirEntry.getDirectory name, {create: true}, readFile, @handleError
+        readFile(fileSystem.root)
 
     onGetFileEntry:(fileEntry) =>
         console.log "tracemethod:onGetFileEntry."
         console.log "fillepath:" + fileEntry.fullPath
         fileEntry.createWriter @onGetFileWriter, @handleError
     
-    onGetFileWriter:(writer) =>
+    onGetFileWriter:(file) =>
         console.log "tracemethodonGetFileWriter."
-        writer.write "{this:'hogehoge3'}"
+        @callback(file)
 
     handleError: =>
         console.log "failed file open."
