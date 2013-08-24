@@ -80,6 +80,7 @@
 
                 $("#alerm_time").bind("change", function(event, ui) {
                         console.log("alerm_picker")
+                        var time = $(event.target).val();
                         var config = Config.load()
                         config.event.alerm.time = $(event.target).val();
                         Config.save(config)
@@ -110,15 +111,15 @@
                             db.transaction(execute, onerror, onsuccess);
                         }
                      //   if(isDBEnable === true){
-                            var db = window.openDatabase("colas_db", "1.0", "colas_db", 1000000);
+                            var db = window.openDatabase("colas.db", "1.0", "colas.db", 1000000);
                             executeSQL(db, 'CREATE TABLE IF NOT EXISTS EVENT (id integer primary key, time text)');
                             executeQuery(db, 'select id from EVENT', function(tx, results){
                                 var count = results.rows.length;
                                 console.log("rows = " + count)
                                 if(count == 0){
-                                    executeSQL(db, "insert INTO EVENT(time) values('" + "hoge" + "')");
+                                    executeSQL(db, "insert INTO EVENT(time) values('" + time + "')");
                                 } else {
-                                    executeSQL(db, "update EVENT set time = '" + "hoge2" + "'");
+                                    executeSQL(db, "update EVENT set time = '" + time + "'");
                                 }
                                 executeQuery(db, 'select time from EVENT', function(tx, results){
                                     data = {}
