@@ -1,4 +1,11 @@
 class FileUtil
+    if define? and define.amd
+        define -> FileUtil
+    else if module?.exports
+        module.exports = FileUtil
+    else
+        @FileUtil = FileUtil
+
     constructor:(filepath, callback) ->
         console.log "tracemethod:init file open."
         @filepath = filepath
@@ -36,5 +43,3 @@ class FileUtil
         console.log "start file open."
         fileutil = new FileUtil(filepath, callback)
         fileutil.openfile()
-
-window.FileUtil = FileUtil

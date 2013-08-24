@@ -6,6 +6,16 @@
   FileUtil = (function() {
     var _this = this;
 
+    if ((typeof define !== "undefined" && define !== null) && define.amd) {
+      define(function() {
+        return FileUtil;
+      });
+    } else if (typeof module !== "undefined" && module !== null ? module.exports : void 0) {
+      module.exports = FileUtil;
+    } else {
+      FileUtil.FileUtil = FileUtil;
+    }
+
     function FileUtil(filepath, callback) {
       this.openfile = __bind(this.openfile, this);
       this.handleError = __bind(this.handleError, this);
@@ -69,7 +79,5 @@
     return FileUtil;
 
   }).call(this);
-
-  window.FileUtil = FileUtil;
 
 }).call(this);
