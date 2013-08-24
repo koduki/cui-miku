@@ -92,7 +92,7 @@
         <exec executable="coffee">
                 <arg value="--compile" />
                 <arg value="--output" />
-                <arg value="assets/www/" />
+                <arg value="assets/www/js/" />
                 <arg value="assets/coffee/" />
         </exec>
     </target>
