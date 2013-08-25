@@ -36,15 +36,35 @@ public class EventService extends Service {
 			events.add(new TimerEvent());
 
 			while (true) {
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				for (BaseEvent event : events) {
-					event.executeTask();
+				sleep();
+				executeEvent(events);
+			}
+		}
+
+		private void executeEvent(List<BaseEvent> events) {
+			for (BaseEvent event : events) {
+				String result = event.executeTask();
+				if (result != null) {
+					this.sendEventMessage(result);
 				}
 			}
+		}
+
+		private void sleep() {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
+		private void sendEventMessage(String result) {
+			String msg = "Hello, BroadCast! " + result;
+			Intent broadcastIntent = new Intent();
+			broadcastIntent.putExtra("message", msg);
+
+			broadcastIntent.setAction("MY_ACTION");
+			getBaseContext().sendBroadcast(broadcastIntent);
 		}
 	};
 

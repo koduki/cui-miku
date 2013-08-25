@@ -16,23 +16,23 @@ public class Result {
 	public String getResult() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("[");
-		for(Map<String, String> object : this.result){
+		for (Map<String, String> object : this.result) {
 			sb.append("{");
-			for(Entry<String, String> property:object.entrySet()){
+			for (Entry<String, String> property : object.entrySet()) {
 				sb.append("'");
 				sb.append(property.getKey());
 				sb.append("'");
-				
+
 				sb.append(":");
-				
+
 				sb.append("'");
 				sb.append(property.getValue());
 				sb.append("',");
 			}
-			sb.deleteCharAt(sb.length()-1);
+			sb.deleteCharAt(sb.length() - 1);
 			sb.append("},");
 		}
-		sb.deleteCharAt(sb.length()-1);
+		sb.deleteCharAt(sb.length() - 1);
 		sb.append("]");
 		return sb.toString();
 	}

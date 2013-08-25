@@ -205,8 +205,9 @@ public class SpeechRecognizer extends Plugin {
 		// If specific language
 		Log.d(LOG_TAG, "lang=" + language);
 		if (!language.equals("")) {
-		    //intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.JAPAN.toString());
-		    	Log.d(LOG_TAG, "lang=" + Locale.JAPAN.toString());
+			// intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,
+			// Locale.JAPAN.toString());
+			Log.d(LOG_TAG, "lang=" + Locale.JAPAN.toString());
 			intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, language);
 		}
 

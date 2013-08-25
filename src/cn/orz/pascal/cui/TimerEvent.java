@@ -9,9 +9,10 @@ import android.util.Log;
 
 public class TimerEvent extends BaseEvent {
 	@Override
-	void execute() {
+	String execute() {
 		String msg = "Hello - its currently ";
 		Log.d("COLAS", msg);
+		return msg;
 	}
 
 	@Override

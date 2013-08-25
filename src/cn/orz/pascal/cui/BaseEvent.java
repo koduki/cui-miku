@@ -10,21 +10,22 @@ public abstract class BaseEvent {
 		super();
 	}
 
-	public void executeTask() {
+	public String executeTask() {
 		Log.d("COLAS", "execute event");
 		boolean isRunnable = this.isRunnable();
 		if (isRunnable) {
 			if (isNotDone) {
 				isNotDone = false;
-				execute();
+				return execute();
 			}
 		} else if (isNotDone == false) {
 			isNotDone = true;
 			Log.d("COLAS", "reset event");
 		}
+		return null;
 	}
 
-	abstract void execute();
+	abstract String execute();
 
 	abstract boolean isRunnable();
 }

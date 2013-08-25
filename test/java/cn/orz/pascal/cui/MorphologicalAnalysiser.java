@@ -1,4 +1,5 @@
 package cn.orz.pascal.cui;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
