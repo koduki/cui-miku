@@ -4,7 +4,7 @@ class FileUtil
     else if module?.exports
         module.exports = FileUtil
     else
-        @FileUtil = FileUtil
+        window.FileUtil = FileUtil
 
     constructor:(filepath, callback) ->
         console.log "tracemethod:init file open."

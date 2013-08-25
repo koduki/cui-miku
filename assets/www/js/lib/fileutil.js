@@ -13,7 +13,7 @@
     } else if (typeof module !== "undefined" && module !== null ? module.exports : void 0) {
       module.exports = FileUtil;
     } else {
-      FileUtil.FileUtil = FileUtil;
+      window.FileUtil = FileUtil;
     }
 
     function FileUtil(filepath, callback) {
