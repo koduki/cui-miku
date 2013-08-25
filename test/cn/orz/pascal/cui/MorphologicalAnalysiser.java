@@ -1,4 +1,6 @@
+package cn.orz.pascal.cui;
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 import java.util.HashMap;
 import java.util.Map;
