@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.app.Service;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -25,7 +24,7 @@ public class EventService extends Service {
 		super.onStart(intent, startId);
 
 		Log.d("COLAS", "サービスが起動しました。");
-		
+
 		Thread eventTimer = new Thread(null, eventTimerThread, "BYTimerService");
 		eventTimer.start();
 	}

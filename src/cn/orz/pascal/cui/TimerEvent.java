@@ -1,5 +1,7 @@
 package cn.orz.pascal.cui;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -16,6 +18,18 @@ public class TimerEvent extends BaseEvent {
 	boolean isRunnable() {
 		SimpleDateFormat df = new SimpleDateFormat("HH:mm");
 		String now = df.format(new Date(System.currentTimeMillis()));
-		return "21:13".equals(now);
+
+		Config config;
+		try {
+			config = Config.load(new File("/storage/sdcard0/COLAS/config.tsv"));
+			String target = config.get("config.event.alerm.time");
+			Log.d("COLAS", "check event: target=" + target + ", now=" + now);
+			return target.equals(now);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return false;
+
 	}
 }
