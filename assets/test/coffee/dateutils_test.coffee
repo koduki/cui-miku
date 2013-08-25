@@ -1,6 +1,6 @@
 module "DateUtils spec\n"
 
-load("../www/js/node-date-utils/date-utils.min.js");
+load("../www/js/vendor/node-date-utils/date-utils.min.js");
 DateUtils = window.DateUtils
 DateUtils.getCurrentDate = () => new Date(2013,0,13)
 

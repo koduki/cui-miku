@@ -5,7 +5,7 @@
 
   module("DateUtils spec\n");
 
-  load("../www/js/node-date-utils/date-utils.min.js");
+  load("../www/js/vendor/node-date-utils/date-utils.min.js");
 
   DateUtils = window.DateUtils;
 

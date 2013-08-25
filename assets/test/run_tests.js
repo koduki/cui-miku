@@ -3,12 +3,12 @@ load("qunit-tap/lib/qunit-tap.js");
 load("js/lib/cordova_wrapper.js");
 
 // load plugins.
-load("../www/js/MorphologicalAnalysiser.js");
+load("../www/js/vendor/MorphologicalAnalysiser.js");
 cordova.init()
 
 // load test target.
-load("../www/cui/simplebot.js");
-load("../www/dateutils.js");
+load("../www/js/cui/simplebot.js");
+load("../www/js/lib/dateutils.js");
 
 qunitTap(QUnit, print, {noPlan: true});
 
