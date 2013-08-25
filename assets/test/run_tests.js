@@ -8,6 +8,7 @@ cordova.init()
 
 // load test target.
 load("../www/js/cui/simplebot.js");
+load("../www/js/cui/config.js");
 load("../www/js/lib/dateutils.js");
 
 qunitTap(QUnit, print, {noPlan: true});
@@ -18,5 +19,7 @@ QUnit.config.updateRate = 0;
 // load test case.
 load("js/simplebot_test.js");
 load("js/dateutils_test.js");
+load("js/config_test.js");
+
 
 QUnit.start();
