@@ -9,7 +9,16 @@ import android.os.IBinder;
 import android.util.Log;
 
 public class EventService extends Service {
+	private Intent hoge;
 	public EventService() {
+
+	}
+	@Override
+	public void onCreate() {
+		super.onCreate();
+		Log.d("COLAS", "サービスが起動しました。");
+		Thread eventTimer = new Thread(null, eventTimerThread, "BYTimerService");
+		eventTimer.start();
 
 	}
 
@@ -22,11 +31,6 @@ public class EventService extends Service {
 	@Override
 	public void onStart(Intent intent, int startId) {
 		super.onStart(intent, startId);
-
-		Log.d("COLAS", "サービスが起動しました。");
-
-		Thread eventTimer = new Thread(null, eventTimerThread, "BYTimerService");
-		eventTimer.start();
 	}
 
 	private Runnable eventTimerThread = new Runnable() {
@@ -59,12 +63,17 @@ public class EventService extends Service {
 		}
 
 		private void sendEventMessage(String result) {
-			String msg = "Hello, BroadCast! " + result;
-			Intent broadcastIntent = new Intent();
-			broadcastIntent.putExtra("message", msg);
-
-			broadcastIntent.setAction("MY_ACTION");
-			getBaseContext().sendBroadcast(broadcastIntent);
+//			String msg = "Hello, BroadCast! " + result;
+//			Intent broadcastIntent = new Intent();
+//			broadcastIntent.putExtra("message", msg);
+//
+//			broadcastIntent.setAction("MY_ACTION");
+//			getBaseContext().sendBroadcast(broadcastIntent);
+			
+			   Intent userintent = new Intent(getApplicationContext(), MainActivity.class);
+			   userintent.putExtra("event-result", result);
+               userintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+               getApplication().startActivity(userintent);
 		}
 	};
 
