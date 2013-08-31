@@ -77,7 +77,7 @@
       i = str.lastIndexOf('/');
       return str.substring(0, i + 1);
     };
-    url = getBaseURL() + "melt.mp3";
+    url = getBaseURL() + "sound/melt.mp3";
     onsuccess = function() {
       return console.log("playAudio():Audio Success");
     };

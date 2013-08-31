@@ -72,7 +72,7 @@ Function.playmusic = () ->
 		i = str.lastIndexOf('/');
 		str.substring(0, i + 1);
 		
-	url = getBaseURL() + "melt.mp3";
+	url = getBaseURL() + "sound/melt.mp3";
 	onsuccess = () ->
 		console.log("playAudio():Audio Success");
 	onerror = (err) ->
