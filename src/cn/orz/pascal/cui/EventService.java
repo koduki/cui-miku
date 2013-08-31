@@ -10,9 +10,11 @@ import android.util.Log;
 
 public class EventService extends Service {
 	private Intent hoge;
+
 	public EventService() {
 
 	}
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -63,17 +65,11 @@ public class EventService extends Service {
 		}
 
 		private void sendEventMessage(String result) {
-//			String msg = "Hello, BroadCast! " + result;
-//			Intent broadcastIntent = new Intent();
-//			broadcastIntent.putExtra("message", msg);
-//
-//			broadcastIntent.setAction("MY_ACTION");
-//			getBaseContext().sendBroadcast(broadcastIntent);
-			
-			   Intent userintent = new Intent(getApplicationContext(), MainActivity.class);
-			   userintent.putExtra("event-result", result);
-               userintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
-               getApplication().startActivity(userintent);
+			Intent intent = new Intent(getApplicationContext(),
+					MainActivity.class);
+			intent.putExtra("event-result", result);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			getApplication().startActivity(intent);
 		}
 	};
 
