@@ -65,3 +65,18 @@ Function.showSchedule = (date, success, fail) ->
       else
         console.log("not found schedule.")
         fail()
+
+Function.playmusic = () ->
+	getBaseURL = () -> 
+		str = window.location.pathname;
+		i = str.lastIndexOf('/');
+		str.substring(0, i + 1);
+		
+	url = getBaseURL() + "melt.mp3";
+	onsuccess = () ->
+		console.log("playAudio():Audio Success");
+	onerror = (err) ->
+		console.log("playAudio():Audio Error: " + err);
+	console.log("media:" + url)
+	my_media = new Media(url, onsuccess, onerror)
+	my_media.play();

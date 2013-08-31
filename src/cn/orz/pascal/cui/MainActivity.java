@@ -3,12 +3,10 @@ package cn.orz.pascal.cui;
 import org.apache.cordova.DroidGap;
 
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 
 public class MainActivity extends DroidGap {
-	private boolean isResumed;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -16,7 +14,6 @@ public class MainActivity extends DroidGap {
 
 		super.onCreate(savedInstanceState);
 
-		this.isResumed = false;
 		Intent intent = new Intent(MainActivity.this, EventService.class);
 		startService(intent);
 
@@ -25,7 +22,7 @@ public class MainActivity extends DroidGap {
 
 	@Override
 	protected void onNewIntent(Intent intent) {
-		Log.d("COLAS", "onNewIntent(" + this.isResumed + ")");
+		Log.d("COLAS", "onNewIntent");
 
 		super.onNewIntent(intent);
 		setIntent(intent);
@@ -40,8 +37,8 @@ public class MainActivity extends DroidGap {
 		String result = intent.getStringExtra("event-result");
 		Log.d("COLAS", "onResume(" + result + ")");
 		if (result != null && !result.equals("")) {
-			super.loadUrl("javascript:alert('" + result + "')");
 			intent.putExtra("event-result", "");
+			super.loadUrl("javascript:Function.playmusic()");
 		}
 	}
 

@@ -69,4 +69,24 @@
     });
   };
 
+  Function.playmusic = function() {
+    var getBaseURL, my_media, onerror, onsuccess, url;
+    getBaseURL = function() {
+      var i, str;
+      str = window.location.pathname;
+      i = str.lastIndexOf('/');
+      return str.substring(0, i + 1);
+    };
+    url = getBaseURL() + "melt.mp3";
+    onsuccess = function() {
+      return console.log("playAudio():Audio Success");
+    };
+    onerror = function(err) {
+      return console.log("playAudio():Audio Error: " + err);
+    };
+    console.log("media:" + url);
+    my_media = new Media(url, onsuccess, onerror);
+    return my_media.play();
+  };
+
 }).call(this);
